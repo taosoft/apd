@@ -9,9 +9,9 @@ export type RootStackParamList = {
 };
 
 export type BottomTabParamList = {
-  TabOne: undefined;
-  TabTwo: undefined;
-  TabTRES: undefined;
+  Perfil: String;
+  Inicio: String;
+  Notificaciones: String;
 };
 
 export type TabOneParamList = {
@@ -20,4 +20,8 @@ export type TabOneParamList = {
 
 export type TabTwoParamList = {
   TabTwoScreen: undefined;
+};
+
+export type TabInicioParamList = {
+  TabInicioScreen: undefined;
 };
