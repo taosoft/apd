@@ -8,7 +8,7 @@ export default function Home({ navigation }) {
       <View style={{marginTop: 40, flex: 3}}>
         <TouchableOpacity 
           style={styles.button}
-          onPress={()=>navigation.navigate('Reclamos')}
+          onPress={() => navigation.navigate('Reclamos')}
         >
             <Text style={styles.text}>
               Reclamos
@@ -17,7 +17,7 @@ export default function Home({ navigation }) {
       
         <TouchableOpacity 
           style={styles.button}
-          onPress={()=>navigation.navigate('Denuncias')}
+          onPress={() => navigation.navigate('Denuncias')}
         >
             <Text style={styles.text}>
               Denuncias
@@ -26,7 +26,7 @@ export default function Home({ navigation }) {
       
         <TouchableOpacity 
           style={styles.button}
-          onPress={()=>navigation.navigate('Comercios')}
+          onPress={() => navigation.navigate('Comercios')}
         >
             <Text style={styles.text}>
               Comercios
@@ -35,7 +35,7 @@ export default function Home({ navigation }) {
       
         <TouchableOpacity 
           style={styles.button}
-          onPress={()=>Alert.alert("servicios")}
+          onPress={() => Alert.alert("servicios")}
         >
             <Text style={styles.text}>
               Servicios Profesionales
