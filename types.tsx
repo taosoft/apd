@@ -14,14 +14,15 @@ export type BottomTabParamList = {
   Notificaciones: String;
 };
 
-export type TabOneParamList = {
-  TabOneScreen: undefined;
-};
-
-export type TabTwoParamList = {
-  TabTwoScreen: undefined;
+export type TabPerfilParamList = {
+  TabPerfilScreen: undefined;
 };
 
 export type TabInicioParamList = {
   TabInicioScreen: undefined;
 };
+
+export type TabNotificacionesParamList = {
+  TabNotificacionesScreen: undefined;
+};
+

@@ -11,7 +11,7 @@ import * as React from 'react';
 import Home from '../screens/Inicio';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList, TabInicioParamList } from '../types';
+import { BottomTabParamList, TabPerfilParamList, TabNotificacionesParamList, TabInicioParamList } from '../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -55,17 +55,17 @@ function TabBarIcon(props: { name: React.ComponentProps<typeof Icon>['name']; co
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const TabOneStack = createStackNavigator<TabOneParamList>();
+const TabPerfilStack = createStackNavigator<TabPerfilParamList>();
 
 function TabOneNavigator() {
   return (
-    <TabOneStack.Navigator>
-      <TabOneStack.Screen
-        name="TabOneScreen"
+    <TabPerfilStack.Navigator>
+      <TabPerfilStack.Screen
+        name="TabPerfilScreen"
         component={TabOneScreen}
         options={headerOptions("Perfil")}
       />
-    </TabOneStack.Navigator>
+    </TabPerfilStack.Navigator>
   );
 }
 
@@ -83,17 +83,17 @@ function TabInicioNavigator() {
   );
 }
 
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
+const TabNotificacionesStack = createStackNavigator<TabNotificacionesParamList>();
 
 function TabTwoNavigator() {
   return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen
-        name="TabTwoScreen"
+    <TabNotificacionesStack.Navigator>
+      <TabNotificacionesStack.Screen
+        name="TabNotificacionesScreen"
         component={TabTwoScreen}
         options={headerOptions("Notificaciones")}
       />
-    </TabTwoStack.Navigator>
+    </TabNotificacionesStack.Navigator>
   );
 }
 
