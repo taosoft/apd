@@ -6,7 +6,26 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint \"src/**/*.{js,ts,tsx}\"",
+    "lint:ci": "eslint \"src/**/*.{js,ts,tsx}\" --quiet",
+    "lint:fix": "eslint \"src/**/*.{js,ts,tsx}\" --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "yarn type-check"
+    }
+  },
+  "lint-staged": {
+    "src/**/*!(-generated).{js,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write --ignore-unknown"
+    ],
+    "src/**/*!(-generated).{md}": [
+      "prettier --write --ignore-unknown"
+    ]
   },
   "jest": {
     "preset": "jest-expo"
@@ -28,8 +47,8 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
-    "react-native-reanimated": "~2.2.0",
     "react-native-gesture-handler": "~1.10.2",
+    "react-native-reanimated": "~2.2.0",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
     "react-native-web": "~0.13.12"
@@ -38,8 +57,24 @@
     "@babel/core": "^7.9.0",
     "@types/react": "~16.9.35",
     "@types/react-native": "~0.63.2",
+    "@react-native-community/eslint-config": "^1.1.0",
+    "@typescript-eslint/eslint-plugin": "^3.8.0",
+    "@typescript-eslint/parser": "^3.8.0",
     "jest-expo": "~41.0.0-beta.0",
-    "typescript": "~4.0.0"
+    "typescript": "~4.0.0",
+    "babel-loader": "^8.1.0",
+    "eslint": "^6.5.1",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-react": "^7.20.5",
+    "eslint-plugin-react-hooks": "^4.0.8",
+    "eslint-plugin-simple-import-sort": "^5.0.3",
+    "eslint-plugin-sort-keys-fix": "^1.1.1",
+    "prettier": "^2.1.1",
+    "husky": "4.3.8",
+    "lint-staged": "^10.2.13",
+    "metro-react-native-babel-preset": "^0.59.0",
+    "prettier-eslint": "^11.0.0",
+    "prettier-eslint-cli": "^5.0.0"
   },
   "private": true
 }
