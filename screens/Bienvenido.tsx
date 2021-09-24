@@ -1,45 +1,45 @@
 import React from 'react';
-import { StyleSheet, View, Text, Alert, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
-export default function Home({ navigation }) {
+export default function Bienvenido({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <View style={{marginTop: 40, flex: 3}}>
-        <TouchableOpacity 
+      <View style={{ marginTop: 40, flex: 3 }}>
+        <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate('Reclamos')}
         >
-            <Text style={styles.text}>
-              Reclamos
-            </Text>
+          <Text style={styles.text}>
+            Reclamos
+          </Text>
         </TouchableOpacity>
-      
-        <TouchableOpacity 
+
+        <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate('Denuncias')}
         >
-            <Text style={styles.text}>
-              Denuncias
-            </Text>
+          <Text style={styles.text}>
+            Denuncias
+          </Text>
         </TouchableOpacity>
-      
-        <TouchableOpacity 
+
+        <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate('Comercios')}
         >
-            <Text style={styles.text}>
-              Comercios
-            </Text>
+          <Text style={styles.text}>
+            Comercios
+          </Text>
         </TouchableOpacity>
-      
-        <TouchableOpacity 
+
+        <TouchableOpacity
           style={styles.button}
-          onPress={() => Alert.alert("servicios")}
+          onPress={() => navigation.navigate("NotFound")}
         >
-            <Text style={styles.text}>
-              Servicios Profesionales
-            </Text>
+          <Text style={styles.text}>
+            Servicios Profesionales
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     marginLeft: 30,
     marginRight: 30,
-    backgroundColor:'#FFF',
+    backgroundColor: '#FFF',
     borderRadius: 20,
     borderWidth: 2,
     borderColor: '#C9E9FC',

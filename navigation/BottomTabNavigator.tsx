@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 
-import Home from '../screens/Inicio';
+import Home from '../screens/Bienvenido';
 // import Perfil from '../screens/Perfil';
 // import Notificacion from '../screens/Notificacion';
 import TabOneScreen from '../screens/TabOneScreen'; // Borrar cuando este Perfil implementado

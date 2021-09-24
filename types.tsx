@@ -4,8 +4,15 @@
  */
 
 export type RootStackParamList = {
-  Root: undefined;
+  Bienvenido: undefined;
   NotFound: undefined;
+  Reclamos: undefined;
+  Denuncias: undefined;
+  Comercios: undefined;
+  Inicio: undefined;
+  Login: undefined;
+  Registrarse: undefined;
+  FinalizaRegistro: undefined;
 };
 
 export type BottomTabParamList = {
