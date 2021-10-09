@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, Alert, TouchableOpacity, TextInput } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
-export default function Registrarse({ navigation }) {
+export default function Registrarse(): JSX.Element {
 
     const [dni, setDNI] = React.useState("");
     const [email, setEmail] = React.useState("");

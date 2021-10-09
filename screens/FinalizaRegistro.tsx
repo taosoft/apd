@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, Alert, TouchableOpacity, TextInput } from 'react-native';
 
-export default function FinalizaRegistro({ navigation }) {
+export default function FinalizaRegistro(): JSX.Element {
 
     const [clave, setClave] = React.useState('');
     const [claveRepetida, setClaveRepetida] = React.useState('');

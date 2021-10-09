@@ -1,32 +1,42 @@
+import { RouteProp, useNavigation } from '@react-navigation/native'
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
-export default function Bienvenido({ navigation }) {
+interface BienvenidoProps {
+  route: RouteProp<{ params: { authenticated: boolean } }, 'params'>
+}
+
+export default function Bienvenido({ route }: BienvenidoProps): JSX.Element {
+  const navigation = useNavigation()
+  const { authenticated } = route.params;
 
   return (
     <View style={styles.container}>
       <View style={{ marginTop: 40, flex: 3 }}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('Reclamos')}
-        >
-          <Text style={styles.text}>
-            Reclamos
-          </Text>
-        </TouchableOpacity>
+        {authenticated && (
+            <>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => navigation.navigate('ReclamosStack')}
+              >
+                <Text style={styles.text}>
+                  Reclamos
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => navigation.navigate("DenunciasStack")}
+              >
+                <Text style={styles.text}>
+                  Denuncias
+                </Text>
+              </TouchableOpacity>
+            </>
+        )}
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('Denuncias')}
-        >
-          <Text style={styles.text}>
-            Denuncias
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('Comercios')}
+          onPress={() => navigation.navigate('ComerciosStack')}
         >
           <Text style={styles.text}>
             Comercios
@@ -35,7 +45,7 @@ export default function Bienvenido({ navigation }) {
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("NotFound")}
+          onPress={() => navigation.navigate("ServiciosStack")}
         >
           <Text style={styles.text}>
             Servicios Profesionales

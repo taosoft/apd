@@ -1,10 +1,12 @@
+import { useNavigation } from '@react-navigation/native'
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image, Dimensions } from 'react-native';
 
-export default function Inicio({ navigation }) {
+export default function Inicio(): JSX.Element {
     const windowWidth = Dimensions.get('window').width;
     const windowHeight = Dimensions.get('window').height;
-
+    const navigation = useNavigation();
+    
     return (
         <View style={styles().container}>
             <Image
@@ -15,7 +17,7 @@ export default function Inicio({ navigation }) {
             <View style={{ flex: 2, flexDirection: 'row', marginLeft: 10, marginRight: 10 }}>
                 <TouchableOpacity
                     style={styles(windowWidth * 0.5).button}
-                    onPress={() => navigation.navigate('Login')}
+                    onPress={() => navigation.navigate('LoginStack')}
                 >
                     <Text style={styles().text}>
                         INICIAR SESION
@@ -34,17 +36,9 @@ export default function Inicio({ navigation }) {
             <View style={{ flex: 2, flexDirection: 'row', marginLeft: 10, marginRight: 10 }}>
                 <TouchableOpacity
                     style={styles(windowWidth * 0.5).button}
-                    onPress={() => navigation.navigate('Comercios')}>
+                    onPress={() => navigation.navigate('UnauthenticatedStack')}>
                     <Text style={styles().text}>
-                        SERVICIOS
-                    </Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={styles(windowWidth * 0.5).button}
-                    onPress={() => navigation.navigate('Comercios')}>
-                    <Text style={styles().text}>
-                        COMERCIOS
+                        SERVICIOS Y COMERCIOS
                     </Text>
                 </TouchableOpacity>
             </View>

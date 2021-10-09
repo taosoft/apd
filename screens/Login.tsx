@@ -1,9 +1,10 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { StyleSheet, View, Text, Alert, TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 
-export default function Login({ navigation }) {
-
+export default function Login(): JSX.Element {
+  const navigator = useNavigation()
   const [dni, setDNI] = React.useState("");
   const [clave, setClave] = React.useState("");
 
@@ -41,7 +42,7 @@ export default function Login({ navigation }) {
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => Alert.alert('Ingresar sin usuario')}
+          onPress={() => navigator.navigate('AuthenticatedStack')}
         >
           <Text style={styles.sinUsuario}>
             Ingrese sin usuario

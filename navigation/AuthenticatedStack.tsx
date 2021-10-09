@@ -1,60 +1,52 @@
-// Learn more about createBottomTabNavigator:
-// https://reactnavigation.org/docs/bottom-tab-navigator
-
-import Icon from 'react-native-vector-icons/AntDesign';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
+import Bienvenido from '../screens/Bienvenido';
 
-import Home from '../screens/Bienvenido';
-// import Perfil from '../screens/Perfil';
-// import Notificacion from '../screens/Notificacion';
 import TabOneScreen from '../screens/TabOneScreen'; // Borrar cuando este Perfil implementado
 import TabTwoScreen from '../screens/TabTwoScreen'; // Borrar cuando este Notificacion implementado
 import { BottomTabParamList, TabPerfilParamList, TabNotificacionesParamList, TabInicioParamList } from '../types';
+import ComerciosStack from './ComerciosStack';
+import DenunciasStack from './DenunciasStack';
+import { TabBarIcon } from './helpers';
+import ReclamosStack from './ReclamosStack';
+import ServiciosStack from './ServiciosStack';
 
-const BottomTab = createBottomTabNavigator<BottomTabParamList>();
+const TabStack = createBottomTabNavigator<BottomTabParamList>();
 
-export default function BottomTabNavigator() {
+export default function AuthenticatedStack(): JSX.Element {
 
   return (
-    <BottomTab.Navigator
+    <TabStack.Navigator
       initialRouteName="Inicio"
       tabBarOptions={{ activeTintColor: '#409DC4' }}
       backBehavior="initialRoute"
     >
-      <BottomTab.Screen
+      <TabStack.Screen
         name="Perfil"
         component={TabPerfilNavigator}
         options={{
           tabBarIcon: () => TabBarIcon({ name: 'user', color: '#409DC4' })
         }}
       />
-      <BottomTab.Screen
+      <TabStack.Screen
         name="Inicio"
         component={TabInicioNavigator}
         options={{
           tabBarIcon: () => TabBarIcon({ name: 'home', color: '#409DC4' })
         }}
       />
-      <BottomTab.Screen
+      <TabStack.Screen
         name="Notificaciones"
         component={TabNotificacionNavigator}
         options={{
           tabBarIcon: () => TabBarIcon({ name: 'notification', color: '#409DC4' })
         }}
       />
-    </BottomTab.Navigator>
+    </TabStack.Navigator>
   );
 }
 
-// You can explore the built-in icon families and icons on the web at: https://icons.expo.fyi/
-function TabBarIcon(props: { name: React.ComponentProps<typeof Icon>['name']; color: string }) {
-  return <Icon size={30} style={{ marginBottom: -3 }} {...props} />;
-}
-
-// Each tab has its own navigation stack, you can read more about this pattern here:
-// https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
 const TabPerfilStack = createStackNavigator<TabPerfilParamList>();
 
 function TabPerfilNavigator() {
@@ -63,7 +55,7 @@ function TabPerfilNavigator() {
       <TabPerfilStack.Screen
         name="TabPerfilScreen"
         component={TabOneScreen} // Reemplazar TabOneScreen por Perfil cuando esté implementado
-        options={headerOptions("Perfil")}
+        // options={headerOptions("Perfil")}
       />
     </TabPerfilStack.Navigator>
   );
@@ -73,11 +65,53 @@ const TabInicioStack = createStackNavigator<TabInicioParamList>();
 
 function TabInicioNavigator() {
   return (
-    <TabInicioStack.Navigator>
+    <TabInicioStack.Navigator
+    >
       <TabInicioStack.Screen
         name="TabInicioScreen"
-        component={Home}
-        options={headerOptions("Bienvenido")}
+        component={Bienvenido}
+        // options={headerOptions("Bienvenido")}
+        initialParams={
+          {
+              authenticated: true
+          }
+        }
+      />
+      <TabInicioStack.Screen
+        name="ComerciosStack"
+        component={ComerciosStack}
+        initialParams={
+          {
+              authenticated: true
+          }
+        }
+      />
+      <TabInicioStack.Screen
+        name="ServiciosStack"
+        component={ServiciosStack}
+        initialParams={
+          {
+              authenticated: true
+          }
+        }
+      />
+      <TabInicioStack.Screen
+        name="DenunciasStack"
+        component={DenunciasStack}
+        initialParams={
+          {
+              authenticated: true
+          }
+        }
+      />
+      <TabInicioStack.Screen
+        name="ReclamosStack"
+        component={ReclamosStack}
+        initialParams={
+          {
+              authenticated: true
+          }
+        }
       />
     </TabInicioStack.Navigator>
   );
@@ -91,7 +125,7 @@ function TabNotificacionNavigator() {
       <TabNotificacionesStack.Screen
         name="TabNotificacionesScreen"
         component={TabTwoScreen} // Reemplazar TabTwoScreen por Notificacion cuando esté implementado
-        options={headerOptions("Notificaciones")}
+        // options={headerOptions("Notificaciones")}
       />
     </TabNotificacionesStack.Navigator>
   );
