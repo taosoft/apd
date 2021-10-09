@@ -10,7 +10,7 @@ import * as React from 'react'
 
 import Colors from '../constants/Colors'
 import useColorScheme from '../hooks/useColorScheme'
-import TabOneScreen from '../screens/TabOneScreen'
+import GenerateDenuncia from '../screens/denuncias/GenerateDenuncia'
 import TabTwoScreen from '../screens/TabTwoScreen'
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types'
 
@@ -73,7 +73,7 @@ function TabOneNavigator() {
   return (
     <TabOneStack.Navigator>
       <TabOneStack.Screen
-        component={TabOneScreen}
+        component={GenerateDenuncia}
         name="TabOneScreen"
         options={{ headerTitle: 'Tab One Title' }}
       />
