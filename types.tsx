@@ -13,6 +13,7 @@ export type RootStackParamList = {
   Login: undefined;
   Registrarse: undefined;
   FinalizaRegistro: undefined;
+  BottomTab: undefined;
 };
 
 export type BottomTabParamList = {

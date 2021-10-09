@@ -1,5 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+import { BottomTabParamList, TabPerfilParamList, TabNotificacionesParamList, TabInicioParamList } from '../types';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Bienvenido from '../screens/Bienvenido';
 import TabOneScreen from '../screens/TabOneScreen';
@@ -41,3 +43,59 @@ export default function MyTabs() {
 function TabBarIcon(props: { name: React.ComponentProps<typeof Icon>['name']; color: string }) {
     return <Icon size={30} style={{ marginBottom: -3 }} {...props} />;
 }
+
+
+const TabPerfilStack = createStackNavigator<TabPerfilParamList>();
+
+function TabPerfilNavigator() {
+    return (
+        <TabPerfilStack.Navigator>
+            <TabPerfilStack.Screen
+                name="TabPerfilScreen"
+                component={TabOneScreen} // Reemplazar TabOneScreen por Perfil cuando esté implementado
+                options={headerOptions("Perfil")}
+            />
+        </TabPerfilStack.Navigator>
+    );
+};
+
+const TabBienvenidoStack = createStackNavigator<TabInicioParamList>();
+
+function TabBienvenidoNavigator() {
+    return (
+        <TabBienvenidoStack.Navigator>
+            <TabBienvenidoStack.Screen
+                name="TabInicioScreen"
+                component={Bienvenido}
+                options={headerOptions("Bienvenido")}
+            />
+        </TabBienvenidoStack.Navigator>
+    );
+};
+
+const TabNotificacionesStack = createStackNavigator<TabNotificacionesParamList>();
+
+function TabNotificacionNavigator() {
+    return (
+        <TabNotificacionesStack.Navigator>
+            <TabNotificacionesStack.Screen
+                name="TabNotificacionesScreen"
+                component={TabTwoScreen} // Reemplazar TabTwoScreen por Notificacion cuando esté implementado
+                options={headerOptions("Notificaciones")}
+            />
+        </TabNotificacionesStack.Navigator>
+    );
+};
+
+const headerOptions = (title: string) => {
+    return ({
+        headerTitle: title,
+        headerStyle: {
+            backgroundColor: '#409DC4',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        }
+    });
+};
