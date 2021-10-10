@@ -1,8 +1,3 @@
-/**
- * If you are not familiar with React Navigation, check out the "Fundamentals" guide:
- * https://reactnavigation.org/docs/getting-started
- *
- */
 import {
   DarkTheme,
   DefaultTheme,
@@ -12,10 +7,13 @@ import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 import { ColorSchemeName } from 'react-native'
 
+import Inicio from '../screens/Inicio'
 import NotFoundScreen from '../screens/NotFoundScreen'
+import Registrarse from '../screens/Registrarse'
 import { RootStackParamList } from '../types'
-import BottomTabNavigator from './BottomTabNavigator'
 import LinkingConfiguration from './LinkingConfiguration'
+import LoginStack from './LoginStack'
+import UnauthenticatedStack from './UnauthenticatedStack'
 
 export default function Navigation({
   colorScheme,
@@ -32,19 +30,35 @@ export default function Navigation({
   )
 }
 
-// A root stack navigator is often used for displaying modals on top of all other content
-// Read more here: https://reactnavigation.org/docs/modal
-const Stack = createStackNavigator<RootStackParamList>()
+const RootStack = createStackNavigator<RootStackParamList>()
 
 function RootNavigator() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen component={BottomTabNavigator} name="Root" />
-      <Stack.Screen
+    <RootStack.Navigator initialRouteName="Inicio" screenOptions={headerStyle}>
+      <RootStack.Screen
+        component={Inicio}
+        name="Inicio"
+        options={{ headerShown: false }}
+      />
+      <RootStack.Screen component={Registrarse} name="Registrarse" />
+      <RootStack.Screen component={LoginStack} name="LoginStack" />
+      <RootStack.Screen
+        component={UnauthenticatedStack}
+        name="UnauthenticatedStack"
+      />
+      <RootStack.Screen
         component={NotFoundScreen}
         name="NotFound"
         options={{ title: 'Oops!' }}
       />
-    </Stack.Navigator>
+    </RootStack.Navigator>
   )
+}
+
+const headerStyle = {
+  headerShown: true,
+  headerStyle: {
+    backgroundColor: '#409DC4',
+  },
+  headerTintColor: '#FFF',
 }
