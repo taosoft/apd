@@ -3,6 +3,18 @@ import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 
 import Bienvenido from '../screens/Bienvenido'
+import ComercioDetalle from '../screens/ComercioDetalle'
+import ComercioGenerar from '../screens/ComercioGenerar'
+import ComercioListado from '../screens/ComercioListado'
+import DenunciaDetalle from '../screens/DenunciaDetalle'
+import DenunciaGenerar from '../screens/DenunciaGenerar'
+import DenunciaListado from '../screens/DenunciaListado'
+import ReclamoDetalle from '../screens/ReclamoDetalle'
+import ReclamoGenerar from '../screens/ReclamoGenerar'
+import ReclamoListado from '../screens/ReclamoListado'
+import ServicioDetalle from '../screens/ServicioDetalle'
+import ServicioGenerar from '../screens/ServicioGenerar'
+import ServicioListado from '../screens/ServicioListado'
 import TabOneScreen from '../screens/TabOneScreen' // Borrar cuando este Perfil implementado
 import TabTwoScreen from '../screens/TabTwoScreen' // Borrar cuando este Notificacion implementado
 import {
@@ -11,11 +23,7 @@ import {
   TabNotificacionesParamList,
   TabPerfilParamList,
 } from '../types'
-import ComerciosStack from './ComerciosStack'
-import DenunciasStack from './DenunciasStack'
 import { TabBarIcon } from './helpers'
-import ReclamosStack from './ReclamosStack'
-import ServiciosStack from './ServiciosStack'
 
 const TabStack = createBottomTabNavigator<BottomTabParamList>()
 
@@ -68,34 +76,89 @@ function TabPerfilNavigator() {
 
 const TabInicioStack = createStackNavigator<TabInicioParamList>()
 
+// Se pasa en las TabXXX.Screen
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const headerOptions = {
+  headerStyle: {
+    backgroundColor: '#409DC4',
+  },
+  headerTintColor: '#fff',
+  headerTitleStyle: {
+    fontWeight: 'bold',
+  },
+}
+
 function TabInicioNavigator() {
   return (
     <TabInicioStack.Navigator>
       <TabInicioStack.Screen
         component={Bienvenido}
         initialParams={{ authenticated: true }}
-        // options={headerOptions("Bienvenido")}
-        name="TabInicioScreen"
+        name="Bienvenido"
+        // options={{ headerOptions }}
+        options={{ title: '' }}
       />
       <TabInicioStack.Screen
-        component={ComerciosStack}
-        initialParams={{ authenticated: true }}
-        name="ComerciosStack"
+        component={ComercioListado}
+        initialParams={{
+          authenticated: true,
+        }}
+        name="ComercioListado"
       />
       <TabInicioStack.Screen
-        component={ServiciosStack}
-        initialParams={{ authenticated: true }}
-        name="ServiciosStack"
+        component={ComercioDetalle}
+        name="ComercioDetalle"
       />
       <TabInicioStack.Screen
-        component={DenunciasStack}
-        initialParams={{ authenticated: true }}
-        name="DenunciasStack"
+        component={ComercioGenerar}
+        name="ComercioGenerar"
       />
       <TabInicioStack.Screen
-        component={ReclamosStack}
+        component={ServicioListado}
         initialParams={{ authenticated: true }}
-        name="ReclamosStack"
+        name="ServicioListado"
+        options={{ headerTitle: 'Servicios' }}
+      />
+      <TabInicioStack.Screen
+        component={ServicioDetalle}
+        name="ServicioDetalle"
+        options={{ headerTitle: 'Detalle del Servicio' }}
+      />
+      <TabInicioStack.Screen
+        component={ServicioGenerar}
+        name="ServicioGenerar"
+        options={{ headerTitle: 'Crear un Servicio' }}
+      />
+      <TabInicioStack.Screen
+        component={DenunciaListado}
+        initialParams={{
+          authenticated: true,
+        }}
+        name="DenunciaListado"
+      />
+      <TabInicioStack.Screen
+        component={DenunciaDetalle}
+        name="DenunciaDetalle"
+      />
+      <TabInicioStack.Screen
+        component={DenunciaGenerar}
+        name="DenunciaGenerar"
+      />
+      <TabInicioStack.Screen
+        component={ReclamoListado}
+        initialParams={{ authenticated: true }}
+        name="ReclamoListado"
+        options={{ headerTitle: 'Reclamos' }}
+      />
+      <TabInicioStack.Screen
+        component={ReclamoDetalle}
+        name="ReclamoDetalle"
+        options={{ headerTitle: 'Detalle del Reclamo' }}
+      />
+      <TabInicioStack.Screen
+        component={ReclamoGenerar}
+        name="ReclamoGenerar"
+        options={{ headerTitle: 'Crear Reclamo' }}
       />
     </TabInicioStack.Navigator>
   )
@@ -114,19 +177,4 @@ function TabNotificacionNavigator() {
       />
     </TabNotificacionesStack.Navigator>
   )
-}
-
-// Se pasa en las TabXXX.Screen
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const headerOptions = (title: string) => {
-  return {
-    headerStyle: {
-      backgroundColor: '#409DC4',
-    },
-    headerTintColor: '#fff',
-    headerTitle: title,
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
-  }
 }

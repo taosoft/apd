@@ -31,7 +31,7 @@ export default function Inicio(): JSX.Element {
         }}
       >
         <TouchableOpacity
-          onPress={() => navigation.navigate('LoginStack')}
+          onPress={() => navigation.navigate('Login')}
           style={styles(windowWidth * 0.5).button}
         >
           <Text style={styles().text}>INICIAR SESION</Text>
