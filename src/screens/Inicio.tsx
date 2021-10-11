@@ -19,7 +19,7 @@ export default function Inicio(): JSX.Element {
     <View style={styles().container}>
       <Image
         source={{ uri: 'https://via.placeholder.com/600/92c952' }}
-        style={{ height: windowHeight * 0.6, width: windowWidth }}
+        style={{ height: windowHeight * 0.8, width: windowWidth }}
       />
 
       <View
@@ -54,7 +54,7 @@ export default function Inicio(): JSX.Element {
       >
         <TouchableOpacity
           onPress={() => navigation.navigate('UnauthenticatedStack')}
-          style={styles(windowWidth * 0.5).button}
+          style={styles(windowWidth).button}
         >
           <Text style={styles().text}>SERVICIOS Y COMERCIOS</Text>
         </TouchableOpacity>

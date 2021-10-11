@@ -73,38 +73,28 @@ function TabInicioNavigator() {
     <TabInicioStack.Navigator>
       <TabInicioStack.Screen
         component={Bienvenido}
-        initialParams={{
-          authenticated: true,
-        }}
+        initialParams={{ authenticated: true }}
         // options={headerOptions("Bienvenido")}
         name="TabInicioScreen"
       />
       <TabInicioStack.Screen
         component={ComerciosStack}
-        initialParams={{
-          authenticated: true,
-        }}
+        initialParams={{ authenticated: true }}
         name="ComerciosStack"
       />
       <TabInicioStack.Screen
         component={ServiciosStack}
-        initialParams={{
-          authenticated: true,
-        }}
+        initialParams={{ authenticated: true }}
         name="ServiciosStack"
       />
       <TabInicioStack.Screen
         component={DenunciasStack}
-        initialParams={{
-          authenticated: true,
-        }}
+        initialParams={{ authenticated: true }}
         name="DenunciasStack"
       />
       <TabInicioStack.Screen
         component={ReclamosStack}
-        initialParams={{
-          authenticated: true,
-        }}
+        initialParams={{ authenticated: true }}
         name="ReclamosStack"
       />
     </TabInicioStack.Navigator>

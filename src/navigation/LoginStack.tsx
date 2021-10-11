@@ -14,7 +14,11 @@ export default function LoginStack(): JSX.Element {
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen component={Login} name="Login" />
-      <Stack.Screen component={FinalizaRegistro} name="FinalizaRegistro" />
+      <Stack.Screen
+        component={FinalizaRegistro}
+        name="FinalizaRegistro"
+        options={{ headerTitle: 'Finalizar Registro' }}
+      />
       <Stack.Screen component={AuthenticatedStack} name="AuthenticatedStack" />
     </Stack.Navigator>
   )
