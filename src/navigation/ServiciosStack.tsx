@@ -21,14 +21,21 @@ export default function ServiciosStack({
     <Stack.Navigator initialRouteName="ServicioListado">
       <Stack.Screen
         component={ServicioListado}
-        initialParams={{
-          authenticated,
-        }}
+        initialParams={{ authenticated }}
         name="ServicioListado"
+        options={{ headerTitle: 'Servicios' }}
       />
-      <Stack.Screen component={ServicioDetalle} name="ServicioDetalle" />
+      <Stack.Screen
+        component={ServicioDetalle}
+        name="ServicioDetalle"
+        options={{ headerTitle: 'Detalle del Servicio' }}
+      />
       {authenticated && (
-        <Stack.Screen component={ServicioGenerar} name="ServicioGenerar" />
+        <Stack.Screen
+          component={ServicioGenerar}
+          name="ServicioGenerar"
+          options={{ headerTitle: 'Crear un Servicio' }}
+        />
       )}
     </Stack.Navigator>
   )

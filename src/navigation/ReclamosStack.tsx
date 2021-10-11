@@ -21,14 +21,21 @@ export default function ReclamosStack({
     <Stack.Navigator initialRouteName="ReclamoListado">
       <Stack.Screen
         component={ReclamoListado}
-        initialParams={{
-          authenticated,
-        }}
+        initialParams={{ authenticated }}
         name="ReclamoListado"
+        options={{ headerTitle: 'Reclamos' }}
       />
-      <Stack.Screen component={ReclamoDetalle} name="ReclamoDetalle" />
+      <Stack.Screen
+        component={ReclamoDetalle}
+        name="ReclamoDetalle"
+        options={{ headerTitle: 'Detalle del Reclamo' }}
+      />
       {authenticated && (
-        <Stack.Screen component={ReclamoGenerar} name="ReclamoGenerar" />
+        <Stack.Screen
+          component={ReclamoGenerar}
+          name="ReclamoGenerar"
+          options={{ headerTitle: 'Crear Reclamo' }}
+        />
       )}
     </Stack.Navigator>
   )

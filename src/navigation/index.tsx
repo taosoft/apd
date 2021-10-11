@@ -40,11 +40,20 @@ function RootNavigator() {
         name="Inicio"
         options={{ headerShown: false }}
       />
-      <RootStack.Screen component={Registrarse} name="Registrarse" />
-      <RootStack.Screen component={LoginStack} name="LoginStack" />
+      <RootStack.Screen
+        component={Registrarse}
+        name="Registrarse"
+        options={{ headerTitle: 'Registrarse' }}
+      />
+      <RootStack.Screen
+        component={LoginStack}
+        name="LoginStack"
+        options={{ headerTitle: 'Inicio de sesión' }}
+      />
       <RootStack.Screen
         component={UnauthenticatedStack}
         name="UnauthenticatedStack"
+        options={{ headerTitle: 'Servicios y Comercios' }}
       />
       <RootStack.Screen
         component={NotFoundScreen}
