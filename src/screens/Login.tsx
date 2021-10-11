@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 
 export default function Login(): JSX.Element {
@@ -34,14 +34,14 @@ export default function Login(): JSX.Element {
         />
 
         <TouchableOpacity
-          onPress={() => Alert.alert(dni + ' ' + clave)}
+          onPress={() => navigator.navigate('AuthenticatedStack')}
           style={styles.button}
         >
           <Text style={styles.ingresar}>INGRESAR</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => navigator.navigate('AuthenticatedStack')}
+          onPress={() => navigator.navigate('UnauthenticatedStack')}
         >
           <Text style={styles.sinUsuario}>Ingrese sin usuario</Text>
         </TouchableOpacity>

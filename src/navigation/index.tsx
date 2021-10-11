@@ -65,6 +65,7 @@ function RootNavigator() {
       <RootStack.Screen
         component={UnauthenticatedStack}
         name="UnauthenticatedStack"
+        options={{ headerTitle: 'Servicios y Comercios' }}
       />
       <RootStack.Screen
         component={NotFoundScreen}

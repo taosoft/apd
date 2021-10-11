@@ -17,10 +17,9 @@ export default function UnauthenticatedStack(): JSX.Element {
     >
       <Stack.Screen
         component={Bienvenido}
-        initialParams={{
-          authenticated: false,
-        }}
+        initialParams={{ authenticated: false }}
         name="UnauthenticatedBienvenido"
+        options={{ headerTitle: 'Bienvenido' }}
       />
       <Stack.Screen
         component={ComercioListado}
