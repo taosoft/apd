@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 
 import Bienvenido from '../screens/Bienvenido'
-import TabOneScreen from '../screens/TabOneScreen' // Borrar cuando este Perfil implementado
+import PerfilUsuario from '../screens/DatosUsuario'
 import TabTwoScreen from '../screens/TabTwoScreen' // Borrar cuando este Notificacion implementado
 import {
   BottomTabParamList,
@@ -58,8 +58,8 @@ function TabPerfilNavigator() {
   return (
     <TabPerfilStack.Navigator>
       <TabPerfilStack.Screen
-        component={TabOneScreen}
-        name="TabPerfilScreen" // Reemplazar TabOneScreen por Perfil cuando esté implementado
+        component={PerfilUsuario}
+        name="TabPerfilScreen"
         // options={headerOptions("Perfil")}
       />
     </TabPerfilStack.Navigator>
