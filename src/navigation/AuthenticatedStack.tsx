@@ -56,7 +56,7 @@ const TabPerfilStack = createStackNavigator<TabPerfilParamList>()
 
 function TabPerfilNavigator() {
   return (
-    <TabPerfilStack.Navigator>
+    <TabPerfilStack.Navigator screenOptions={{ headerShown: false }}>
       <TabPerfilStack.Screen
         component={PerfilUsuario}
         name="TabPerfilScreen"
@@ -70,7 +70,7 @@ const TabInicioStack = createStackNavigator<TabInicioParamList>()
 
 function TabInicioNavigator() {
   return (
-    <TabInicioStack.Navigator>
+    <TabInicioStack.Navigator screenOptions={{ headerShown: false }}>
       <TabInicioStack.Screen
         component={Bienvenido}
         initialParams={{ authenticated: true }}
@@ -106,7 +106,7 @@ const TabNotificacionesStack =
 
 function TabNotificacionNavigator() {
   return (
-    <TabNotificacionesStack.Navigator>
+    <TabNotificacionesStack.Navigator screenOptions={{ headerShown: false }}>
       <TabNotificacionesStack.Screen
         component={TabTwoScreen}
         name="TabNotificacionesScreen" // Reemplazar TabTwoScreen por Notificacion cuando esté implementado
