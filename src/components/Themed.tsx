@@ -30,6 +30,7 @@ type ThemeProps = {
 
 export type TextProps = ThemeProps & DefaultText['props']
 export type ViewProps = ThemeProps & DefaultView['props']
+export type ButtonProps = ThemeProps & DefaultView['props']
 
 export function Text(props: TextProps): JSX.Element {
   const { style, lightColor, darkColor, ...otherProps } = props

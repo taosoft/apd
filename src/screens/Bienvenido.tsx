@@ -17,13 +17,13 @@ export default function Bienvenido({ route }: BienvenidoProps): JSX.Element {
         {authenticated && (
           <>
             <TouchableOpacity
-              onPress={() => navigation.navigate('ReclamosStack')}
+              onPress={() => navigation.navigate('ReclamoListado')}
               style={styles.button}
             >
               <Text style={styles.text}>Reclamos</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => navigation.navigate('DenunciasStack')}
+              onPress={() => navigation.navigate('DenunciaListado')}
               style={styles.button}
             >
               <Text style={styles.text}>Denuncias</Text>
@@ -32,14 +32,14 @@ export default function Bienvenido({ route }: BienvenidoProps): JSX.Element {
         )}
 
         <TouchableOpacity
-          onPress={() => navigation.navigate('ComerciosStack')}
+          onPress={() => navigation.navigate('ComercioListado')}
           style={styles.button}
         >
           <Text style={styles.text}>Comercios</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => navigation.navigate('ServiciosStack')}
+          onPress={() => navigation.navigate('ServicioListado')}
           style={styles.button}
         >
           <Text style={styles.text}>Servicios Profesionales</Text>

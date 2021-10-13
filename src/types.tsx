@@ -1,7 +1,9 @@
 export type RootStackParamList = {
   Inicio: undefined
   Registrarse: undefined
-  LoginStack: undefined
+  Login: undefined
+  FinalizaRegistro: undefined
+  AuthenticatedStack: undefined
   UnauthenticatedStack: undefined
   BottomTab: undefined
   NotFound: undefined
@@ -18,21 +20,29 @@ export type TabPerfilParamList = {
 }
 
 export type TabInicioParamList = {
-  TabInicioScreen: {
+  Bienvenido: {
     authenticated: boolean
   }
-  ComerciosStack: {
+  ComercioListado: {
     authenticated: boolean
   }
-  ServiciosStack: {
+  ComercioDetalle: undefined
+  ComercioGenerar: undefined
+  ServicioListado: {
     authenticated: boolean
   }
-  DenunciasStack: {
+  ServicioDetalle: undefined
+  ServicioGenerar: undefined
+  DenunciaListado: {
     authenticated: boolean
   }
-  ReclamosStack: {
+  DenunciaDetalle: undefined
+  DenunciaGenerar: undefined
+  ReclamoListado: {
     authenticated: boolean
   }
+  ReclamoDetalle: undefined
+  ReclamoGenerar: undefined
 }
 
 export type TabNotificacionesParamList = {

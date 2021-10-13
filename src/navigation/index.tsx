@@ -7,12 +7,14 @@ import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 import { ColorSchemeName } from 'react-native'
 
+import FinalizaRegistro from '../screens/FinalizaRegistro'
 import Inicio from '../screens/Inicio'
+import Login from '../screens/Login'
 import NotFoundScreen from '../screens/NotFoundScreen'
 import Registrarse from '../screens/Registrarse'
 import { RootStackParamList } from '../types'
+import AuthenticatedStack from './AuthenticatedStack'
 import LinkingConfiguration from './LinkingConfiguration'
-import LoginStack from './LoginStack'
 import UnauthenticatedStack from './UnauthenticatedStack'
 
 export default function Navigation({
@@ -40,11 +42,30 @@ function RootNavigator() {
         name="Inicio"
         options={{ headerShown: false }}
       />
-      <RootStack.Screen component={Registrarse} name="Registrarse" />
-      <RootStack.Screen component={LoginStack} name="LoginStack" />
+      <RootStack.Screen
+        component={Registrarse}
+        name="Registrarse"
+        options={{ headerTitle: 'Registrarse' }}
+      />
+      <RootStack.Screen
+        component={Login}
+        name="Login"
+        options={{ headerTitle: 'Inicio de sesión' }}
+      />
+      <RootStack.Screen
+        component={FinalizaRegistro}
+        name="FinalizaRegistro"
+        options={{ headerTitle: 'Finalizar Registro' }}
+      />
+      <RootStack.Screen
+        component={AuthenticatedStack}
+        name="AuthenticatedStack"
+        options={{ headerShown: false }}
+      />
       <RootStack.Screen
         component={UnauthenticatedStack}
         name="UnauthenticatedStack"
+        options={{ headerTitle: 'Servicios y Comercios' }}
       />
       <RootStack.Screen
         component={NotFoundScreen}
