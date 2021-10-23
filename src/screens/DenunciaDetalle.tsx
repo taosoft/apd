@@ -1,11 +1,184 @@
 import React from 'react'
+import {
+  // Dimensions,
+  FlatList,
+  LogBox,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native'
+import ImageLayout from 'react-native-image-layout'
 
-import { Text, View } from '../components/Themed'
+import ItemBitacora from '../components/ItemBitacora'
 
-export default function DenunciaDetalle(): JSX.Element {
+LogBox.ignoreLogs(['VirtualizedLists should never be nested'])
+LogBox.ignoreLogs(['Animated: `useNativeDriver` was not specified'])
+
+export default function Login(): JSX.Element {
+  // const [dni, setDNI] = React.useState('')
+  // const [clave, setClave] = React.useState('')
+  // const { width, height } = Dimensions.get('screen')
+
   return (
-    <View>
-      <Text>Detalle Denuncia</Text>
+    <View style={styles.container}>
+      <ScrollView keyboardShouldPersistTaps="always">
+        <View>
+          <Text style={styles.titleText}>Denuncia #1234567</Text>
+          <Text style={styles.textSubBold}>Estado: Abierto</Text>
+          <Text style={styles.text}>Denunciado: Juan Perez</Text>
+          <Text style={styles.text}>Ubicacion: Calle Falsa 123</Text>
+          <Text style={styles.text}>Motivo de la denuncia:</Text>
+          <Text style={styles.textSubBold}>Archivos</Text>
+          <Text style={styles.text}>Input de archivos a definir</Text>
+          <Text style={styles.textSubBold}>Imagenes</Text>
+
+          <ImageLayout
+            images={[
+              // Version *3.0.0 update (or greater versions):
+              // Can be used with different image object fieldnames.
+              // Ex. source, source.uri, uri, URI, url, URL
+              {
+                uri: 'https://luehangs.site/pic-chat-app-images/beautiful-blond-blonde-hair-478544.jpg',
+              },
+              // IMPORTANT: It is REQUIRED for LOCAL IMAGES
+              // to include a dimensions field with the
+              // actual width and height of the image or
+              // it will throw an error.
+              // { source: require("yourApp/image.png"),
+              //     dimensions: { width: 1080, height: 1920 }
+              // },
+              // "width" & "height" is an alternative to the dimensions
+              // field that will also be acceptable.
+              // { source: require("yourApp/image.png"),
+              //     width: 1080,
+              //     height: 1920 },
+              {
+                source: {
+                  uri: 'https://luehangs.site/pic-chat-app-images/beautiful-beautiful-women-beauty-40901.jpg',
+                },
+              },
+              {
+                // Optional: Adding a dimensions field with
+                // the actual width and height for REMOTE IMAGES
+                // will help improve performance.
+                dimensions: { height: 1920, width: 1080 },
+
+                uri: 'https://luehangs.site/pic-chat-app-images/animals-avian-beach-760984.jpg',
+              },
+              {
+                URI: 'https://luehangs.site/pic-chat-app-images/beautiful-blond-fishnet-stockings-48134.jpg',
+                // Version *2.0.0 update (or greater versions):
+                // Optional: Does not require an id for each
+                // image object, but is for best practices and
+                // can be better for performance with the API.
+                id: 'blpccx4cn',
+              },
+              {
+                url: 'https://luehangs.site/pic-chat-app-images/beautiful-beautiful-woman-beauty-9763.jpg',
+              },
+              {
+                URL: 'https://luehangs.site/pic-chat-app-images/attractive-balance-beautiful-186263.jpg',
+              },
+            ]}
+            // Version *5.7.0 update
+            // onEndReached={() => {
+            //     // add more images when scroll reaches end
+            // }}
+          />
+          <Text style={styles.textSubBold}>
+            Bitacora del estado del reclamo
+          </Text>
+          <FlatList
+            data={[
+              {
+                fecha: 'y Thom se la re come ',
+                icono: 'Mati tambien se la come',
+                titulo: 'Nico es un capo ',
+              },
+              { fecha: 'tuya', icono: 'a mordiscones', titulo: 'La ' },
+              { fecha: 'la ', icono: 'tuya', titulo: 'No, ' },
+            ]}
+            renderItem={({ item }) => (
+              <ItemBitacora
+                fecha={item.fecha}
+                icono={item.icono}
+                titulo={item.titulo}
+              />
+            )}
+          />
+          {/* <Text style={styles.item}>{item.key}</Text> */}
+        </View>
+      </ScrollView>
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: '#FFF',
+    borderColor: '#C9E9FC',
+    borderRadius: 20,
+    borderWidth: 2,
+    justifyContent: 'space-between',
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: 40,
+    paddingBottom: 10,
+    paddingTop: 10,
+    width: 300,
+  },
+  container: {
+    backgroundColor: '#fff',
+    flex: 1,
+    flexDirection: 'column',
+    paddingHorizontal: 15,
+  },
+  text: {
+    color: '#409DC4',
+    marginTop: 5,
+    textAlign: 'left',
+  },
+  textDesc: {
+    color: '#409DC4',
+    fontSize: 13,
+    marginTop: 5,
+    textAlign: 'left',
+  },
+  textNomApe: {
+    color: '#409DC4',
+    fontSize: 13,
+    fontWeight: 'bold',
+    marginTop: 15,
+    textAlign: 'left',
+  },
+  textRubro: {
+    color: '#409DC4',
+    fontSize: 13,
+    fontWeight: 'bold',
+    marginTop: 5,
+    textAlign: 'left',
+  },
+  textSubBold: {
+    color: '#409DC4',
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 15,
+    textAlign: 'left',
+    textTransform: 'uppercase',
+  },
+  titlePosition: {
+    alignSelf: 'flex-start',
+    flex: 1,
+    marginLeft: 30,
+    position: 'relative',
+  },
+  titleText: {
+    color: '#409DC4',
+    fontFamily: 'sans-serif',
+    fontSize: 30,
+    fontWeight: 'bold',
+    marginTop: 30,
+    textAlign: 'left',
+  },
+})
