@@ -25,6 +25,9 @@ export default function Login(): JSX.Element {
           <Text style={styles.text}>De 09:00 hs a 14:00 hs</Text>
           <Text style={styles.text}>De 16:00 hs a 18:00 hs</Text>
           <Text style={styles.textNomApe}>Nombre y Apellido</Text>
+          <Text style={styles.textRubro}>Direccion</Text>
+          <Text style={styles.textRubro}>Telefono</Text>
+          <Text style={styles.textRubro}>Email</Text>
           <Text style={styles.textRubro}>Rubro</Text>
           <Text style={styles.textSubBold}>Descripcion</Text>
           <Text style={styles.textDesc}>
