@@ -1,6 +1,6 @@
 import { noop } from '@babel/types'
 import CheckBox from '@react-native-community/checkbox'
-import * as React from 'react'
+import React, { useState } from 'react'
 import { Alert, Button, Pressable, StyleSheet, TextInput } from 'react-native'
 
 import ImageContainer from '../components/ImageContainer'
@@ -16,12 +16,12 @@ const handleTerminosCondiciones = (): void => {
 }
 
 export default function DenunciaGenerar(): JSX.Element {
-  const [denunciaDate, setDenunciaDate] = React.useState<string>('')
-  const [denunciaName, setDenunciaName] = React.useState<string>('')
-  const [denunciaAddress, setDenunciaAddress] = React.useState<string>('')
-  const [denunciaReason, setDenunciaReason] = React.useState<string>('')
+  const [denunciaDate, setDenunciaDate] = useState<string>('')
+  const [denunciaName, setDenunciaName] = useState<string>('')
+  const [denunciaAddress, setDenunciaAddress] = useState<string>('')
+  const [denunciaReason, setDenunciaReason] = useState<string>('')
   const [isTermsAndConditions, setIsTermsAndConditions] =
-    React.useState<boolean>(false)
+    useState<boolean>(false)
 
   return (
     <View style={styles.container}>

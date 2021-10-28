@@ -2,6 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 
+import CameraPicker from '../components/Camera'
 import Bienvenido from '../screens/Bienvenido'
 import ComercioDetalle from '../screens/ComercioDetalle'
 import ComercioGenerar from '../screens/ComercioGenerar'
@@ -113,6 +114,7 @@ function TabInicioNavigator() {
         component={ComercioGenerar}
         name="ComercioGenerar"
       />
+      <TabInicioStack.Screen component={CameraPicker} name="CameraPicker" />
       <TabInicioStack.Screen
         component={ServicioListado}
         initialParams={{ authenticated: true }}

@@ -28,6 +28,7 @@ export type TabInicioParamList = {
   }
   ComercioDetalle: undefined
   ComercioGenerar: undefined
+  CameraPicker: undefined
   ServicioListado: {
     authenticated: boolean
   }
