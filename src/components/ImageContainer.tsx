@@ -39,13 +39,15 @@ const handleImageProvider = (
         style: 'cancel',
         text: 'Cancelar',
       },
-      { onPress: () => handleImagePicker(), text: 'Galería' },
+      { onPress: async () => await handleImagePicker(), text: 'Galería' },
     ],
     { cancelable: false },
   )
 }
 
-// const handleCamera = (): Promise<string | undefined> => {}
+// const handleCamera = (): Promise<string | undefined> => {
+
+// }
 
 async function handleImagePicker(): Promise<string | undefined> {
   if (
