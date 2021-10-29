@@ -10,7 +10,7 @@ import {
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-import BitacoraItem from '../components/BitacoraItem'
+import ListadoItem from '../components/ListadoItem'
 import { View } from '../components/Themed'
 
 const DATA = [
@@ -78,7 +78,7 @@ export default function ServicioListado({
                 navigation.navigate('ServicioDetalle', { id: item.id })
               }
             >
-              <BitacoraItem
+              <ListadoItem
                 fecha={item.fecha}
                 foto={item.foto}
                 titulo={item.titulo}

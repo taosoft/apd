@@ -4,13 +4,13 @@ import { Dimensions, StyleSheet, Text, View } from 'react-native'
 import { Button, Card } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-export interface BitacoraItemProps {
+export interface ListadoItemProps {
   titulo: string
   fecha: string
   foto: string
 }
 
-export default function BitacoraItem(props: BitacoraItemProps): JSX.Element {
+export default function ListadoItem(props: ListadoItemProps): JSX.Element {
   const navigation = useNavigation()
 
   return (
@@ -19,7 +19,7 @@ export default function BitacoraItem(props: BitacoraItemProps): JSX.Element {
         <Card.Title>{props.titulo}</Card.Title>
         <Card.Divider />
         <Card.Image
-          source={require('../../borrar-ImagenComercio.jpg')}
+          source={require('../../borrar-ImagenComercio.jpg')} // aca iria en realidad props.foto
           style={styles.foto}
         />
         <Button
