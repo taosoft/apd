@@ -10,6 +10,7 @@ import ComercioListado from '../screens/ComercioListado'
 import DenunciaDetalle from '../screens/DenunciaDetalle'
 import DenunciaGenerar from '../screens/DenunciaGenerar'
 import DenunciaListado from '../screens/DenunciaListado'
+import Notificaciones from '../screens/Notificaciones'
 import PerfilUsuario from '../screens/PerfilUsuario'
 import ReclamoDetalle from '../screens/ReclamoDetalle'
 import ReclamoGenerar from '../screens/ReclamoGenerar'
@@ -17,7 +18,6 @@ import ReclamoListado from '../screens/ReclamoListado'
 import ServicioDetalle from '../screens/ServicioDetalle'
 import ServicioGenerar from '../screens/ServicioGenerar'
 import ServicioListado from '../screens/ServicioListado'
-import TabTwoScreen from '../screens/TabTwoScreen' // Borrar cuando este Notificacion implementado
 import {
   BottomTabParamList,
   TabInicioParamList,
@@ -173,8 +173,9 @@ function TabNotificacionNavigator() {
   return (
     <TabNotificacionesStack.Navigator>
       <TabNotificacionesStack.Screen
-        component={TabTwoScreen}
-        name="TabNotificacionesScreen" // Reemplazar TabTwoScreen por Notificacion cuando esté implementado
+        component={Notificaciones}
+        initialParams={{ authenticated: true }}
+        name="Notificaciones"
         // options={headerOptions("Notificaciones")}
       />
     </TabNotificacionesStack.Navigator>

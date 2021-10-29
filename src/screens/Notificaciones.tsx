@@ -1,6 +1,6 @@
 import { RouteProp, useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { FlatList, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { FlatList, StyleSheet, TouchableOpacity } from 'react-native'
 
 import NotificacionItem from '../components/NotificacionItem'
 import { View } from '../components/Themed'
@@ -26,7 +26,7 @@ interface NotificacionesListadoProps {
   route: RouteProp<{ params: { authenticated: boolean } }, 'params'>
 }
 
-export default function TabTwoScreen({
+export default function Notificaciones({
   route,
 }: NotificacionesListadoProps): JSX.Element {
   const { authenticated } = route.params
@@ -34,7 +34,6 @@ export default function TabTwoScreen({
 
   return (
     <View style={styles.view}>
-      <Text style={styles.sectionTitle}>Notificaciones</Text>
       {authenticated && (
         /* Tincho: Listado de notificaciones  */
         <FlatList
