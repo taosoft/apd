@@ -47,5 +47,5 @@ export type TabInicioParamList = {
 }
 
 export type TabNotificacionesParamList = {
-  TabNotificacionesScreen: undefined
+  Notificaciones: { authenticated: boolean }
 }
