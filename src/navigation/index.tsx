@@ -7,6 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 import { ColorSchemeName } from 'react-native'
 
+import { NavigationScreenKey } from '../constants/NavigationKeys'
 import FinalizaRegistro from '../screens/FinalizaRegistro'
 import Inicio from '../screens/Inicio'
 import Login from '../screens/Login'
@@ -36,40 +37,43 @@ const RootStack = createStackNavigator<RootStackParamList>()
 
 function RootNavigator() {
   return (
-    <RootStack.Navigator initialRouteName="Inicio" screenOptions={headerStyle}>
+    <RootStack.Navigator
+      initialRouteName={NavigationScreenKey.INICIO}
+      screenOptions={headerStyle}
+    >
       <RootStack.Screen
         component={Inicio}
-        name="Inicio"
+        name={NavigationScreenKey.INICIO}
         options={{ headerShown: false }}
       />
       <RootStack.Screen
         component={Registrarse}
-        name="Registrarse"
+        name={NavigationScreenKey.REGISTRARSE}
         options={{ headerTitle: 'Registrarse' }}
       />
       <RootStack.Screen
         component={Login}
-        name="Login"
+        name={NavigationScreenKey.LOGIN}
         options={{ headerTitle: 'Inicio de sesión' }}
       />
       <RootStack.Screen
         component={FinalizaRegistro}
-        name="FinalizaRegistro"
+        name={NavigationScreenKey.FINALIZA_REGISTRO}
         options={{ headerTitle: 'Finalizar Registro' }}
       />
       <RootStack.Screen
         component={AuthenticatedStack}
-        name="AuthenticatedStack"
+        name={NavigationScreenKey.AUTHENTICATED_STACK}
         options={{ headerShown: false }}
       />
       <RootStack.Screen
         component={UnauthenticatedStack}
-        name="UnauthenticatedStack"
+        name={NavigationScreenKey.UNAUTHENTICATED_STACK}
         options={{ headerTitle: 'Servicios y Comercios' }}
       />
       <RootStack.Screen
         component={NotFoundScreen}
-        name="NotFound"
+        name={NavigationScreenKey.NOT_FOUND}
         options={{ title: 'Oops!' }}
       />
     </RootStack.Navigator>

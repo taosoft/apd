@@ -1,5 +1,5 @@
-import { noop } from '@babel/types'
 import { AntDesign } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
 import * as ImagePicker from 'expo-image-picker'
 import * as React from 'react'
 import {
@@ -12,26 +12,30 @@ import {
   View,
 } from 'react-native'
 
+import { AuthNavigationScreenKey } from '../constants/NavigationKeys'
+import { GenerateType } from './providers/useCache'
 import { Text } from './Themed'
 
 export interface ImageContainerProps<T> {
   data: T[]
   readonly: boolean
   maxImages: number
-  //   addImage: () => void
-  //   deleteImage: () => void
+  generateType: GenerateType
+  addImage: (uri: string) => void
+  deleteImage: (index: number) => void
 }
 
 // TODO: Cambiar por https://www.npmjs.com/package/react-native-raw-bottom-sheet
 const handleImageProvider = (
-  handleAddImage: (uri: string | undefined) => void,
+  handleAddImagePicker: (uri: string | undefined) => void,
+  handleAddCameraImage: () => void,
 ): void => {
   Alert.alert(
     'Seleccionar una foto...',
     undefined,
     [
       {
-        onPress: async () => handleAddImage(await handleImagePicker()),
+        onPress: async () => handleAddCameraImage(),
         text: 'Tomar una foto',
       },
       {
@@ -39,15 +43,14 @@ const handleImageProvider = (
         style: 'cancel',
         text: 'Cancelar',
       },
-      { onPress: async () => await handleImagePicker(), text: 'Galería' },
+      {
+        onPress: async () => handleAddImagePicker(await handleImagePicker()),
+        text: 'Galería',
+      },
     ],
     { cancelable: false },
   )
 }
-
-// const handleCamera = (): Promise<string | undefined> => {
-
-// }
 
 async function handleImagePicker(): Promise<string | undefined> {
   if (
@@ -57,14 +60,13 @@ async function handleImagePicker(): Promise<string | undefined> {
   ) {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync()
     if (status !== 'granted') {
-      Alert.alert('Se necesitan permisos de cámara para adjuntar imágenes')
+      Alert.alert('Se necesitan permisos de cámara para tomar imágenes')
       return undefined
     }
   }
   const result = await ImagePicker.launchImageLibraryAsync({
     allowsEditing: true,
     aspect: [4, 3],
-    // base64: true,
     mediaTypes: ImagePicker.MediaTypeOptions.Images,
     quality: 1,
   })
@@ -75,8 +77,15 @@ async function handleImagePicker(): Promise<string | undefined> {
 export default function ImageContainer(
   props: ImageContainerProps<string>,
 ): JSX.Element {
-  function handleAddImage(uri: string | undefined): void {
-    console.log(uri)
+  const navigation = useNavigation()
+
+  function handleAddImagePicker(uri: string | undefined): void {
+    if (uri) {
+      props.addImage(uri)
+    }
+  }
+  function handleAddCameraImage(): void {
+    navigation.navigate(AuthNavigationScreenKey.CAMERA)
   }
 
   if (props.data.length === 0 && props.readonly) {
@@ -92,7 +101,10 @@ export default function ImageContainer(
       {props.data.map((image, index) => {
         return (
           <View key={index} style={styles.item}>
-            <TouchableOpacity onPress={() => noop} style={styles.closeCircle}>
+            <TouchableOpacity
+              onPress={() => props.deleteImage(index)}
+              style={styles.closeCircle}
+            >
               <AntDesign color="grey" name="closecircle" size={24} />
             </TouchableOpacity>
             <Image
@@ -107,7 +119,9 @@ export default function ImageContainer(
       {props.data.length < props.maxImages && !props.readonly && (
         <TouchableOpacity
           key={1}
-          onPress={() => handleImageProvider(handleAddImage)}
+          onPress={() =>
+            handleImageProvider(handleAddImagePicker, handleAddCameraImage)
+          }
           style={styles.item}
         >
           <AntDesign color="black" name="pluscircle" size={24} />

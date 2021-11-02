@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 
 import CameraPicker from '../components/Camera'
+import { AuthNavigationScreenKey } from '../constants/NavigationKeys'
 import Bienvenido from '../screens/Bienvenido'
 import ComercioDetalle from '../screens/ComercioDetalle'
 import ComercioGenerar from '../screens/ComercioGenerar'
@@ -31,27 +32,27 @@ const TabStack = createBottomTabNavigator<BottomTabParamList>()
 export default function AuthenticatedStack(): JSX.Element {
   return (
     <TabStack.Navigator
-      backBehavior="initialRoute"
-      initialRouteName="Inicio"
+      backBehavior="initialRoute" // TODO: Check?
+      initialRouteName={AuthNavigationScreenKey.INICIO}
       tabBarOptions={{ activeTintColor: '#409DC4' }}
     >
       <TabStack.Screen
         component={TabPerfilNavigator}
-        name="Perfil"
+        name={AuthNavigationScreenKey.PERFIL}
         options={{
           tabBarIcon: () => TabBarIcon({ color: '#409DC4', name: 'user' }),
         }}
       />
       <TabStack.Screen
         component={TabInicioNavigator}
-        name="Inicio"
+        name={AuthNavigationScreenKey.INICIO}
         options={{
           tabBarIcon: () => TabBarIcon({ color: '#409DC4', name: 'home' }),
         }}
       />
       <TabStack.Screen
         component={TabNotificacionNavigator}
-        name="Notificaciones"
+        name={AuthNavigationScreenKey.NOTIFICACIONES}
         options={{
           tabBarIcon: () =>
             TabBarIcon({ color: '#409DC4', name: 'notification' }),
@@ -95,7 +96,7 @@ function TabInicioNavigator() {
       <TabInicioStack.Screen
         component={Bienvenido}
         initialParams={{ authenticated: true }}
-        name="Bienvenido"
+        name={AuthNavigationScreenKey.BIENVENIDO}
         // options={{ headerOptions }}
         options={{ title: '' }}
       />
@@ -104,31 +105,34 @@ function TabInicioNavigator() {
         initialParams={{
           authenticated: true,
         }}
-        name="ComercioListado"
+        name={AuthNavigationScreenKey.COMERCIOLISTADO}
       />
       <TabInicioStack.Screen
         component={ComercioDetalle}
-        name="ComercioDetalle"
+        name={AuthNavigationScreenKey.COMERCIODETALLE}
       />
       <TabInicioStack.Screen
         component={ComercioGenerar}
-        name="ComercioGenerar"
+        name={AuthNavigationScreenKey.COMERCIOGENERAR}
       />
-      <TabInicioStack.Screen component={CameraPicker} name="CameraPicker" />
+      <TabInicioStack.Screen
+        component={CameraPicker}
+        name={AuthNavigationScreenKey.CAMERA}
+      />
       <TabInicioStack.Screen
         component={ServicioListado}
         initialParams={{ authenticated: true }}
-        name="ServicioListado"
+        name={AuthNavigationScreenKey.SERVICIOLISTADO}
         options={{ headerTitle: 'Servicios' }}
       />
       <TabInicioStack.Screen
         component={ServicioDetalle}
-        name="ServicioDetalle"
+        name={AuthNavigationScreenKey.SERVICIODETALLE}
         options={{ headerTitle: 'Detalle del Servicio' }}
       />
       <TabInicioStack.Screen
         component={ServicioGenerar}
-        name="ServicioGenerar"
+        name={AuthNavigationScreenKey.SERVICIOGENERAR}
         options={{ headerTitle: 'Crear un Servicio' }}
       />
       <TabInicioStack.Screen
@@ -136,30 +140,31 @@ function TabInicioNavigator() {
         initialParams={{
           authenticated: true,
         }}
-        name="DenunciaListado"
+        name={AuthNavigationScreenKey.DENUNCIALISTADO}
       />
       <TabInicioStack.Screen
         component={DenunciaDetalle}
-        name="DenunciaDetalle"
+        name={AuthNavigationScreenKey.DENUNCIADETALLE}
       />
       <TabInicioStack.Screen
         component={DenunciaGenerar}
-        name="DenunciaGenerar"
+        name={AuthNavigationScreenKey.DENUNCIAGENERAR}
+        options={{ headerTitle: 'Generar una denuncia' }}
       />
       <TabInicioStack.Screen
         component={ReclamoListado}
         initialParams={{ authenticated: true }}
-        name="ReclamoListado"
+        name={AuthNavigationScreenKey.RECLAMOLISTADO}
         options={{ headerTitle: 'Reclamos' }}
       />
       <TabInicioStack.Screen
         component={ReclamoDetalle}
-        name="ReclamoDetalle"
+        name={AuthNavigationScreenKey.RECLAMODETALLE}
         options={{ headerTitle: 'Detalle del Reclamo' }}
       />
       <TabInicioStack.Screen
         component={ReclamoGenerar}
-        name="ReclamoGenerar"
+        name={AuthNavigationScreenKey.RECLAMOGENERAR}
         options={{ headerTitle: 'Crear Reclamo' }}
       />
     </TabInicioStack.Navigator>
