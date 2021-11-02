@@ -2,6 +2,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import * as React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
+import { AuthNavigationScreenKey } from '../constants/NavigationKeys'
 import { RootStackParamList } from '../types'
 
 export default function NotFoundScreen({
@@ -11,7 +12,7 @@ export default function NotFoundScreen({
     <View style={styles.container}>
       <Text style={styles.title}>Esta página no existe</Text>
       <TouchableOpacity
-        onPress={() => navigation.replace('Inicio')}
+        onPress={() => navigation.replace(AuthNavigationScreenKey.INICIO)}
         style={styles.link}
       >
         <Text style={styles.linkText}>Go to home screen!</Text>
