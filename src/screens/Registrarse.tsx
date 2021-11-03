@@ -12,7 +12,6 @@ import {
 export default function Registrarse(): JSX.Element {
   const [dni, setDNI] = React.useState('')
   const [email, setEmail] = React.useState('')
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
   return (
     <View style={styles.container}>
