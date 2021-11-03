@@ -2,7 +2,7 @@
 import { useNavigation } from '@react-navigation/native'
 import axios from 'axios'
 import React, { useState } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 
 import useAuth from '../components/providers/useAuth'
@@ -10,18 +10,18 @@ import { NavigationScreenKey } from '../constants/NavigationKeys'
 
 export default function Login(): JSX.Element {
   const navigator = useNavigation()
-  const [dni, setDNI] = useState('')
+  const [docu, setDocu] = useState('')
   const [clave, setClave] = useState('')
   const { setToken } = useAuth()
 
   const ingresar = () => {
     const data = {
       contraseña: clave,
-      email: dni,
+      documento: docu,
     }
 
     axios
-      .post('http://192.168.0.10:4000/users/login', JSON.stringify(data), {
+      .post(`http://192.168.0.10:4000/users/login`, JSON.stringify(data), {
         headers: {
           'content-type': 'application/json',
         },
@@ -30,7 +30,7 @@ export default function Login(): JSX.Element {
         setToken(res.data.token)
         navigator.navigate(NavigationScreenKey.AUTHENTICATED_STACK)
       })
-      .catch((error) => console.log(error.response.request._response))
+      .catch(() => Alert.alert('Documento y/o contraseña incorrecta'))
     // TODO: Agregar popup con información para el usuario
   }
 
@@ -39,12 +39,12 @@ export default function Login(): JSX.Element {
       <View style={{ flex: 3, marginTop: 40 }}>
         <TextInput
           keyboardType="email-address"
-          onChangeText={setDNI}
+          onChangeText={setDocu}
           placeholder="Ingrese su DNI o Legajo"
           placeholderTextColor="#409DC4"
           style={styles.input}
           textContentType="username"
-          value={dni}
+          value={docu}
         />
 
         <TextInput

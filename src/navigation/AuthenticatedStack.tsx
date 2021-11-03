@@ -66,11 +66,16 @@ const TabPerfilStack = createStackNavigator<TabPerfilParamList>()
 
 function TabPerfilNavigator() {
   return (
-    <TabPerfilStack.Navigator>
+    <TabPerfilStack.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: '#409DC4' },
+        headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: 'bold' },
+      }}
+    >
       <TabPerfilStack.Screen
         component={PerfilUsuario}
         name="TabPerfilScreen" // Reemplazar TabOneScreen por Perfil cuando esté implementado
-        // options={headerOptions("Perfil")}
       />
     </TabPerfilStack.Navigator>
   )
@@ -78,26 +83,19 @@ function TabPerfilNavigator() {
 
 const TabInicioStack = createStackNavigator<TabInicioParamList>()
 
-// Se pasa en las TabXXX.Screen
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const headerOptions = {
-  headerStyle: {
-    backgroundColor: '#409DC4',
-  },
-  headerTintColor: '#fff',
-  headerTitleStyle: {
-    fontWeight: 'bold',
-  },
-}
-
 function TabInicioNavigator() {
   return (
-    <TabInicioStack.Navigator>
+    <TabInicioStack.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: '#409DC4' },
+        headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: 'bold' },
+      }}
+    >
       <TabInicioStack.Screen
         component={Bienvenido}
         initialParams={{ authenticated: true }}
         name={AuthNavigationScreenKey.BIENVENIDO}
-        // options={{ headerOptions }}
         options={{ title: '' }}
       />
       <TabInicioStack.Screen
@@ -176,11 +174,16 @@ const TabNotificacionesStack =
 
 function TabNotificacionNavigator() {
   return (
-    <TabNotificacionesStack.Navigator>
+    <TabNotificacionesStack.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: '#409DC4' },
+        headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: 'bold' },
+      }}
+    >
       <TabNotificacionesStack.Screen
         component={TabTwoScreen}
         name="TabNotificacionesScreen" // Reemplazar TabTwoScreen por Notificacion cuando esté implementado
-        // options={headerOptions("Notificaciones")}
       />
     </TabNotificacionesStack.Navigator>
   )
