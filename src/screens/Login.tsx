@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import { useNavigation } from '@react-navigation/native'
+import axios from 'axios'
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
@@ -9,11 +10,29 @@ export default function Login(): JSX.Element {
   const [dni, setDNI] = React.useState('')
   const [clave, setClave] = React.useState('')
 
+  const ingresar = () => {
+    const data = {
+      contraseña: clave,
+      email: dni,
+    }
+
+    axios
+      .post('http://192.168.0.10:4000/users/login', JSON.stringify(data), {
+        headers: {
+          'content-type': 'application/json',
+        },
+      })
+      .then((res) =>
+        navigator.navigate('AuthenticatedStack', { token: res.data.token }),
+      )
+      .catch((error) => console.log(error.response.request._response))
+  }
+
   return (
     <View style={styles.container}>
       <View style={{ flex: 3, marginTop: 40 }}>
         <TextInput
-          keyboardType="number-pad"
+          keyboardType="email-address"
           onChangeText={setDNI}
           placeholder="Ingrese su DNI o Legajo"
           placeholderTextColor="#409DC4"
@@ -33,10 +52,7 @@ export default function Login(): JSX.Element {
           value={clave}
         />
 
-        <TouchableOpacity
-          onPress={() => navigator.navigate('AuthenticatedStack')}
-          style={styles.button}
-        >
+        <TouchableOpacity onPress={() => ingresar()} style={styles.button}>
           <Text style={styles.ingresar}>INGRESAR</Text>
         </TouchableOpacity>
 
