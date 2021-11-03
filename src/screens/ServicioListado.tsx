@@ -3,6 +3,7 @@ import React from 'react'
 import { Button } from 'react-native'
 
 import { Text, View } from '../components/Themed'
+import { AuthNavigationScreenKey } from '../constants/NavigationKeys'
 
 interface ServicioListadoProps {
   route: RouteProp<{ params: { authenticated: boolean } }, 'params'>
@@ -19,14 +20,14 @@ export default function ServicioListado({
       {authenticated && (
         <Button
           onPress={() => {
-            navigation.navigate('ServicioGenerar')
+            navigation.navigate(AuthNavigationScreenKey.SERVICIOGENERAR)
           }}
           title="Generar Servicio"
         />
       )}
       <Button
         onPress={() => {
-          navigation.navigate('ServicioDetalle')
+          navigation.navigate(AuthNavigationScreenKey.SERVICIODETALLE)
         }}
         title="Ver detalle"
       />

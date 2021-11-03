@@ -1,14 +1,18 @@
 /* eslint-disable react-native/no-inline-styles */
 import { useNavigation } from '@react-navigation/native'
 import axios from 'axios'
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 
+import useAuth from '../components/providers/useAuth'
+import { NavigationScreenKey } from '../constants/NavigationKeys'
+
 export default function Login(): JSX.Element {
   const navigator = useNavigation()
-  const [dni, setDNI] = React.useState('')
-  const [clave, setClave] = React.useState('')
+  const [dni, setDNI] = useState('')
+  const [clave, setClave] = useState('')
+  const { setToken } = useAuth()
 
   const ingresar = () => {
     const data = {
@@ -22,10 +26,12 @@ export default function Login(): JSX.Element {
           'content-type': 'application/json',
         },
       })
-      .then((res) =>
-        navigator.navigate('AuthenticatedStack', { token: res.data.token }),
-      )
+      .then((res) => {
+        setToken(res.data.token)
+        navigator.navigate(NavigationScreenKey.AUTHENTICATED_STACK)
+      })
       .catch((error) => console.log(error.response.request._response))
+    // TODO: Agregar popup con información para el usuario
   }
 
   return (
@@ -52,12 +58,14 @@ export default function Login(): JSX.Element {
           value={clave}
         />
 
-        <TouchableOpacity onPress={() => ingresar()} style={styles.button}>
+        <TouchableOpacity onPress={ingresar} style={styles.button}>
           <Text style={styles.ingresar}>INGRESAR</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => navigator.navigate('UnauthenticatedStack')}
+          onPress={() =>
+            navigator.navigate(NavigationScreenKey.UNAUTHENTICATED_STACK)
+          }
         >
           <Text style={styles.sinUsuario}>Ingrese sin usuario</Text>
         </TouchableOpacity>
