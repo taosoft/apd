@@ -46,10 +46,6 @@ export default function Registrarse(): JSX.Element {
         >
           <Text style={styles.registrarse}>REGISTRARSE</Text>
         </TouchableOpacity>
-
-        <Text style={styles.condicion}>
-          Deberá pertenecer al municipio seleccionado
-        </Text>
       </View>
     </View>
   )
