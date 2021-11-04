@@ -1,10 +1,4 @@
-/*
- 
-¡¡¡¡Atencion!!!! Lo de este archivo lo copie y pegue desde reclamo.service.ts
-Le cambie cada lugar que decia reclamo/reclamos por denuncia/denuncias y nada mas.
-Hay que revisar que lo demas este todo en orden.
- 
-*/
+import { Alert } from 'react-native'
 
 import CreateDenuncia, {
   DenunciaModel,
@@ -21,16 +15,21 @@ import { GenerateType, useCache } from './useCache'
 export default function useDenuncias() {
   const { cache, changeCache } = useCache()
 
-  async function submitDenuncia(): Promise<void> {
-    const uploadImagesResponses = uploadImages()
-    console.log(uploadImagesResponses)
-    CreateDenuncia({
-      ...cache.generarReclamo,
-      archivosURL: uploadImagesResponses
-        .map((imagen) => imagen.response?.secure_url ?? '')
-        .join(';'),
-    })
-    clearDenuncia()
+  async function submitDenuncia(): Promise<boolean> {
+    const uploadImagesResponses = await uploadImages()
+    try {
+      CreateDenuncia({
+        ...cache.generarDenuncia,
+        archivosURL: uploadImagesResponses
+          .map((imagen) => imagen.response?.secure_url ?? '')
+          .join(';'),
+      })
+      clearDenuncia()
+      return true
+    } catch (e) {
+      Alert.alert(e)
+      return false
+    }
   }
 
   async function uploadImages(): Promise<UploadImageResponse[]> {

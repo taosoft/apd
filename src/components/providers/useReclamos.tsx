@@ -1,3 +1,5 @@
+import { Alert } from 'react-native'
+
 import {
   cloudinaryUpload,
   UploadImageResponse,
@@ -13,16 +15,21 @@ import { GenerateType, useCache } from './useCache'
 export default function useReclamos() {
   const { cache, changeCache } = useCache()
 
-  async function submitReclamo(): Promise<void> {
+  async function submitReclamo(): Promise<boolean> {
     const uploadImagesResponses = await uploadImages()
-    console.log(uploadImagesResponses)
-    CreateReclamo({
-      ...cache.generarReclamo,
-      archivosURL: uploadImagesResponses
-        .map((imagen) => imagen.response?.secure_url ?? '')
-        .join(';'),
-    })
-    clearReclamo()
+    try {
+      await CreateReclamo({
+        ...cache.generarReclamo,
+        archivosURL: uploadImagesResponses
+          .map((imagen) => imagen.response?.secure_url ?? '')
+          .join(';'),
+      })
+      clearReclamo()
+      return true
+    } catch (e) {
+      Alert.alert(e)
+      return false
+    }
   }
 
   async function uploadImages(): Promise<UploadImageResponse[]> {
@@ -49,6 +56,39 @@ export default function useReclamos() {
         lugar: '',
         reason: '',
         rubro: '',
+      },
+    })
+  }
+
+  function setDesperfecto(desperfecto: string): void {
+    changeCache({
+      generarReclamo: {
+        ...cache.generarReclamo,
+        desperfecto: desperfecto,
+      },
+    })
+  }
+  function setLugar(lugar: string): void {
+    changeCache({
+      generarReclamo: {
+        ...cache.generarReclamo,
+        lugar: lugar,
+      },
+    })
+  }
+  function setReason(reason: string): void {
+    changeCache({
+      generarReclamo: {
+        ...cache.generarReclamo,
+        reason: reason,
+      },
+    })
+  }
+  function setRubro(rubro: string): void {
+    changeCache({
+      generarReclamo: {
+        ...cache.generarReclamo,
+        rubro: rubro,
       },
     })
   }
@@ -95,6 +135,10 @@ export default function useReclamos() {
     getReclamos,
     reclamo: cache.generarReclamo,
     removeImage,
+    setDesperfecto,
+    setLugar,
+    setReason,
+    setRubro,
     submitReclamo,
   }
 }

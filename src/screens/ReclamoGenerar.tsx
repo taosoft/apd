@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { Alert, ScrollView, StyleSheet, TextInput } from 'react-native'
 
@@ -14,21 +15,23 @@ export default function ReclamoGenerar(): JSX.Element {
     removeImage,
     reclamo,
     submitReclamo,
+    setDesperfecto,
+    setLugar,
+    setReason,
+    setRubro,
   } = useReclamos()
 
-  const [reclamoLugar, setReclamoLugar] = useState<string>(reclamo.lugar)
-  const [reclamoRubro, setReclamoRubro] = useState<string>(reclamo.rubro)
-  const [reclamoDesperfecto, setReclamoDesperfecto] = useState<string>(
-    reclamo.desperfecto,
-  )
-  const [reclamoReason, setReclamoReason] = useState<string>(reclamo.reason)
+  const navigation = useNavigation()
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const handleSubmit = async (): Promise<void> => {
     setIsLoading(true)
-    await submitReclamo()
+    const response = await submitReclamo()
     setIsLoading(false)
+    if (response) {
+      navigation.goBack()
+    }
   }
 
   useEffect(() => {
@@ -59,28 +62,28 @@ export default function ReclamoGenerar(): JSX.Element {
     <View style={styles.container}>
       <ScrollView>
         <TextInput
-          onChangeText={setReclamoLugar}
+          onChangeText={setLugar}
           placeholder="Lugar"
           style={styles.input}
-          value={reclamoLugar}
+          value={reclamo.lugar}
         />
         <TextInput
-          onChangeText={setReclamoRubro}
+          onChangeText={setRubro}
           placeholder="Rubro"
           style={styles.input}
-          value={reclamoRubro}
+          value={reclamo.rubro}
         />
         <TextInput
-          onChangeText={setReclamoDesperfecto}
+          onChangeText={setDesperfecto}
           placeholder="Dirección del vecino o comercio"
           style={styles.input}
-          value={reclamoDesperfecto}
+          value={reclamo.desperfecto}
         />
         <TextInput
-          onChangeText={setReclamoReason}
+          onChangeText={setReason}
           placeholder="Motivo de la reclamo"
           style={styles.input}
-          value={reclamoReason}
+          value={reclamo.reason}
         />
         <View
           darkColor="rgba(255,255,255,0.1)"
