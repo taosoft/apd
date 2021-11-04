@@ -1,9 +1,9 @@
 import { RouteProp, useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import {
+  ActivityIndicator,
   FlatList,
   StyleSheet,
-  Text,
   TextInput,
   TouchableOpacity,
 } from 'react-native'
@@ -26,16 +26,17 @@ export default function DenunciaListado({
   const { authenticated } = route.params
   const navigation = useNavigation()
   const [text, setText] = React.useState('')
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const [denuncias, setDenuncias] = useState<DenunciaModel[]>([])
 
   const { getDenuncias } = useDenuncias()
 
   useEffect(() => {
+    setIsLoading(true)
     getDenuncias().then((array) => {
-      console.log('denuncias')
-      console.log(array)
       setDenuncias(array)
+      setIsLoading(false)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -43,7 +44,6 @@ export default function DenunciaListado({
   return (
     // Tincho
     <View style={styles.view}>
-      <Text style={styles.sectionTitle}>Denuncias</Text>
       <View style={styles.viewInline}>
         <TextInput
           // Este componente obtiene el texto que se utilizara para filtrar los resultados
@@ -64,38 +64,54 @@ export default function DenunciaListado({
           <Button
             icon={<Icon color="white" name="plus" size={15} />}
             onPress={() => {
-              navigation.navigate('DenunciaGenerar')
+              navigation.navigate(AuthNavigationScreenKey.DENUNCIAGENERAR)
             }}
           />
         )}
       </View>
-      <FlatList
-        data={denuncias}
-        keyExtractor={(item) => item.idDenuncia.toString()}
-        renderItem={({ item }) => {
-          return (
-            // Al hacer click, abre el reclamo que posee id = item.id
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate(AuthNavigationScreenKey.RECLAMODETALLE, {
-                  id: item.idDenuncia,
-                })
-              }
-            >
-              <ListadoItem
-                fecha={item.fecha.toString()}
-                foto={undefined}
-                titulo={item.documento}
-              />
-            </TouchableOpacity>
-          )
-        }}
-      />
+      {isLoading && (
+        <View style={[styles.container, styles.horizontal]}>
+          <ActivityIndicator animating={true} color={'green'} size={'large'} />
+        </View>
+      )}
+      {!isLoading && (
+        <FlatList
+          data={denuncias}
+          keyExtractor={(item) => item.idDenuncia.toString()}
+          renderItem={({ item }) => {
+            return (
+              // Al hacer click, abre el reclamo que posee id = item.id
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate(AuthNavigationScreenKey.DENUNCIADETALLE, {
+                    id: item.idDenuncia,
+                  })
+                }
+              >
+                <ListadoItem
+                  fecha={item.fecha.toString()}
+                  foto={undefined}
+                  titulo={item.documento}
+                />
+              </TouchableOpacity>
+            )
+          }}
+        />
+      )}
     </View>
   )
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
+  },
   sectionTitle: {
     fontSize: 30,
     margin: 15,
@@ -115,5 +131,6 @@ const styles = StyleSheet.create({
   viewInline: {
     backgroundColor: '#fff',
     flexDirection: 'row',
+    marginTop: 10,
   },
 })

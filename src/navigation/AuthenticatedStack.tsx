@@ -139,10 +139,12 @@ function TabInicioNavigator() {
           authenticated: true,
         }}
         name={AuthNavigationScreenKey.DENUNCIALISTADO}
+        options={{ headerTitle: 'Denuncias' }}
       />
       <TabInicioStack.Screen
         component={DenunciaDetalle}
         name={AuthNavigationScreenKey.DENUNCIADETALLE}
+        options={{ headerTitle: 'Detalle de la denuncia' }}
       />
       <TabInicioStack.Screen
         component={DenunciaGenerar}
