@@ -1,3 +1,10 @@
+import { Alert } from 'react-native'
+
+import CreateDenuncia, {
+  DenunciaModel,
+  GetDenuncia,
+  GetDenuncias,
+} from '../../services/denuncia.service'
 import {
   cloudinaryUpload,
   UploadImageResponse,
@@ -8,10 +15,21 @@ import { GenerateType, useCache } from './useCache'
 export default function useDenuncias() {
   const { cache, changeCache } = useCache()
 
-  async function submitDenuncia(): Promise<void> {
-    const uploadImagesResponses = uploadImages()
-    console.log(uploadImagesResponses)
-    clearDenuncia()
+  async function submitDenuncia(): Promise<boolean> {
+    const uploadImagesResponses = await uploadImages()
+    try {
+      CreateDenuncia({
+        ...cache.generarDenuncia,
+        archivosURL: uploadImagesResponses
+          .map((imagen) => imagen.response?.secure_url ?? '')
+          .join(';'),
+      })
+      clearDenuncia()
+      return true
+    } catch (e) {
+      Alert.alert(e)
+      return false
+    }
   }
 
   async function uploadImages(): Promise<UploadImageResponse[]> {
@@ -20,6 +38,14 @@ export default function useDenuncias() {
         return await cloudinaryUpload(image, GenerateType.DENUNCIA)
       }),
     )
+  }
+
+  async function getDenuncias(): Promise<DenunciaModel[]> {
+    return await GetDenuncias()
+  }
+
+  async function getDenuncia(idReclamo: number): Promise<DenunciaModel> {
+    return await GetDenuncia(idReclamo)
   }
 
   function clearDenuncia(): void {
@@ -74,6 +100,8 @@ export default function useDenuncias() {
     addImage,
     cachedImage: cache.addedPhoto,
     denuncia: cache.generarDenuncia,
+    getDenuncia,
+    getDenuncias,
     removeImage,
     submitDenuncia,
   }

@@ -24,10 +24,6 @@ export interface ReclamoModel {
   bitacora: string
 }
 
-export interface ReclamoResult {
-  data: ReclamoModel[]
-}
-
 export default async function CreateReclamo(
   reclamo: AddReclamo,
 ): Promise<ReclamoModel> {

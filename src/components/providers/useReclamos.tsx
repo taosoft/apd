@@ -17,7 +17,6 @@ export default function useReclamos() {
 
   async function submitReclamo(): Promise<boolean> {
     const uploadImagesResponses = await uploadImages()
-    console.log(uploadImagesResponses)
     try {
       await CreateReclamo({
         ...cache.generarReclamo,
