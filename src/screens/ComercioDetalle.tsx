@@ -1,16 +1,12 @@
 import React from 'react'
 import {
   // Dimensions,
-  LogBox,
   ScrollView,
   StyleSheet,
   Text,
   View,
 } from 'react-native'
 import ImageLayout from 'react-native-image-layout'
-
-LogBox.ignoreLogs(['VirtualizedLists should never be nested'])
-LogBox.ignoreLogs(['Animated: `useNativeDriver` was not specified'])
 
 export default function Login(): JSX.Element {
   // const [dni, setDNI] = React.useState('')

@@ -1,9 +1,6 @@
 import React from 'react'
-import { LogBox, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import ImageLayout from 'react-native-image-layout'
-
-LogBox.ignoreLogs(['VirtualizedLists should never be nested'])
-LogBox.ignoreLogs(['Animated: `useNativeDriver` was not specified'])
 
 export default function Login(): JSX.Element {
   return (
