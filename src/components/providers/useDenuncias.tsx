@@ -1,3 +1,16 @@
+/*
+ 
+¡¡¡¡Atencion!!!! Lo de este archivo lo copie y pegue desde reclamo.service.ts
+Le cambie cada lugar que decia reclamo/reclamos por denuncia/denuncias y nada mas.
+Hay que revisar que lo demas este todo en orden.
+ 
+*/
+
+import CreateDenuncia, {
+  DenunciaModel,
+  GetDenuncia,
+  GetDenuncias,
+} from '../../services/denuncia.service'
 import {
   cloudinaryUpload,
   UploadImageResponse,
@@ -11,6 +24,12 @@ export default function useDenuncias() {
   async function submitDenuncia(): Promise<void> {
     const uploadImagesResponses = uploadImages()
     console.log(uploadImagesResponses)
+    CreateDenuncia({
+      ...cache.generarReclamo,
+      archivosURL: uploadImagesResponses
+        .map((imagen) => imagen.response?.secure_url ?? '')
+        .join(';'),
+    })
     clearDenuncia()
   }
 
@@ -20,6 +39,14 @@ export default function useDenuncias() {
         return await cloudinaryUpload(image, GenerateType.DENUNCIA)
       }),
     )
+  }
+
+  async function getDenuncias(): Promise<DenunciaModel[]> {
+    return await GetDenuncias()
+  }
+
+  async function getDenuncia(idReclamo: number): Promise<DenunciaModel> {
+    return await GetDenuncia(idReclamo)
   }
 
   function clearDenuncia(): void {
@@ -74,6 +101,8 @@ export default function useDenuncias() {
     addImage,
     cachedImage: cache.addedPhoto,
     denuncia: cache.generarDenuncia,
+    getDenuncia,
+    getDenuncias,
     removeImage,
     submitDenuncia,
   }
