@@ -64,7 +64,7 @@ export async function GetReclamos(): Promise<ReclamoModel[]> {
 export async function GetReclamo(idReclamo: number): Promise<ReclamoModel> {
   try {
     const result = await axios.get<ReclamoModel>(
-      `http://192.168.0.10:4000/reclamos/${idReclamo}`,
+      `http://192.168.0.25:4000/reclamos/${idReclamo}`,
       {
         headers: { 'Content-Type': 'application/json' },
       },

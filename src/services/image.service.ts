@@ -24,12 +24,12 @@ export async function cloudinaryUpload(
   }
 
   try {
-    const result = await axios.post<CloudinaryResponse>(
+    const result = await axios.post(
       'https://api.cloudinary.com/v1_1/apd-2021-uade/image/upload',
+      data,
       {
-        body: JSON.stringify(data),
         headers: {
-          'content-type': 'application/json',
+          'Content-Type': 'application/json',
         },
       },
     )
