@@ -6,6 +6,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  ScrollView
 } from 'react-native'
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -41,6 +42,7 @@ export default function ServicioListado({
 
   return (
     <View style={styles.view}>
+      <ScrollView keyboardShouldPersistTaps="always">
       <Text style={styles.sectionTitle}>Servicios profesionales</Text>
       <View style={styles.viewInline}>
         <TextInput
@@ -87,6 +89,7 @@ export default function ServicioListado({
           )
         }}
       />
+      </ScrollView>
     </View>
   )
 }

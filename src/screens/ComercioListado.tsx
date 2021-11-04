@@ -6,6 +6,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  ScrollView
 } from 'react-native'
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -41,52 +42,54 @@ export default function ComercioListado({
 
   return (
     <View style={styles.view}>
-      <Text style={styles.sectionTitle}>Comercios</Text>
-      <View style={styles.viewInline}>
-        <TextInput
-          autoCapitalize="none"
-          defaultValue={text}
-          onChangeText={(text) => setText(text)}
-          onSubmitEditing={() => {
-            // Como reaccionar cuando presiona el boton "submit" en el teclado
-          }}
-          placeholder="Buscar"
-          placeholderTextColor="#D3D3D3"
-          style={styles.textInput}
-          underlineColorAndroid="transparent"
-        />
-        {authenticated && (
-          <Button
-            icon={<Icon color="white" name="plus" size={15} />}
-            onPress={() => {
-              navigation.navigate('ComercioGenerar')
+      <ScrollView keyboardShouldPersistTaps="always">
+        <Text style={styles.sectionTitle}>Comercios</Text>
+        <View style={styles.viewInline}>
+          <TextInput
+            autoCapitalize="none"
+            defaultValue={text}
+            onChangeText={(text) => setText(text)}
+            onSubmitEditing={() => {
+              // Como reaccionar cuando presiona el boton "submit" en el teclado
             }}
+            placeholder="Buscar"
+            placeholderTextColor="#D3D3D3"
+            style={styles.textInput}
+            underlineColorAndroid="transparent"
           />
-        )}
-      </View>
-      {/* Tincho: aca poner el listado de comercios. recordar q van con filtro  */}
-      <FlatList
-        data={DATA}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => {
-          return (
-            /*
-              Se supone que al hacer click, va a abrir el comercio con id = item.id
-            */
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('ComercioDetalle', { id: item.id })
-              }
-            >
-              <ListadoItem
-                fecha={item.fecha}
-                foto={item.foto}
-                titulo={item.titulo}
-              />
-            </TouchableOpacity>
-          )
-        }}
-      />
+          {authenticated && (
+            <Button
+              icon={<Icon color="white" name="plus" size={15} />}
+              onPress={() => {
+                navigation.navigate('ComercioGenerar')
+              }}
+            />
+          )}
+        </View>
+        {/* Tincho: aca poner el listado de comercios. recordar q van con filtro  */}
+        <FlatList
+          data={DATA}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => {
+            return (
+              /*
+                Se supone que al hacer click, va a abrir el comercio con id = item.id
+              */
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('ComercioDetalle', { id: item.id })
+                }
+              >
+                <ListadoItem
+                  fecha={item.fecha}
+                  foto={item.foto}
+                  titulo={item.titulo}
+                />
+              </TouchableOpacity>
+            )
+          }}
+        />
+      </ScrollView>
     </View>
   )
 }
