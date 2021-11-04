@@ -2,7 +2,11 @@ import {
   cloudinaryUpload,
   UploadImageResponse,
 } from '../../services/image.service'
-import CreateReclamo from '../../services/reclamo.service'
+import CreateReclamo, {
+  GetReclamo,
+  GetReclamos,
+  ReclamoModel,
+} from '../../services/reclamo.service'
 import { GenerateType, useCache } from './useCache'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -27,6 +31,14 @@ export default function useReclamos() {
         return await cloudinaryUpload(image, GenerateType.RECLAMO)
       }),
     )
+  }
+
+  async function getReclamos(): Promise<ReclamoModel[]> {
+    return await GetReclamos()
+  }
+
+  async function getReclamo(idReclamo: number): Promise<ReclamoModel> {
+    return await GetReclamo(idReclamo)
   }
 
   function clearReclamo(): void {
@@ -79,6 +91,8 @@ export default function useReclamos() {
     addCachedImage,
     addImage,
     cachedImage: cache.addedPhoto,
+    getReclamo,
+    getReclamos,
     reclamo: cache.generarReclamo,
     removeImage,
     submitReclamo,

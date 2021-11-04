@@ -2,6 +2,7 @@ import { RouteProp, useNavigation } from '@react-navigation/native'
 import React from 'react'
 import {
   FlatList,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -41,52 +42,54 @@ export default function ServicioListado({
 
   return (
     <View style={styles.view}>
-      <Text style={styles.sectionTitle}>Servicios profesionales</Text>
-      <View style={styles.viewInline}>
-        <TextInput
-          autoCapitalize="none"
-          defaultValue={text}
-          onChangeText={(text) => setText(text)}
-          onSubmitEditing={() => {
-            // Como reaccionar cuando presiona el boton "submit" en el teclado
-          }}
-          placeholder="Buscar"
-          placeholderTextColor="#D3D3D3"
-          style={styles.textInput}
-          underlineColorAndroid="transparent"
-        />
-        {authenticated && (
-          <Button
-            icon={<Icon color="white" name="plus" size={15} />}
-            onPress={() => {
-              navigation.navigate('ServicioGenerar')
+      <ScrollView keyboardShouldPersistTaps="always">
+        <Text style={styles.sectionTitle}>Servicios profesionales</Text>
+        <View style={styles.viewInline}>
+          <TextInput
+            autoCapitalize="none"
+            defaultValue={text}
+            onChangeText={(changedText) => setText(changedText)}
+            onSubmitEditing={() => {
+              // Como reaccionar cuando presiona el boton "submit" en el teclado
             }}
+            placeholder="Buscar"
+            placeholderTextColor="#D3D3D3"
+            style={styles.textInput}
+            underlineColorAndroid="transparent"
           />
-        )}
-      </View>
-      {/* Tincho: aca poner el listado de servicios. recordar q van con filtro  */}
-      <FlatList
-        data={DATA}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => {
-          return (
-            /*
+          {authenticated && (
+            <Button
+              icon={<Icon color="white" name="plus" size={15} />}
+              onPress={() => {
+                navigation.navigate('ServicioGenerar')
+              }}
+            />
+          )}
+        </View>
+        {/* Tincho: aca poner el listado de servicios. recordar q van con filtro  */}
+        <FlatList
+          data={DATA}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => {
+            return (
+              /*
               Se supone que al hacer click, va a abrir el comercio con id = item.id
             */
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('ServicioDetalle', { id: item.id })
-              }
-            >
-              <ListadoItem
-                fecha={item.fecha}
-                foto={item.foto}
-                titulo={item.titulo}
-              />
-            </TouchableOpacity>
-          )
-        }}
-      />
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('ServicioDetalle', { id: item.id })
+                }
+              >
+                <ListadoItem
+                  fecha={item.fecha}
+                  foto={item.foto}
+                  titulo={item.titulo}
+                />
+              </TouchableOpacity>
+            )
+          }}
+        />
+      </ScrollView>
     </View>
   )
 }

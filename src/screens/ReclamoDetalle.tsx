@@ -1,19 +1,42 @@
-import React from 'react'
+import { RouteProp } from '@react-navigation/native'
+import React, { useEffect, useState } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import ImageLayout from 'react-native-image-layout'
 
-export default function Login(): JSX.Element {
+import useReclamos from '../components/providers/useReclamos'
+import { ReclamoModel } from '../services/reclamo.service'
+
+interface ReclamoDetalleProps {
+  route: RouteProp<{ params: { id: number } }, 'params'>
+}
+
+export default function ReclamoDetalle({
+  route,
+}: ReclamoDetalleProps): JSX.Element {
+  const { id } = route.params
+  const { getReclamo } = useReclamos()
+  const [reclamo, setReclamo] = useState<ReclamoModel | undefined>(undefined)
+
+  useEffect(() => {
+    getReclamo(id).then((data) => {
+      console.log('reclamo')
+      console.log(data)
+      setReclamo(data)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <View style={styles.container}>
       <ScrollView keyboardShouldPersistTaps="always">
         <View>
-          <Text style={styles.titleText}>Reclamo #1234567</Text>
-          <Text style={styles.textSubBold}>Estado: Abierto</Text>
+          <Text style={styles.titleText}>Reclamo #{reclamo?.idReclamo}</Text>
+          <Text style={styles.textSubBold}>Estado: {reclamo?.estado}</Text>
           <Text style={styles.text}>Autor: Juan Perez</Text>
-          <Text style={styles.text}>Ubicacion: Calle Falsa 123</Text>
+          <Text style={styles.text}>Ubicacion: {reclamo?.idSitio}</Text>
           <Text style={styles.text}>Rubro:</Text>
           <Text style={styles.text}>Tipo de desperfecto:</Text>
-          <Text style={styles.text}>Texto que detalla la denuncia</Text>
+          <Text style={styles.text}>{reclamo?.descripcion}</Text>
           <Text style={styles.textSubBold}>Archivos</Text>
           <Text style={styles.text}>Input de archivos a definir</Text>
           <Text style={styles.textSubBold}>Imagenes</Text>

@@ -27,7 +27,6 @@ export default function Login(): JSX.Element {
         },
       })
       .then((res) => {
-        console.log('login')
         setToken(res.data.token)
         navigator.navigate(NavigationScreenKey.AUTHENTICATED_STACK)
       })
