@@ -2,18 +2,14 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 export interface BitacoraItemProps {
-  titulo: string
-  fecha: string
-  icono: string
+  evento: string
 }
 
 export default function BitacoraItem(props: BitacoraItemProps): JSX.Element {
   return (
     <View style={styles.container}>
       <Text style={styles.wrapper}>
-        <Text style={styles.text}>{props.titulo}</Text>
-        <Text style={styles.text}>{props.fecha}</Text>
-        <Text style={styles.text}>{props.icono}</Text>
+        <Text style={styles.text}>{props.evento}</Text>
       </Text>
     </View>
   )
