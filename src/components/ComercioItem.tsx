@@ -4,13 +4,13 @@ import { Dimensions, StyleSheet, Text, View } from 'react-native'
 import { Button, Card } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-export interface ListadoItemProps {
+export interface ComercioItemProps {
   titulo: string
   fecha: string
   foto?: string
 }
 
-export default function ListadoItem(props: ListadoItemProps): JSX.Element {
+export default function ComercioItem(props: ComercioItemProps): JSX.Element {
   const navigation = useNavigation()
 
   return (
