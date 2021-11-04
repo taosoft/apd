@@ -21,6 +21,10 @@ export interface ReclamoModel {
   bitacora: string
 }
 
+export interface ReclamoResult {
+  data: ReclamoModel[]
+}
+
 export default async function CreateReclamo(
   reclamo: AddReclamo,
 ): Promise<void> {
@@ -44,13 +48,13 @@ export default async function CreateReclamo(
 
 export async function GetReclamos(): Promise<ReclamoModel[]> {
   try {
-    const result = await axios.get<ReclamoModel[]>(
+    const result = await axios.get<ReclamoResult>(
       'http://192.168.0.25:4000/reclamos',
       {
         headers: { 'Content-Type': 'application/json' },
       },
     )
-    return result.data
+    return result.data.data
   } catch (e) {
     console.log(e)
     return []
