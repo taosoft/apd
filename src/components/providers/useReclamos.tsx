@@ -2,6 +2,7 @@ import {
   cloudinaryUpload,
   UploadImageResponse,
 } from '../../services/image.service'
+import CreateReclamo from '../../services/reclamo.service'
 import { GenerateType, useCache } from './useCache'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -9,8 +10,14 @@ export default function useReclamos() {
   const { cache, changeCache } = useCache()
 
   async function submitReclamo(): Promise<void> {
-    const uploadImagesResponses = uploadImages()
+    const uploadImagesResponses = await uploadImages()
     console.log(uploadImagesResponses)
+    CreateReclamo({
+      ...cache.generarReclamo,
+      archivosURL: uploadImagesResponses
+        .map((imagen) => imagen.response?.secure_url ?? '')
+        .join(';'),
+    })
     clearReclamo()
   }
 
