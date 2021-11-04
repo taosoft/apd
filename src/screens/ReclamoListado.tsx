@@ -3,6 +3,7 @@ import React from 'react'
 import { Button } from 'react-native'
 
 import { Text, View } from '../components/Themed'
+import { AuthNavigationScreenKey } from '../constants/NavigationKeys'
 
 interface ReclamoListadoProps {
   route: RouteProp<{ params: { authenticated: boolean } }, 'params'>
@@ -19,14 +20,14 @@ export default function ReclamoListado({
       {authenticated && (
         <Button
           onPress={() => {
-            navigation.navigate('ReclamoGenerar')
+            navigation.navigate(AuthNavigationScreenKey.RECLAMOGENERAR)
           }}
           title="Generar Reclamo"
         />
       )}
       <Button
         onPress={() => {
-          navigation.navigate('ReclamoDetalle')
+          navigation.navigate(AuthNavigationScreenKey.RECLAMODETALLE)
         }}
         title="Ver detalle"
       />

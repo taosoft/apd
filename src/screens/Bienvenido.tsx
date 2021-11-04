@@ -3,6 +3,8 @@ import { RouteProp, useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
+import { AuthNavigationScreenKey } from '../constants/NavigationKeys'
+
 interface BienvenidoProps {
   route: RouteProp<{ params: { authenticated: boolean } }, 'params'>
 }
@@ -17,13 +19,17 @@ export default function Bienvenido({ route }: BienvenidoProps): JSX.Element {
         {authenticated && (
           <>
             <TouchableOpacity
-              onPress={() => navigation.navigate('ReclamoListado')}
+              onPress={() =>
+                navigation.navigate(AuthNavigationScreenKey.RECLAMOLISTADO)
+              }
               style={styles.button}
             >
               <Text style={styles.text}>Reclamos</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => navigation.navigate('DenunciaListado')}
+              onPress={() =>
+                navigation.navigate(AuthNavigationScreenKey.DENUNCIALISTADO)
+              }
               style={styles.button}
             >
               <Text style={styles.text}>Denuncias</Text>
@@ -32,14 +38,18 @@ export default function Bienvenido({ route }: BienvenidoProps): JSX.Element {
         )}
 
         <TouchableOpacity
-          onPress={() => navigation.navigate('ComercioListado')}
+          onPress={() =>
+            navigation.navigate(AuthNavigationScreenKey.COMERCIOLISTADO)
+          }
           style={styles.button}
         >
           <Text style={styles.text}>Comercios</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => navigation.navigate('ServicioListado')}
+          onPress={() =>
+            navigation.navigate(AuthNavigationScreenKey.SERVICIOLISTADO)
+          }
           style={styles.button}
         >
           <Text style={styles.text}>Servicios Profesionales</Text>

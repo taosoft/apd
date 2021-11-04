@@ -3,6 +3,7 @@ import React from 'react'
 import { Button } from 'react-native'
 
 import { Text, View } from '../components/Themed'
+import { AuthNavigationScreenKey } from '../constants/NavigationKeys'
 
 interface DenunciaListadoProps {
   route: RouteProp<{ params: { authenticated: boolean } }, 'params'>
@@ -19,14 +20,14 @@ export default function DenunciaListado({
       {authenticated && (
         <Button
           onPress={() => {
-            navigation.navigate('DenunciaGenerar')
+            navigation.navigate(AuthNavigationScreenKey.DENUNCIAGENERAR)
           }}
           title="Generar Denuncia"
         />
       )}
       <Button
         onPress={() => {
-          navigation.navigate('DenunciaDetalle')
+          navigation.navigate(AuthNavigationScreenKey.DENUNCIADETALLE)
         }}
         title="Ver detalle"
       />

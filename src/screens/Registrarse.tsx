@@ -1,5 +1,4 @@
 /* eslint-disable react-native/no-inline-styles */
-import { Picker } from '@react-native-picker/picker'
 import React from 'react'
 import {
   Alert,
@@ -13,9 +12,6 @@ import {
 export default function Registrarse(): JSX.Element {
   const [dni, setDNI] = React.useState('')
   const [email, setEmail] = React.useState('')
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [nroTramiteDNI, setNroTramiteDNI] = React.useState('')
-  const [municipio, setMunicipio] = React.useState('nico')
 
   return (
     <View style={styles.container}>
@@ -39,19 +35,13 @@ export default function Registrarse(): JSX.Element {
           textContentType="emailAddress"
           value={email}
         />
-        <Picker
-          mode="dialog"
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          onValueChange={(itemValue, itemIndex) => setMunicipio(itemValue)}
-          selectedValue={municipio}
-          style={styles.municipio}
-        >
-          <Picker.Item label="Nico" value="nico" />
-          <Picker.Item label="San Isidro" value="isidro" />
-        </Picker>
 
         <TouchableOpacity
-          onPress={() => Alert.alert(dni + ' ' + email + ' ' + municipio)}
+          onPress={() =>
+            Alert.alert(
+              'Su solicitud ha sido enviada al municipio para su evaluación',
+            )
+          }
           style={styles.button}
         >
           <Text style={styles.registrarse}>REGISTRARSE</Text>

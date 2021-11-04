@@ -1,25 +1,54 @@
 /* eslint-disable react-native/no-inline-styles */
 import { useNavigation } from '@react-navigation/native'
-import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import axios from 'axios'
+import React, { useState } from 'react'
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
+
+import useAuth from '../components/providers/useAuth'
+import { NavigationScreenKey } from '../constants/NavigationKeys'
 
 export default function Login(): JSX.Element {
   const navigator = useNavigation()
-  const [dni, setDNI] = React.useState('')
-  const [clave, setClave] = React.useState('')
+  const [docu, setDocu] = useState('')
+  const [clave, setClave] = useState('')
+  const { setToken } = useAuth()
+
+  const ingresar = () => {
+    const data = {
+      contraseña: clave,
+      documento: docu,
+    }
+
+    axios
+      .post('http://192.168.0.25/users/login', JSON.stringify(data), {
+        headers: {
+          'content-type': 'application/json',
+        },
+      })
+      .then((res) => {
+        console.log('login')
+        setToken(res.data.token)
+        navigator.navigate(NavigationScreenKey.AUTHENTICATED_STACK)
+      })
+      .catch((e) => {
+        console.log(e)
+        Alert.alert('Documento y/o contraseña incorrecta')
+      })
+    // TODO: Agregar popup con información para el usuario
+  }
 
   return (
     <View style={styles.container}>
       <View style={{ flex: 3, marginTop: 40 }}>
         <TextInput
-          keyboardType="number-pad"
-          onChangeText={setDNI}
+          keyboardType="email-address"
+          onChangeText={setDocu}
           placeholder="Ingrese su DNI o Legajo"
           placeholderTextColor="#409DC4"
           style={styles.input}
           textContentType="username"
-          value={dni}
+          value={docu}
         />
 
         <TextInput
@@ -33,15 +62,14 @@ export default function Login(): JSX.Element {
           value={clave}
         />
 
-        <TouchableOpacity
-          onPress={() => navigator.navigate('AuthenticatedStack')}
-          style={styles.button}
-        >
+        <TouchableOpacity onPress={() => ingresar()} style={styles.button}>
           <Text style={styles.ingresar}>INGRESAR</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => navigator.navigate('UnauthenticatedStack')}
+          onPress={() =>
+            navigator.navigate(NavigationScreenKey.AUTHENTICATED_STACK)
+          }
         >
           <Text style={styles.sinUsuario}>Ingrese sin usuario</Text>
         </TouchableOpacity>

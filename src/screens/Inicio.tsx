@@ -10,6 +10,8 @@ import {
   View,
 } from 'react-native'
 
+import { NavigationScreenKey } from '../constants/NavigationKeys'
+
 export default function Inicio(): JSX.Element {
   const windowWidth = Dimensions.get('window').width
   const windowHeight = Dimensions.get('window').height
@@ -31,14 +33,14 @@ export default function Inicio(): JSX.Element {
         }}
       >
         <TouchableOpacity
-          onPress={() => navigation.navigate('Login')}
+          onPress={() => navigation.navigate(NavigationScreenKey.LOGIN)}
           style={styles(windowWidth * 0.5).button}
         >
           <Text style={styles().text}>INICIAR SESION</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => navigation.navigate('Registrarse')}
+          onPress={() => navigation.navigate(NavigationScreenKey.REGISTRARSE)}
           style={styles(windowWidth * 0.5).button}
         >
           <Text style={styles().text}>REGISTRARSE</Text>
@@ -53,7 +55,9 @@ export default function Inicio(): JSX.Element {
         }}
       >
         <TouchableOpacity
-          onPress={() => navigation.navigate('UnauthenticatedStack')}
+          onPress={() =>
+            navigation.navigate(NavigationScreenKey.UNAUTHENTICATED_STACK)
+          }
           style={styles(windowWidth).button}
         >
           <Text style={styles().text}>SERVICIOS Y COMERCIOS</Text>

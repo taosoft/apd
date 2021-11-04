@@ -4,6 +4,7 @@ export interface Cache {
   addedPhoto?: string
   generarDenuncia: GenerarDenuncia
   generarReclamo: GenerarReclamo
+  token?: string
 }
 
 export interface GenerarDenuncia {
@@ -34,6 +35,7 @@ export interface UpdateCache {
   addedPhoto?: string
   generarDenuncia?: GenerarDenuncia
   generarReclamo?: GenerarReclamo
+  token?: string
 }
 
 export const defaultCache: Cache = {
@@ -57,6 +59,7 @@ export const defaultCache: Cache = {
     reason: '',
     rubro: '',
   },
+  token: undefined,
 }
 
 export const CacheContext = createContext({
@@ -83,9 +86,12 @@ export function CacheProvider(props: CacheProviderProps): JSX.Element {
   function changeCache(config: UpdateCache): void {
     const nextCache = {
       ...cache,
-      ...{
+      ...(config.addedPhoto && {
         addedPhoto: config.addedPhoto,
-      },
+      }),
+      ...(config.token && {
+        token: config.token,
+      }),
       ...(config.generarDenuncia && {
         generarDenuncia: {
           address: config.generarDenuncia.address,
