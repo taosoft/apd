@@ -94,7 +94,7 @@ export default function ReclamoListado({
                 <ListadoItem
                   fecha={item.fecha.toString()}
                   foto={undefined}
-                  titulo={item.documento}
+                  titulo={"Reclamo #" + item.idReclamo.toString()}
                 />
               </TouchableOpacity>
             )
