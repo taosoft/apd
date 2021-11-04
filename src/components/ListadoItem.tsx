@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 export interface ListadoItemProps {
   titulo: string
   fecha: string
-  foto: string
+  foto?: string
 }
 
 export default function ListadoItem(props: ListadoItemProps): JSX.Element {

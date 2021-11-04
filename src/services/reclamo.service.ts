@@ -8,6 +8,19 @@ interface AddReclamo {
   archivosURL: string
 }
 
+export interface ReclamoModel {
+  idReclamo: number
+  documento: string
+  idSitio: number
+  idDesperfecto: number
+  descripcion: string
+  estado: string
+  fecha: Date
+  archivosURL: string
+  IdReclamoUnificado: number
+  bitacora: string
+}
+
 export default async function CreateReclamo(
   reclamo: AddReclamo,
 ): Promise<void> {
@@ -26,5 +39,20 @@ export default async function CreateReclamo(
     )
   } catch (e) {
     console.log(e)
+  }
+}
+
+export async function GetReclamos(): Promise<ReclamoModel[]> {
+  try {
+    const result = await axios.get<ReclamoModel[]>(
+      'http://192.168.0.25:4000/reclamos',
+      {
+        headers: { 'Content-Type': 'application/json' },
+      },
+    )
+    return result.data
+  } catch (e) {
+    console.log(e)
+    return []
   }
 }
