@@ -1,5 +1,8 @@
 import axios from 'axios'
 
+import { Response } from '../common/response'
+import { baseUrl } from '../common/values'
+
 interface AddReclamo {
   lugar: string
   rubro: string
@@ -27,10 +30,10 @@ export interface ReclamoResult {
 
 export default async function CreateReclamo(
   reclamo: AddReclamo,
-): Promise<void> {
+): Promise<ReclamoModel> {
   try {
-    await axios.post(
-      'http://192.168.14.10:4000/reclamos',
+    const response = await axios.post<Response<ReclamoModel>>(
+      `${baseUrl}/reclamos`,
       {
         ...reclamo,
         documento: '12345678',
@@ -41,15 +44,18 @@ export default async function CreateReclamo(
         headers: { 'Content-Type': 'application/json' },
       },
     )
+    console.log(response.data)
+    return response.data.data
   } catch (e) {
     console.log(e)
+    throw e
   }
 }
 
 export async function GetReclamos(): Promise<ReclamoModel[]> {
   try {
-    const result = await axios.get<ReclamoResult>(
-      'http://192.168.14.10:4000/reclamos',
+    const result = await axios.get<Response<ReclamoModel[]>>(
+      `${baseUrl}/reclamos`,
       {
         headers: { 'Content-Type': 'application/json' },
       },
@@ -63,13 +69,13 @@ export async function GetReclamos(): Promise<ReclamoModel[]> {
 
 export async function GetReclamo(idReclamo: number): Promise<ReclamoModel> {
   try {
-    const result = await axios.get<ReclamoModel>(
-      `http://192.168.14.10:4000/reclamos/${idReclamo}`,
+    const result = await axios.get<Response<ReclamoModel>>(
+      `${baseUrl}/reclamos/${idReclamo}`,
       {
         headers: { 'Content-Type': 'application/json' },
       },
     )
-    return result.data
+    return result.data.data
   } catch (e) {
     console.log(e)
     throw e
