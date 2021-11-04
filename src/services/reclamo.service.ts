@@ -13,7 +13,7 @@ export default async function CreateReclamo(
 ): Promise<void> {
   try {
     await axios.post(
-      'http://192.168.0.25:4000/reclamos',
+      'http://192.168.14.10:4000/reclamos',
       {
         ...reclamo,
         documento: '12345678',
