@@ -27,7 +27,7 @@ export default function ReclamoGenerar(): JSX.Element {
 
   const handleSubmit = async (): Promise<void> => {
     setIsLoading(true)
-    submitReclamo()
+    await submitReclamo()
     setIsLoading(false)
   }
 

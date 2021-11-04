@@ -45,7 +45,7 @@ export default function DenunciaGenerar(): JSX.Element {
 
   const handleSubmit = async (): Promise<void> => {
     setIsLoading(true)
-    submitDenuncia()
+    await submitDenuncia()
     setIsLoading(false)
   }
 

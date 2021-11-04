@@ -21,16 +21,20 @@ export default function Login(): JSX.Element {
     }
 
     axios
-      .post(`http://192.168.0.10:4000/users/login`, JSON.stringify(data), {
+      .post('http://192.168.0.25/users/login', JSON.stringify(data), {
         headers: {
           'content-type': 'application/json',
         },
       })
       .then((res) => {
+        console.log('login')
         setToken(res.data.token)
         navigator.navigate(NavigationScreenKey.AUTHENTICATED_STACK)
       })
-      .catch(() => Alert.alert('Documento y/o contraseña incorrecta'))
+      .catch((e) => {
+        console.log(e)
+        Alert.alert('Documento y/o contraseña incorrecta')
+      })
     // TODO: Agregar popup con información para el usuario
   }
 
@@ -58,13 +62,13 @@ export default function Login(): JSX.Element {
           value={clave}
         />
 
-        <TouchableOpacity onPress={ingresar} style={styles.button}>
+        <TouchableOpacity onPress={() => ingresar()} style={styles.button}>
           <Text style={styles.ingresar}>INGRESAR</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           onPress={() =>
-            navigator.navigate(NavigationScreenKey.UNAUTHENTICATED_STACK)
+            navigator.navigate(NavigationScreenKey.AUTHENTICATED_STACK)
           }
         >
           <Text style={styles.sinUsuario}>Ingrese sin usuario</Text>
