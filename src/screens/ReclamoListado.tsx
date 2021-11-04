@@ -31,7 +31,11 @@ export default function ReclamoListado({
   const { getReclamos } = useReclamos()
 
   useEffect(() => {
-    getReclamos().then((array) => setReclamos(array))
+    getReclamos().then((array) => {
+      console.log('reclamos')
+      console.log(array)
+      setReclamos(array)
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
