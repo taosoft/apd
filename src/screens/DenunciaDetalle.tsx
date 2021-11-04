@@ -35,7 +35,7 @@ export default function Login(): JSX.Element {
               // Can be used with different image object fieldnames.
               // Ex. source, source.uri, uri, URI, url, URL
               {
-                uri: 'https://www.olavarria.gov.ar/wp-content/uploads/2017/12/Plaza-Julio-Pagano-B%C2%BA-Bancario-1-1024x683.jpg',
+                uri: 'https://luehangs.site/pic-chat-app-images/beautiful-blond-blonde-hair-478544.jpg',
               },
               // IMPORTANT: It is REQUIRED for LOCAL IMAGES
               // to include a dimensions field with the
@@ -51,7 +51,7 @@ export default function Login(): JSX.Element {
               //     height: 1920 },
               {
                 source: {
-                  uri: 'https://www.pergamino.gob.ar/wp-content/uploads/2019/09/juegos-Plaza-Da%CC%81vila-7-1024x682.jpeg',
+                  uri: 'https://luehangs.site/pic-chat-app-images/beautiful-beautiful-women-beauty-40901.jpg',
                 },
               },
               {
@@ -60,10 +60,10 @@ export default function Login(): JSX.Element {
                 // will help improve performance.
                 dimensions: { height: 1920, width: 1080 },
 
-                uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Plaza_25_de_Mayo_Rosario_2.jpg/1200px-Plaza_25_de_Mayo_Rosario_2.jpg',
+                uri: 'https://luehangs.site/pic-chat-app-images/animals-avian-beach-760984.jpg',
               },
               {
-                URI: 'https://www.msm.gov.ar/wp-content/uploads/2014/12/PLAZA-TRUJUI.jpg',
+                URI: 'https://luehangs.site/pic-chat-app-images/beautiful-blond-fishnet-stockings-48134.jpg',
                 // Version *2.0.0 update (or greater versions):
                 // Optional: Does not require an id for each
                 // image object, but is for best practices and
@@ -71,10 +71,10 @@ export default function Login(): JSX.Element {
                 id: 'blpccx4cn',
               },
               {
-                url: 'https://greatruns.com/wp-content/uploads/2017/05/plaza-holanda.jpg',
+                url: 'https://luehangs.site/pic-chat-app-images/beautiful-beautiful-woman-beauty-9763.jpg',
               },
               {
-                URL: 'https://www.welcomeargentina.com/paseos/plazas_mendoza/plazas_mendoza-2.jpg',
+                URL: 'https://luehangs.site/pic-chat-app-images/attractive-balance-beautiful-186263.jpg',
               },
             ]}
             // Version *5.7.0 update
@@ -87,13 +87,19 @@ export default function Login(): JSX.Element {
           </Text>
           <FlatList
             data={[
-              { evento: 'Reclamo creado el 4 de noviembre de 2021 11:09 hs'},
-              { evento: 'El reclamo cambio a En Proceso el 4 de noviembre de 2021 12:09 hs'},
-              { evento: 'El reclamo cambio a Finalizado el 4 de noviembre de 2021 14:09 hs'},
+              {
+                fecha: 'y Thom se la re come ',
+                icono: 'Mati tambien se la come',
+                titulo: 'Nico es un capo ',
+              },
+              { fecha: 'tuya', icono: 'a mordiscones', titulo: 'La ' },
+              { fecha: 'la ', icono: 'tuya', titulo: 'No, ' },
             ]}
             renderItem={({ item }) => (
               <ItemBitacora
-                evento={item.evento}
+                fecha={item.fecha}
+                icono={item.icono}
+                titulo={item.titulo}
               />
             )}
           />
