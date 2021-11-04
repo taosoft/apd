@@ -68,7 +68,7 @@ export default function Login(): JSX.Element {
 
         <TouchableOpacity
           onPress={() =>
-            navigator.navigate(NavigationScreenKey.AUTHENTICATED_STACK)
+            navigator.navigate(NavigationScreenKey.UNAUTHENTICATED_STACK)
           }
         >
           <Text style={styles.sinUsuario}>Ingrese sin usuario</Text>
