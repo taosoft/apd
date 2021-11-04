@@ -11,7 +11,7 @@ import {
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-import ListadoItem from '../components/ListadoItem'
+import ComercioItem from '../components/ComercioItem'
 import { View } from '../components/Themed'
 
 const DATA = [
@@ -80,7 +80,7 @@ export default function ComercioListado({
                   navigation.navigate('ComercioDetalle', { id: item.id })
                 }
               >
-                <ListadoItem
+                <ComercioItem
                   fecha={item.fecha}
                   foto={item.foto}
                   titulo={item.titulo}
