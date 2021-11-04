@@ -2,7 +2,6 @@ import React from 'react'
 import {
   // Dimensions,
   FlatList,
-  LogBox,
   ScrollView,
   StyleSheet,
   Text,
@@ -11,9 +10,6 @@ import {
 import ImageLayout from 'react-native-image-layout'
 
 import ItemBitacora from '../components/ItemBitacora'
-
-LogBox.ignoreLogs(['VirtualizedLists should never be nested'])
-LogBox.ignoreLogs(['Animated: `useNativeDriver` was not specified'])
 
 export default function Login(): JSX.Element {
   // const [dni, setDNI] = React.useState('')
