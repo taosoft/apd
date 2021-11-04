@@ -20,7 +20,7 @@ export default function Inicio(): JSX.Element {
   return (
     <View style={styles().container}>
       <Image
-        source={{ uri: 'https://via.placeholder.com/600/92c952' }}
+        source={{ uri: 'https://res.cloudinary.com/dmdkxer66/image/upload/v1636056926/Logos/MunicipaliApp_1_xv6gcq.png' }}
         style={{ height: windowHeight * 0.8, width: windowWidth }}
       />
 
