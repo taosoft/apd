@@ -10,7 +10,7 @@ import {
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-import ListadoItem from '../components/ListadoItem'
+import ListadoItem from '../components/ComercioItem'
 import useReclamos from '../components/providers/useReclamos'
 import { View } from '../components/Themed'
 import { AuthNavigationScreenKey } from '../constants/NavigationKeys'
@@ -41,10 +41,12 @@ export default function ReclamoListado({
   }, [])
 
   return (
+    // Tincho
     <View style={styles.view}>
-      <Text style={styles.sectionTitle}>Reclamos profesionales</Text>
+      <Text style={styles.sectionTitle}>Reclamos</Text>
       <View style={styles.viewInline}>
         <TextInput
+          // Este componente obtiene el texto que se utilizara para filtrar los resultados
           autoCapitalize="none"
           defaultValue={text}
           onChangeText={(changedText) => setText(changedText)}
@@ -57,6 +59,8 @@ export default function ReclamoListado({
           underlineColorAndroid="transparent"
         />
         {authenticated && (
+          // Poner boton para filtrar por Tipo
+          // Poner boton para filtrar por Propia
           <Button
             icon={<Icon color="white" name="plus" size={15} />}
             onPress={() => {
@@ -65,15 +69,12 @@ export default function ReclamoListado({
           />
         )}
       </View>
-      {/* Tincho: aca poner el listado de Reclamos. recordar q van con filtro  */}
       <FlatList
         data={reclamos}
         keyExtractor={(item) => item.idReclamo.toString()}
         renderItem={({ item }) => {
           return (
-            /*
-              Se supone que al hacer click, va a abrir el comercio con id = item.id
-            */
+            // Al hacer click, abre el reclamo que posee id = item.id
             <TouchableOpacity
               onPress={() =>
                 navigation.navigate(AuthNavigationScreenKey.RECLAMODETALLE, {
