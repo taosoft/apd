@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import ListadoItem from '../components/ListadoItem'
 import useReclamos from '../components/providers/useReclamos'
 import { View } from '../components/Themed'
+import { AuthNavigationScreenKey } from '../constants/NavigationKeys'
 import { ReclamoModel } from '../services/reclamo.service'
 
 interface ReclamoListadoProps {
@@ -75,7 +76,9 @@ export default function ReclamoListado({
             */
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate('ReclamoDetalle', { id: item.idReclamo })
+                navigation.navigate(AuthNavigationScreenKey.RECLAMODETALLE, {
+                  id: item.idReclamo,
+                })
               }
             >
               <ListadoItem

@@ -2,11 +2,11 @@ import { RouteProp, useNavigation } from '@react-navigation/native'
 import React from 'react'
 import {
   FlatList,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  ScrollView
 } from 'react-native'
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -48,7 +48,7 @@ export default function ComercioListado({
           <TextInput
             autoCapitalize="none"
             defaultValue={text}
-            onChangeText={(text) => setText(text)}
+            onChangeText={(changedText) => setText(changedText)}
             onSubmitEditing={() => {
               // Como reaccionar cuando presiona el boton "submit" en el teclado
             }}

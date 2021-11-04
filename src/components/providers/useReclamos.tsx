@@ -36,7 +36,7 @@ export default function useReclamos() {
   async function getReclamos(): Promise<ReclamoModel[]> {
     return await GetReclamos()
   }
-  
+
   async function getReclamo(idReclamo: number): Promise<ReclamoModel> {
     return await GetReclamo(idReclamo)
   }
@@ -91,6 +91,7 @@ export default function useReclamos() {
     addCachedImage,
     addImage,
     cachedImage: cache.addedPhoto,
+    getReclamo,
     getReclamos,
     reclamo: cache.generarReclamo,
     removeImage,

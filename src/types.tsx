@@ -26,23 +26,31 @@ export type TabInicioParamList = {
   ComercioListado: {
     authenticated: boolean
   }
-  ComercioDetalle: undefined
+  ComercioDetalle: {
+    id: number
+  }
   ComercioGenerar: undefined
   CameraPicker: undefined
   ServicioListado: {
     authenticated: boolean
   }
-  ServicioDetalle: undefined
+  ServicioDetalle: {
+    id: number
+  }
   ServicioGenerar: undefined
   DenunciaListado: {
     authenticated: boolean
   }
-  DenunciaDetalle: undefined
+  DenunciaDetalle: {
+    id: number
+  }
   DenunciaGenerar: undefined
   ReclamoListado: {
     authenticated: boolean
   }
-  ReclamoDetalle: undefined
+  ReclamoDetalle: {
+    id: number
+  }
   ReclamoGenerar: undefined
 }
 
