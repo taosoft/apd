@@ -1,8 +1,9 @@
 import { RouteProp } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native'
 import ImageLayout from 'react-native-image-layout'
 
+import ItemBitacora from '../components/ItemBitacora'
 import useReclamos from '../components/providers/useReclamos'
 import { ReclamoModel } from '../services/reclamo.service'
 
@@ -17,14 +18,28 @@ export default function ReclamoDetalle({
   const { getReclamo } = useReclamos()
   const [reclamo, setReclamo] = useState<ReclamoModel | undefined>(undefined)
 
+  const imagenes =
+    reclamo?.archivosURL.split(';').map((image) => {
+      return { uri: image }
+    }) ?? []
+
+  const itemsBitacora =
+    reclamo?.bitacora.split(';').map((item) => {
+      return {
+        fecha: '',
+        icono: '',
+        titulo: item,
+      }
+    }) ?? []
+
   useEffect(() => {
     getReclamo(id).then((data) => {
-      console.log('reclamo')
-      console.log(data)
       setReclamo(data)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  console.log(imagenes)
 
   return (
     <View style={styles.container}>
@@ -40,63 +55,33 @@ export default function ReclamoDetalle({
           <Text style={styles.textSubBold}>Archivos</Text>
           <Text style={styles.text}>Input de archivos a definir</Text>
           <Text style={styles.textSubBold}>Imagenes</Text>
-
-          <ImageLayout
-            images={[
-              // Version *3.0.0 update (or greater versions):
-              // Can be used with different image object fieldnames.
-              // Ex. source, source.uri, uri, URI, url, URL
-              {
-                uri: 'https://luehangs.site/pic-chat-app-images/beautiful-blond-blonde-hair-478544.jpg',
-              },
-              // IMPORTANT: It is REQUIRED for LOCAL IMAGES
-              // to include a dimensions field with the
-              // actual width and height of the image or
-              // it will throw an error.
-              // { source: require("yourApp/image.png"),
-              //     dimensions: { width: 1080, height: 1920 }
-              // },
-              // "width" & "height" is an alternative to the dimensions
-              // field that will also be acceptable.
-              // { source: require("yourApp/image.png"),
-              //     width: 1080,
-              //     height: 1920 },
-              {
-                source: {
-                  uri: 'https://luehangs.site/pic-chat-app-images/beautiful-beautiful-women-beauty-40901.jpg',
-                },
-              },
-              {
-                // Optional: Adding a dimensions field with
-                // the actual width and height for REMOTE IMAGES
-                // will help improve performance.
-                dimensions: { height: 1920, width: 1080 },
-
-                uri: 'https://luehangs.site/pic-chat-app-images/animals-avian-beach-760984.jpg',
-              },
-              {
-                URI: 'https://luehangs.site/pic-chat-app-images/beautiful-blond-fishnet-stockings-48134.jpg',
-                // Version *2.0.0 update (or greater versions):
-                // Optional: Does not require an id for each
-                // image object, but is for best practices and
-                // can be better for performance with the API.
-                id: 'blpccx4cn',
-              },
-              {
-                url: 'https://luehangs.site/pic-chat-app-images/beautiful-beautiful-woman-beauty-9763.jpg',
-              },
-              {
-                URL: 'https://luehangs.site/pic-chat-app-images/attractive-balance-beautiful-186263.jpg',
-              },
-            ]}
-            // Version *5.7.0 update
-            // onEndReached={() => {
-            //     // add more images when scroll reaches end
-            // }}
-          />
+          {imagenes.length === 0 && (
+            <Text style={styles.text}>No hay imágenes disponibles</Text>
+          )}
+          {imagenes.length !== 0 && (
+            <ImageLayout
+              images={imagenes}
+              // Version *5.7.0 update
+              // onEndReached={() => {
+              //     // add more images when scroll reaches end
+              // }}
+            />
+          )}
           <Text style={styles.textSubBold}>
             Bitacora del estado del reclamo
           </Text>
+          <FlatList
+            data={itemsBitacora}
+            keyExtractor={(item) => item.titulo}
+            renderItem={({ item, index }) => (
+              <ItemBitacora
+                fecha={item.fecha}
+                icono={item.icono}
+                key={index}
+                titulo={item.titulo}
+              />
+            )}
+          />
         </View>
       </ScrollView>
     </View>

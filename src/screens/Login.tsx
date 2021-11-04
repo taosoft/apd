@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 
+import { baseUrl } from '../common/values'
 import useAuth from '../components/providers/useAuth'
 import { NavigationScreenKey } from '../constants/NavigationKeys'
 
@@ -21,7 +22,7 @@ export default function Login(): JSX.Element {
     }
 
     axios
-      .post('http://192.168.14.10:4000/users/login', JSON.stringify(data), {
+      .post(`${baseUrl}/users/login`, JSON.stringify(data), {
         headers: {
           'Content-Type': 'application/json',
         },
