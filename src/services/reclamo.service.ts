@@ -49,7 +49,7 @@ export default async function CreateReclamo(
 export async function GetReclamos(): Promise<ReclamoModel[]> {
   try {
     const result = await axios.get<ReclamoResult>(
-      'http://192.168.0.25:4000/reclamos',
+      'http://192.168.14.10:4000/reclamos',
       {
         headers: { 'Content-Type': 'application/json' },
       },
@@ -64,7 +64,7 @@ export async function GetReclamos(): Promise<ReclamoModel[]> {
 export async function GetReclamo(idReclamo: number): Promise<ReclamoModel> {
   try {
     const result = await axios.get<ReclamoModel>(
-      `http://192.168.0.10:4000/reclamos/${idReclamo}`,
+      `http://192.168.14.10:4000/reclamos/${idReclamo}`,
       {
         headers: { 'Content-Type': 'application/json' },
       },
