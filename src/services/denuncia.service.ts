@@ -53,6 +53,7 @@ export async function GetDenuncias(): Promise<DenunciaModel[]> {
         headers: { 'Content-Type': 'application/json' },
       },
     )
+    console.log(result.data.data)
     return result.data.data
   } catch (e) {
     console.log(e)

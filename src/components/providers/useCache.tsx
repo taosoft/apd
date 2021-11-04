@@ -43,18 +43,14 @@ export const defaultCache: Cache = {
   generarDenuncia: {
     address: '',
     date: '',
-    images: [
-      'https://res.cloudinary.com/apd-2021-uade/image/upload/v1630022899/APD/reportes/t462hslh7drwgnrzlraw.jpg',
-    ],
+    images: [],
     isTermsAndConditions: false,
     name: '',
     reason: '',
   },
   generarReclamo: {
     desperfecto: '',
-    images: [
-      'https://res.cloudinary.com/apd-2021-uade/image/upload/v1630022899/APD/reportes/t462hslh7drwgnrzlraw.jpg',
-    ],
+    images: [],
     lugar: '',
     reason: '',
     rubro: '',
