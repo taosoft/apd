@@ -3,6 +3,7 @@ import {
   UploadImageResponse,
 } from '../../services/image.service'
 import CreateReclamo, {
+  GetReclamo,
   GetReclamos,
   ReclamoModel,
 } from '../../services/reclamo.service'
@@ -34,6 +35,10 @@ export default function useReclamos() {
 
   async function getReclamos(): Promise<ReclamoModel[]> {
     return await GetReclamos()
+  }
+  
+  async function getReclamo(idReclamo: number): Promise<ReclamoModel> {
+    return await GetReclamo(idReclamo)
   }
 
   function clearReclamo(): void {

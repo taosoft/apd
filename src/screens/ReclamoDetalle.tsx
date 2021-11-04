@@ -1,8 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import ImageLayout from 'react-native-image-layout'
 
-export default function Login(): JSX.Element {
+import useReclamos from '../components/providers/useReclamos'
+
+export default function ReclamoDetalle({ id }: number): JSX.Element {
+  const { getReclamo } = useReclamos()
+  const [reclamo, setReclamo] = useState([])
+
+  useEffect(() => {
+    getReclamo(id).then((data) => {
+      console.log('reclamo')
+      console.log(data)
+      setReclamo(data)
+    })
+  }, [])
+
   return (
     <View style={styles.container}>
       <ScrollView keyboardShouldPersistTaps="always">
