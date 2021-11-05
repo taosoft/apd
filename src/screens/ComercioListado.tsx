@@ -15,15 +15,15 @@ import { View } from '../components/Themed'
 
 const DATA = [
   {
-    fecha: '12/10/2021',
     foto: '',
     id: '1',
+    texto: 'Tenemos todo lo que necesites',
     titulo: 'Ferretería Freire',
   },
   {
-    fecha: '11/10/2021',
     foto: '',
     id: '2',
+    texto: 'Abierto las 24hs',
     titulo: 'Farmacia La Danesa',
   },
 ]
@@ -79,8 +79,8 @@ export default function ComercioListado({
                 }
               >
                 <ComercioItem
-                  fecha={item.fecha}
                   foto={item.foto}
+                  texto={item.texto}
                   titulo={item.titulo}
                 />
               </TouchableOpacity>
