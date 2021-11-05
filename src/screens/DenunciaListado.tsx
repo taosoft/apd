@@ -71,7 +71,12 @@ export default function DenunciaListado({
       </View>
       {isLoading && (
         <View style={[styles.container, styles.horizontal]}>
-          <ActivityIndicator animating={true} color={'green'} size={'large'} />
+          <ActivityIndicator
+            animating={true}
+            color={'green'}
+            size={'large'}
+            style={styles.loadingIcon}
+          />
         </View>
       )}
       {!isLoading && (
@@ -111,6 +116,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     padding: 10,
+  },
+  loadingIcon: {
+    left: '50%',
+    position: 'relative',
+    top: '70%',
   },
   sectionTitle: {
     fontSize: 30,

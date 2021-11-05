@@ -4,7 +4,6 @@ import {
   FlatList,
   ScrollView,
   StyleSheet,
-  Text,
   TextInput,
   TouchableOpacity,
 } from 'react-native'
@@ -16,15 +15,16 @@ import { View } from '../components/Themed'
 
 const DATA = [
   {
-    fecha: '12/10/2021',
     foto: '',
     id: '1',
+    texto:
+      'Hago arreglos desde cambio de cueritos hasta reforma de baños y cocinas.',
     titulo: 'Plomeria Cacho',
   },
   {
-    fecha: '11/10/2021',
     foto: '',
     id: '2',
+    texto: 'Trabajo de lunes a sabados de 8hs a 18hs.',
     titulo: 'Instalacion de Aire Acondicionado JuanCa',
   },
 ]
@@ -43,7 +43,6 @@ export default function ServicioListado({
   return (
     <View style={styles.view}>
       <ScrollView keyboardShouldPersistTaps="always">
-        <Text style={styles.sectionTitle}>Servicios profesionales</Text>
         <View style={styles.viewInline}>
           <TextInput
             autoCapitalize="none"
@@ -81,8 +80,8 @@ export default function ServicioListado({
                 }
               >
                 <ServicioItem
-                  fecha={item.fecha}
                   foto={item.foto}
+                  texto={item.texto}
                   titulo={item.titulo}
                 />
               </TouchableOpacity>
@@ -114,5 +113,6 @@ const styles = StyleSheet.create({
   viewInline: {
     backgroundColor: '#fff',
     flexDirection: 'row',
+    marginTop: 10,
   },
 })
