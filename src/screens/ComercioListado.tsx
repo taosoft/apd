@@ -4,7 +4,6 @@ import {
   FlatList,
   ScrollView,
   StyleSheet,
-  Text,
   TextInput,
   TouchableOpacity,
 } from 'react-native'
@@ -43,7 +42,6 @@ export default function ComercioListado({
   return (
     <View style={styles.view}>
       <ScrollView keyboardShouldPersistTaps="always">
-        <Text style={styles.sectionTitle}>Comercios</Text>
         <View style={styles.viewInline}>
           <TextInput
             autoCapitalize="none"
@@ -114,5 +112,6 @@ const styles = StyleSheet.create({
   viewInline: {
     backgroundColor: '#fff',
     flexDirection: 'row',
+    marginTop: 10,
   },
 })

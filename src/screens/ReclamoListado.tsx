@@ -69,10 +69,14 @@ export default function ReclamoListado({
           />
         )}
       </View>
-      {/* Tincho: aca poner el listado de Reclamos. recordar q van con filtro  */}
       {isLoading && (
         <View style={[styles.container, styles.horizontal]}>
-          <ActivityIndicator animating={true} color={'green'} size={'large'} />
+          <ActivityIndicator
+            animating={true}
+            color={'white'}
+            size={'large'}
+            style={styles.loadingIcon}
+          />
         </View>
       )}
       {!isLoading && (
@@ -92,7 +96,7 @@ export default function ReclamoListado({
                 <ListadoItem
                   fecha={item.fecha.toString()}
                   foto={undefined}
-                  titulo={"Reclamo #" + item.idReclamo.toString()}
+                  titulo={'Reclamo #' + item.idReclamo.toString()}
                 />
               </TouchableOpacity>
             )
@@ -112,6 +116,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     padding: 10,
+  },
+  loadingIcon: {
+    left: '50%',
+    position: 'relative',
+    top: '70%',
   },
   sectionTitle: {
     fontSize: 30,
