@@ -31,8 +31,9 @@ export default async function CreateDenuncia(
       `${baseUrl}/denuncias`,
       {
         ...denuncia,
+        aceptaResponsabilidad: denuncia.isTermsAndConditions,
         documento: '12345678',
-        idDesperfecto: '1',
+        fechaHecho: denuncia.date,
         idSitio: '1',
       },
       {
@@ -45,16 +46,18 @@ export default async function CreateDenuncia(
   }
 }
 
-export async function GetDenuncias(): Promise<DenunciaModel[]> {
+export async function GetDenuncias(
+  documento: string,
+): Promise<DenunciaModel[]> {
   try {
     const result = await axios.get<Response<DenunciaModel[]>>(
-      `${baseUrl}/denuncias`,
+      `${baseUrl}/denuncias/${documento}`,
       {
         headers: { 'Content-Type': 'application/json' },
       },
     )
     console.log(result.data.data)
-    return result.data.data
+    return result.data.data ?? []
   } catch (e) {
     console.log(e)
     return []

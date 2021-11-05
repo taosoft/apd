@@ -75,7 +75,7 @@ export default function ReclamoGenerar(): JSX.Element {
         />
         <TextInput
           onChangeText={setDesperfecto}
-          placeholder="Dirección del vecino o comercio"
+          placeholder="Desperfecto"
           style={styles.input}
           value={reclamo.desperfecto}
         />

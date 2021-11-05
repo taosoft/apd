@@ -6,6 +6,7 @@ import { baseUrl } from '../common/values'
 interface AddReclamo {
   lugar: string
   rubro: string
+  documento: string
   desperfecto: string
   reason: string
   archivosURL: string

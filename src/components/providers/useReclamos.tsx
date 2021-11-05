@@ -23,6 +23,7 @@ export default function useReclamos() {
         archivosURL: uploadImagesResponses
           .map((imagen) => imagen.response?.secure_url ?? '')
           .join(';'),
+        documento: '12345678',
       })
       clearReclamo()
       return true
