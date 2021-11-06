@@ -104,6 +104,7 @@ function TabInicioNavigator() {
           authenticated: true,
         }}
         name={AuthNavigationScreenKey.COMERCIOLISTADO}
+        options={{ headerTitle: 'Comercios' }}
       />
       <TabInicioStack.Screen
         component={ComercioDetalle}

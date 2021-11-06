@@ -15,9 +15,9 @@ export default function NotificacionItem(
   return (
     <View style={styles.container}>
       <ListItem bottomDivider>
-        <Avatar source={{ uri: props.imgUsuario }} />
+        <Avatar rounded size="medium" source={{ uri: props.imgUsuario }} />
         <ListItem.Content>
-          <ListItem.Title>{props.titulo}</ListItem.Title>
+          <ListItem.Title style={styles.titulo}>{props.titulo}</ListItem.Title>
           <ListItem.Subtitle>{props.texto}</ListItem.Subtitle>
         </ListItem.Content>
         <ListItem.Chevron />
@@ -32,5 +32,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     width: '100%',
+  },
+  titulo: {
+    fontSize: 19,
+    fontWeight: 'bold',
+    marginBottom: 7,
   },
 })

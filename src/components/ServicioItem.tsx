@@ -1,37 +1,32 @@
-import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { Dimensions, StyleSheet, Text, View } from 'react-native'
-import { Button, Card } from 'react-native-elements'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import { StyleSheet, View } from 'react-native'
+import { Avatar, ListItem } from 'react-native-elements'
 
 export interface ServicioItemProps {
   titulo: string
-  fecha: string
+  texto: string
   foto?: string
 }
 
 export default function ServicioItem(props: ServicioItemProps): JSX.Element {
-  const navigation = useNavigation()
-
   return (
     <View style={styles.container}>
-      <Card containerStyle={{ width: Dimensions.get('window').width - 30 }}>
-        <Card.Title>{props.titulo}</Card.Title>
-        <Card.Divider />
-        <Card.Image
-          source={require('../../borrar-ImagenComercio.jpg')} // aca iria en realidad props.foto
-          style={styles.foto}
+      <ListItem bottomDivider>
+        <Avatar
+          size="large"
+          source={require('../../borrar-ImagenComercio.jpg')}
         />
-        <Button
-          icon={<Icon color="white" name="plus" size={20} />}
-          onPress={() => {
-            navigation.navigate('ServicioDetalle')
-          }}
-          style={styles.cardButton}
-          title=" Ver más"
-        />
-        <Text style={styles.fecha}>Fecha de publicación: {props.fecha}</Text>
-      </Card>
+        {
+          // aca iria en realidad props.foto
+        }
+        <ListItem.Content>
+          <ListItem.Title style={styles.titulo}>{props.titulo}</ListItem.Title>
+          <ListItem.Subtitle style={styles.subtitulo}>
+            {props.texto}
+          </ListItem.Subtitle>
+        </ListItem.Content>
+        <ListItem.Chevron />
+      </ListItem>
     </View>
   )
 }
@@ -46,7 +41,6 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   container: {
-    alignItems: 'flex-end',
     backgroundColor: '#fff',
     flex: 1,
     justifyContent: 'center',
@@ -56,7 +50,12 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
     textAlign: 'left',
   },
-  foto: {
-    width: '100%',
+  subtitulo: {
+    fontSize: 14,
+  },
+  titulo: {
+    fontSize: 19,
+    fontWeight: 'bold',
+    marginBottom: 7,
   },
 })

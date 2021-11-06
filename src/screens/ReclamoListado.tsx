@@ -10,8 +10,8 @@ import {
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-import ListadoItem from '../components/ComercioItem'
 import useReclamos from '../components/providers/useReclamos'
+import ReclamoItem from '../components/ReclamoItem'
 import { View } from '../components/Themed'
 import { AuthNavigationScreenKey } from '../constants/NavigationKeys'
 import { ReclamoModel } from '../services/reclamo.service'
@@ -58,21 +58,38 @@ export default function ReclamoListado({
           style={styles.textInput}
           underlineColorAndroid="transparent"
         />
+        <Button
+          onPress={() => {
+            // ordena segun tipo de reclamo
+          }}
+          style={styles.typeButton}
+          title="Tipo"
+        />
+        <Button
+          onPress={() => {
+            // ordena segun reclamo propio
+          }}
+          style={styles.typeButton}
+          title="Propio"
+        />
         {authenticated && (
-          // Poner boton para filtrar por Tipo
-          // Poner boton para filtrar por Propia
           <Button
-            icon={<Icon color="white" name="plus" size={15} />}
+            icon={<Icon color="white" name="plus" size={23} />}
             onPress={() => {
               navigation.navigate(AuthNavigationScreenKey.RECLAMOGENERAR)
             }}
+            style={styles.typeButton}
           />
         )}
       </View>
-      {/* Tincho: aca poner el listado de Reclamos. recordar q van con filtro  */}
       {isLoading && (
         <View style={[styles.container, styles.horizontal]}>
-          <ActivityIndicator animating={true} color={'green'} size={'large'} />
+          <ActivityIndicator
+            animating={true}
+            color={'white'}
+            size={'large'}
+            style={styles.loadingIcon}
+          />
         </View>
       )}
       {!isLoading && (
@@ -81,9 +98,7 @@ export default function ReclamoListado({
           keyExtractor={(item) => item.idReclamo.toString()}
           renderItem={({ item }) => {
             return (
-              /*
-            Se supone que al hacer click, va a abrir el comercio con id = item.id
-          */
+              // Al hacer click, abre el reclamo que posee id = item.id
               <TouchableOpacity
                 onPress={() =>
                   navigation.navigate(AuthNavigationScreenKey.RECLAMODETALLE, {
@@ -91,10 +106,10 @@ export default function ReclamoListado({
                   })
                 }
               >
-                <ListadoItem
+                <ReclamoItem
                   fecha={item.fecha.toString()}
-                  foto={undefined}
-                  titulo={"Reclamo #" + item.idReclamo.toString()}
+                  lugar={item.idSitio}
+                  numeroReclamo={item.idReclamo}
                 />
               </TouchableOpacity>
             )
@@ -115,18 +130,28 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     padding: 10,
   },
+  loadingIcon: {
+    left: '50%',
+    position: 'relative',
+    top: '70%',
+  },
   sectionTitle: {
     fontSize: 30,
     margin: 15,
   },
   textInput: {
     borderColor: '#D3D3D3',
-    borderRadius: 0,
-    borderWidth: 1,
+    borderRadius: 5,
+    borderWidth: 2,
     marginLeft: 15,
-    paddingLeft: 15,
-    paddingRight: 15,
-    width: 315,
+    marginRight: 15,
+    paddingLeft: 7,
+    width: 147,
+  },
+  typeButton: {
+    backgroundColor: 'gray',
+    borderRadius: 5,
+    marginRight: 15,
   },
   view: {
     backgroundColor: '#fff',
@@ -134,6 +159,7 @@ const styles = StyleSheet.create({
   viewInline: {
     backgroundColor: '#fff',
     flexDirection: 'row',
-    marginTop: 10,
+    marginTop: 15,
+    paddingBottom: 15,
   },
 })
