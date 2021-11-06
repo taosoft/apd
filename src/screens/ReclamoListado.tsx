@@ -4,11 +4,11 @@ import {
   ActivityIndicator,
   FlatList,
   StyleSheet,
+  Text,
   TextInput,
   TouchableOpacity,
 } from 'react-native'
-import { Button } from 'react-native-elements'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import { Icon } from 'react-native-elements'
 
 import useReclamos from '../components/providers/useReclamos'
 import ReclamoItem from '../components/ReclamoItem'
@@ -44,7 +44,7 @@ export default function ReclamoListado({
   return (
     // Tincho
     <View style={styles.view}>
-      <View style={styles.viewInline}>
+      <View style={(styles.horizontal, styles.viewInline)}>
         <TextInput
           // Este componente obtiene el texto que se utilizara para filtrar los resultados
           autoCapitalize="none"
@@ -58,27 +58,31 @@ export default function ReclamoListado({
           style={styles.textInput}
           underlineColorAndroid="transparent"
         />
-        <Button
+        <TouchableOpacity
           onPress={() => {
-            // ordena segun tipo de reclamo
+            // ordena segun el estado
           }}
-          style={styles.typeButton}
-          title="Tipo"
-        />
-        <Button
+          style={styles.botonOrdenado}
+        >
+          <Text style={{ color: 'white' }}>Tipo</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
           onPress={() => {
-            // ordena segun reclamo propio
+            // ordena segun el estado
           }}
-          style={styles.typeButton}
-          title="Propio"
-        />
+          style={styles.botonOrdenado}
+        >
+          <Text style={{ color: 'white' }}>Propio</Text>
+        </TouchableOpacity>
         {authenticated && (
-          <Button
-            icon={<Icon color="white" name="plus" size={23} />}
+          <Icon
+            color="gray"
+            iconStyle={styles.botonCreacionReclamo}
+            name="plus"
             onPress={() => {
               navigation.navigate(AuthNavigationScreenKey.RECLAMOGENERAR)
             }}
-            style={styles.typeButton}
+            type="font-awesome"
           />
         )}
       </View>
@@ -121,6 +125,19 @@ export default function ReclamoListado({
 }
 
 const styles = StyleSheet.create({
+  botonCreacionReclamo: {
+    backgroundColor: 'white',
+    marginRight: 15,
+  },
+  botonOrdenado: {
+    backgroundColor: 'gray',
+    borderRadius: 50,
+    marginRight: 15,
+    paddingBottom: 2,
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingTop: 2,
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -135,31 +152,26 @@ const styles = StyleSheet.create({
     position: 'relative',
     top: '70%',
   },
-  sectionTitle: {
-    fontSize: 30,
-    margin: 15,
-  },
   textInput: {
     borderColor: '#D3D3D3',
     borderRadius: 5,
     borderWidth: 2,
     marginLeft: 15,
     marginRight: 15,
-    paddingLeft: 7,
-    width: 147,
-  },
-  typeButton: {
-    backgroundColor: 'gray',
-    borderRadius: 5,
-    marginRight: 15,
+    paddingLeft: 10,
+    width: 150,
   },
   view: {
     backgroundColor: '#fff',
   },
   viewInline: {
+    alignItems: 'center',
     backgroundColor: '#fff',
     flexDirection: 'row',
-    marginTop: 15,
-    paddingBottom: 15,
+    height: 40,
+    justifyContent: 'center',
+    marginTop: 0,
+    paddingBottom: 0,
+    textAlign: 'center',
   },
 })

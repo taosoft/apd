@@ -4,11 +4,11 @@ import {
   ActivityIndicator,
   FlatList,
   StyleSheet,
+  Text,
   TextInput,
   TouchableOpacity,
 } from 'react-native'
-import { Button } from 'react-native-elements'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import { Icon } from 'react-native-elements'
 
 import DenunciaItem from '../components/DenunciaItem'
 import useDenuncias from '../components/providers/useDenuncias'
@@ -44,7 +44,7 @@ export default function DenunciaListado({
   return (
     // Tincho
     <View style={styles.view}>
-      <View style={styles.viewInline}>
+      <View style={(styles.horizontal, styles.viewInline)}>
         <TextInput
           // Este componente obtiene el texto que se utilizara para filtrar los resultados
           autoCapitalize="none"
@@ -58,28 +58,31 @@ export default function DenunciaListado({
           style={styles.textInput}
           underlineColorAndroid="transparent"
         />
-        <Button
+        <TouchableOpacity
           onPress={() => {
             // ordena segun el estado
           }}
-          style={styles.typeButton}
-          title="Estado"
-        />
-        <Button
+          style={styles.botonOrdenado}
+        >
+          <Text style={{ color: 'white' }}>Estado</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
           onPress={() => {
-            // ordena segun la fecha
+            // ordena segun el estado
           }}
-          style={styles.typeButton}
-          title="Fecha"
-        />
+          style={styles.botonOrdenado}
+        >
+          <Text style={{ color: 'white' }}>Fecha</Text>
+        </TouchableOpacity>
         {authenticated && (
-          // Poner boton para filtrar por Estado
-          // Poner boton para filtrar por Fecha
-          <Button
-            icon={<Icon color="white" name="plus" size={15} />}
+          <Icon
+            color="gray"
+            iconStyle={styles.botonCreacionDenuncia}
+            name="plus"
             onPress={() => {
               navigation.navigate(AuthNavigationScreenKey.DENUNCIAGENERAR)
             }}
+            type="font-awesome"
           />
         )}
       </View>
@@ -123,6 +126,19 @@ export default function DenunciaListado({
 }
 
 const styles = StyleSheet.create({
+  botonCreacionDenuncia: {
+    backgroundColor: 'white',
+    marginRight: 15,
+  },
+  botonOrdenado: {
+    backgroundColor: 'gray',
+    borderRadius: 50,
+    marginRight: 15,
+    paddingBottom: 2,
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingTop: 2,
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -137,31 +153,26 @@ const styles = StyleSheet.create({
     position: 'relative',
     top: '70%',
   },
-  sectionTitle: {
-    fontSize: 30,
-    margin: 15,
-  },
   textInput: {
     borderColor: '#D3D3D3',
     borderRadius: 5,
     borderWidth: 2,
     marginLeft: 15,
     marginRight: 15,
-    paddingLeft: 7,
-    width: 147,
-  },
-  typeButton: {
-    backgroundColor: 'gray',
-    borderRadius: 5,
-    marginRight: 15,
+    paddingLeft: 10,
+    width: 150,
   },
   view: {
     backgroundColor: '#fff',
   },
   viewInline: {
+    alignItems: 'center',
     backgroundColor: '#fff',
     flexDirection: 'row',
-    marginTop: 15,
-    paddingBottom: 15,
+    height: 40,
+    justifyContent: 'center',
+    marginTop: 0,
+    paddingBottom: 0,
+    textAlign: 'center',
   },
 })
