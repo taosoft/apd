@@ -12,7 +12,10 @@ export default function ComercioItem(props: ComercioItemProps): JSX.Element {
   return (
     <View style={styles.container}>
       <ListItem bottomDivider>
-        <Avatar source={require('../../borrar-ImagenComercio.jpg')} />
+        <Avatar
+          size="large"
+          source={require('../../borrar-ImagenComercio.jpg')}
+        />
         {
           // aca iria en realidad props.foto
         }
@@ -47,14 +50,12 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
     textAlign: 'left',
   },
-  foto: {
-    width: '100%',
-  },
   subtitulo: {
     fontSize: 14,
   },
   titulo: {
     fontSize: 19,
     fontWeight: 'bold',
+    marginBottom: 7,
   },
 })
