@@ -99,7 +99,6 @@ export default function DenunciaListado({
           keyExtractor={(item) => item.idDenuncia.toString()}
           renderItem={({ item }) => {
             return (
-              // Al hacer click, abre el reclamo que posee id = item.id
               <TouchableOpacity
                 onPress={() =>
                   navigation.navigate(AuthNavigationScreenKey.DENUNCIADETALLE, {
@@ -136,10 +135,6 @@ const styles = StyleSheet.create({
     left: '50%',
     position: 'relative',
     top: '70%',
-  },
-  sectionTitle: {
-    fontSize: 30,
-    margin: 15,
   },
   textInput: {
     borderColor: '#D3D3D3',

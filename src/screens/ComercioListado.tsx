@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 import ComercioItem from '../components/ComercioItem'
 import { View } from '../components/Themed'
+import { AuthNavigationScreenKey } from '../constants/NavigationKeys'
 
 const DATA = [
   {
@@ -59,7 +60,7 @@ export default function ComercioListado({
             <Button
               icon={<Icon color="white" name="plus" size={15} />}
               onPress={() => {
-                navigation.navigate('ComercioGenerar')
+                navigation.navigate(AuthNavigationScreenKey.COMERCIOGENERAR)
               }}
             />
           )}
@@ -70,12 +71,11 @@ export default function ComercioListado({
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => {
             return (
-              /*
-                Se supone que al hacer click, va a abrir el comercio con id = item.id
-              */
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate('ComercioDetalle', { id: item.id })
+                  navigation.navigate(AuthNavigationScreenKey.COMERCIODETALLE, {
+                    id: item.id,
+                  })
                 }
               >
                 <ComercioItem
@@ -93,10 +93,6 @@ export default function ComercioListado({
 }
 
 const styles = StyleSheet.create({
-  sectionTitle: {
-    fontSize: 30,
-    margin: 15,
-  },
   textInput: {
     borderColor: '#D3D3D3',
     borderRadius: 0,
