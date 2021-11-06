@@ -92,8 +92,18 @@ export default function Login(): JSX.Element {
                 icono: '',
                 titulo: 'Denuncia creada el 4 de noviembre de 2021 11:09 hs',
               },
-              { fecha: '', icono: '', titulo: 'La Denuncia cambio a En Proceso el 4 de noviembre de 2021 12:09 hs' },
-              { fecha: ' ', icono: '', titulo: 'La Denuncia cambio a Finalizado el 4 de noviembre de 2021 14:09 hs' },
+              {
+                fecha: '',
+                icono: '',
+                titulo:
+                  'La Denuncia cambio a En Proceso el 4 de noviembre de 2021 12:09 hs',
+              },
+              {
+                fecha: ' ',
+                icono: '',
+                titulo:
+                  'La Denuncia cambio a Finalizado el 4 de noviembre de 2021 14:09 hs',
+              },
             ]}
             renderItem={({ item }) => (
               <ItemBitacora
