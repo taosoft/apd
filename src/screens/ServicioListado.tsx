@@ -47,9 +47,11 @@ export default function ServicioListado({
           <TextInput
             autoCapitalize="none"
             defaultValue={text}
+            maxLength={30}
             onChangeText={(changedText) => setText(changedText)}
-            onSubmitEditing={() => {
+            onSubmitEditing={(changedText) => {
               // Como reaccionar cuando presiona el boton "submit" en el teclado
+              setText(changedText.nativeEvent.text)
             }}
             placeholder="Buscar"
             placeholderTextColor="#D3D3D3"
@@ -71,9 +73,7 @@ export default function ServicioListado({
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => {
             return (
-              /*
-              Se supone que al hacer click, va a abrir el comercio con id = item.id
-            */
+              // Se supone que al hacer click, va a abrir el comercio con id = item.id
               <TouchableOpacity
                 onPress={() =>
                   navigation.navigate('ServicioDetalle', { id: item.id })

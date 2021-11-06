@@ -49,9 +49,11 @@ export default function ReclamoListado({
           // Este componente obtiene el texto que se utilizara para filtrar los resultados
           autoCapitalize="none"
           defaultValue={text}
+          maxLength={30}
           onChangeText={(changedText) => setText(changedText)}
-          onSubmitEditing={() => {
+          onSubmitEditing={(changedText) => {
             // Como reaccionar cuando presiona el boton "submit" en el teclado
+            setText(changedText.nativeEvent.text)
           }}
           placeholder="Buscar"
           placeholderTextColor="#D3D3D3"
