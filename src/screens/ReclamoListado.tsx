@@ -58,14 +58,27 @@ export default function ReclamoListado({
           style={styles.textInput}
           underlineColorAndroid="transparent"
         />
+        <Button
+          onPress={() => {
+            // ordena segun tipo de reclamo
+          }}
+          style={styles.typeButton}
+          title="Tipo"
+        />
+        <Button
+          onPress={() => {
+            // ordena segun reclamo propio
+          }}
+          style={styles.typeButton}
+          title="Propio"
+        />
         {authenticated && (
-          // Poner boton para filtrar por Tipo
-          // Poner boton para filtrar por Propia
           <Button
-            icon={<Icon color="white" name="plus" size={15} />}
+            icon={<Icon color="white" name="plus" size={23} />}
             onPress={() => {
               navigation.navigate(AuthNavigationScreenKey.RECLAMOGENERAR)
             }}
+            style={styles.typeButton}
           />
         )}
       </View>
@@ -128,12 +141,17 @@ const styles = StyleSheet.create({
   },
   textInput: {
     borderColor: '#D3D3D3',
-    borderRadius: 0,
-    borderWidth: 1,
+    borderRadius: 5,
+    borderWidth: 2,
     marginLeft: 15,
-    paddingLeft: 15,
-    paddingRight: 15,
-    width: 315,
+    marginRight: 15,
+    paddingLeft: 7,
+    width: 147,
+  },
+  typeButton: {
+    backgroundColor: 'gray',
+    borderRadius: 5,
+    marginRight: 15,
   },
   view: {
     backgroundColor: '#fff',
@@ -141,6 +159,7 @@ const styles = StyleSheet.create({
   viewInline: {
     backgroundColor: '#fff',
     flexDirection: 'row',
-    marginTop: 10,
+    marginTop: 15,
+    paddingBottom: 15,
   },
 })

@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Avatar, ListItem } from 'react-native-elements'
+import { Text } from 'react-native-elements'
 
 export interface ComercioItemProps {
   fecha: string
@@ -11,53 +11,46 @@ export interface ComercioItemProps {
 export default function ComercioItem(props: ComercioItemProps): JSX.Element {
   return (
     <View style={styles.container}>
-      <ListItem bottomDivider>
-        <Avatar
-          size="large"
-          source={require('../../borrar-ImagenComercio.jpg')}
-        />
-        {
-          // aca iria en realidad props.foto
-        }
-        <ListItem.Content>
-          <ListItem.Title style={styles.titulo}>
-            {'Reclamo #' + props.numeroReclamo}
-          </ListItem.Title>
-          <ListItem.Subtitle style={styles.subtitulo}>
-            {props.lugar}
-          </ListItem.Subtitle>
-        </ListItem.Content>
-        <ListItem.Chevron />
-      </ListItem>
+      <View style={styles.row}>
+        <Text style={styles.numeroReclamo}>
+          {'Reclamo #' + props.numeroReclamo}
+        </Text>
+        <Text style={styles.fecha}>{props.fecha}</Text>
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.lugar}>{props.lugar}</Text>
+      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  cardButton: {
-    borderRadius: 0,
-    bottom: 0,
-    marginBottom: 10,
-    marginLeft: 0,
-    marginRight: 0,
-    position: 'relative',
-  },
   container: {
     backgroundColor: '#fff',
-    flex: 1,
-    justifyContent: 'center',
+    borderColor: 'lightgray',
+    borderTopWidth: 2,
+    paddingTop: 15,
   },
   fecha: {
-    color: '#000',
-    fontWeight: 'normal',
-    textAlign: 'left',
-  },
-  subtitulo: {
+    flex: 16,
     fontSize: 14,
   },
-  titulo: {
-    fontSize: 19,
+  lugar: {
+    flex: 1,
+    fontSize: 14,
     fontWeight: 'bold',
-    marginBottom: 7,
+  },
+  numeroReclamo: {
+    flex: 14,
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  row: {
+    backgroundColor: '#fff',
+    flex: 1,
+    flexDirection: 'row',
+    marginBottom: 15,
+    marginLeft: 15,
+    marginRight: 15,
   },
 })
