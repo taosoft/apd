@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Avatar, ListItem } from 'react-native-elements'
+import { Text } from 'react-native-elements'
 
 export interface DenunciaItemProps {
   descripcion: string
@@ -12,53 +12,51 @@ export interface DenunciaItemProps {
 export default function DenunciaItem(props: DenunciaItemProps): JSX.Element {
   return (
     <View style={styles.container}>
-      <ListItem bottomDivider>
-        <Avatar
-          size="large"
-          source={require('../../borrar-ImagenComercio.jpg')}
-        />
-        {
-          // aca iria en realidad props.foto
-        }
-        <ListItem.Content>
-          <ListItem.Title style={styles.titulo}>
-            {'Reclamo #' + props.numeroDenuncia}
-          </ListItem.Title>
-          <ListItem.Subtitle style={styles.subtitulo}>
-            {props.estado}
-          </ListItem.Subtitle>
-        </ListItem.Content>
-        <ListItem.Chevron />
-      </ListItem>
+      <View style={styles.row}>
+        <Text style={styles.numeroReclamo}>
+          {'Denuncia #' + props.numeroDenuncia}
+        </Text>
+        <Text style={styles.fecha}>{props.fecha}</Text>
+      </View>
+      <View style={styles.row}>
+        <Text style={styles.descripcion}>{props.descripcion}</Text>
+        <Text style={styles.estado}>{props.estado}</Text>
+      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  cardButton: {
-    borderRadius: 0,
-    bottom: 0,
-    marginBottom: 10,
-    marginLeft: 0,
-    marginRight: 0,
-    position: 'relative',
-  },
   container: {
     backgroundColor: '#fff',
+    borderColor: 'lightgray',
+    borderTopWidth: 2,
+    paddingTop: 15,
+  },
+  descripcion: {
     flex: 1,
-    justifyContent: 'center',
+    fontSize: 14,
+    fontWeight: 'bold',
   },
-  fecha: {
-    color: '#000',
-    fontWeight: 'normal',
-    textAlign: 'left',
-  },
-  subtitulo: {
+  estado: {
+    flex: 16,
     fontSize: 14,
   },
-  titulo: {
-    fontSize: 19,
+  fecha: {
+    flex: 16,
+    fontSize: 14,
+  },
+  numeroReclamo: {
+    flex: 14,
+    fontSize: 14,
     fontWeight: 'bold',
-    marginBottom: 7,
+  },
+  row: {
+    backgroundColor: '#fff',
+    flex: 1,
+    flexDirection: 'row',
+    marginBottom: 15,
+    marginLeft: 15,
+    marginRight: 15,
   },
 })

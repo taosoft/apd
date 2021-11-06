@@ -58,6 +58,20 @@ export default function DenunciaListado({
           style={styles.textInput}
           underlineColorAndroid="transparent"
         />
+        <Button
+          onPress={() => {
+            // ordena segun el estado
+          }}
+          style={styles.typeButton}
+          title="Estado"
+        />
+        <Button
+          onPress={() => {
+            // ordena segun la fecha
+          }}
+          style={styles.typeButton}
+          title="Fecha"
+        />
         {authenticated && (
           // Poner boton para filtrar por Estado
           // Poner boton para filtrar por Fecha
@@ -129,12 +143,17 @@ const styles = StyleSheet.create({
   },
   textInput: {
     borderColor: '#D3D3D3',
-    borderRadius: 0,
-    borderWidth: 1,
+    borderRadius: 5,
+    borderWidth: 2,
     marginLeft: 15,
-    paddingLeft: 15,
-    paddingRight: 15,
-    width: 315,
+    marginRight: 15,
+    paddingLeft: 7,
+    width: 147,
+  },
+  typeButton: {
+    backgroundColor: 'gray',
+    borderRadius: 5,
+    marginRight: 15,
   },
   view: {
     backgroundColor: '#fff',
@@ -142,6 +161,7 @@ const styles = StyleSheet.create({
   viewInline: {
     backgroundColor: '#fff',
     flexDirection: 'row',
-    marginTop: 10,
+    marginTop: 15,
+    paddingBottom: 15,
   },
 })
