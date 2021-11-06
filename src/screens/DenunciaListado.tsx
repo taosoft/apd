@@ -10,7 +10,7 @@ import {
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-import ListadoItem from '../components/ComercioItem'
+import DenunciaItem from '../components/DenunciaItem'
 import useDenuncias from '../components/providers/useDenuncias'
 import { View } from '../components/Themed'
 import { AuthNavigationScreenKey } from '../constants/NavigationKeys'
@@ -93,10 +93,11 @@ export default function DenunciaListado({
                   })
                 }
               >
-                <ListadoItem
+                <DenunciaItem
+                  descripcion={item.descripcion}
+                  estado={item.estado}
                   fecha={item.fecha.toString()}
-                  foto={undefined}
-                  titulo={item.documento}
+                  numeroDenuncia={item.idDenuncia}
                 />
               </TouchableOpacity>
             )

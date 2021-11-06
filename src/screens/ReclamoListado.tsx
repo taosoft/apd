@@ -10,8 +10,8 @@ import {
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-import ListadoItem from '../components/ComercioItem'
 import useReclamos from '../components/providers/useReclamos'
+import ReclamoItem from '../components/ReclamoItem'
 import { View } from '../components/Themed'
 import { AuthNavigationScreenKey } from '../constants/NavigationKeys'
 import { ReclamoModel } from '../services/reclamo.service'
@@ -93,10 +93,10 @@ export default function ReclamoListado({
                   })
                 }
               >
-                <ListadoItem
+                <ReclamoItem
                   fecha={item.fecha.toString()}
-                  foto={undefined}
-                  titulo={'Reclamo #' + item.idReclamo.toString()}
+                  lugar={item.idSitio}
+                  numeroReclamo={item.idReclamo}
                 />
               </TouchableOpacity>
             )
