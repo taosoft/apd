@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Alert,
   StyleSheet,
@@ -9,19 +9,37 @@ import {
   View,
 } from 'react-native'
 
+import useUser from '../components/providers/useUser'
+import { UserModel } from '../services/user.service'
+
 export default function PerfilUsuario(): JSX.Element {
-  const [nuevoMail, setNuevoMail] = React.useState('')
-  const [nuevaPassword, setNuevaPasword] = React.useState('')
+  const [datosUsuario, setDatosUsuario] = useState<UserModel>()
+  const [nuevoMail, setNuevoMail] = useState('')
+  const [nuevaPassword, setNuevaPasword] = useState('')
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  const { getUser } = useUser()
+
+  useEffect(() => {
+    setIsLoading(true)
+    getUser('1234').then((user) => {
+      setDatosUsuario(user)
+      setIsLoading(false)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <View style={styles.container}>
       <View style={{ flex: 3, marginTop: 20 }}>
         <View>
-          <Text style={styles.datos}>DNI:</Text>
-          <Text style={styles.datos}>Nombre:</Text>
-          <Text style={styles.datos}>Apellido:</Text>
-          <Text style={styles.datos}>Email:</Text>
-          <Text style={styles.datos}>Municipio:</Text>
+          <Text style={styles.datos}>DNI: {datosUsuario?.documento}</Text>
+          <Text style={styles.datos}>Nombre: {datosUsuario?.nombre}</Text>
+          <Text style={styles.datos}>Apellido:{datosUsuario?.apellido}</Text>
+          <Text style={styles.datos}>Email: {datosUsuario?.email}</Text>
+          <Text style={styles.datos}>
+            Inspector: {datosUsuario?.inspector !== 0 ? 'Si' : 'No'}
+          </Text>
         </View>
 
         <View style={styles.groupInputDescription}>

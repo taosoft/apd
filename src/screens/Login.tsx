@@ -44,7 +44,7 @@ export default function Login(): JSX.Element {
         <TextInput
           keyboardType="email-address"
           onChangeText={setDocu}
-          placeholder="Ingrese su DNI o Legajo"
+          placeholder="Ingrese su Documento o Legajo"
           placeholderTextColor="#409DC4"
           style={styles.input}
           textContentType="username"
@@ -54,7 +54,7 @@ export default function Login(): JSX.Element {
         <TextInput
           keyboardType="ascii-capable"
           onChangeText={setClave}
-          placeholder="Ingrese su clave"
+          placeholder="Ingrese su contraseña"
           placeholderTextColor="#409DC4"
           secureTextEntry={true}
           style={styles.input}
