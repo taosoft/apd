@@ -11,6 +11,10 @@ export interface UserModel {
   constraseña: string
   inspector: number
 }
+export interface UpdateUserData {
+  email: string
+  contraseña: string
+}
 
 export async function GetUser(documento: string): Promise<UserModel> {
   try {
@@ -21,6 +25,27 @@ export async function GetUser(documento: string): Promise<UserModel> {
       },
     )
     return result.data.data
+  } catch (e) {
+    console.log(e)
+    throw e
+  }
+}
+
+export async function UpdateUser(
+  documento: string,
+  updateData: UpdateUserData,
+): Promise<boolean> {
+  try {
+    const result = await axios.put<Response<boolean>>(
+      `${baseUrl}/users/${documento}`,
+      {
+        updateData,
+      },
+      {
+        headers: { 'Content-Type': 'application/json' },
+      },
+    )
+    return result ? true : false
   } catch (e) {
     console.log(e)
     throw e

@@ -19,6 +19,7 @@ export default function PerfilUsuario(): JSX.Element {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const { getUser } = useUser()
+  const { updateUser } = useUser()
 
   useEffect(() => {
     setIsLoading(true)
@@ -28,6 +29,16 @@ export default function PerfilUsuario(): JSX.Element {
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  const updateUserData = () => {
+    const updateData = {
+      contraseña: nuevaPassword,
+      email: nuevoMail,
+    }
+    updateUser('1234', updateData)
+      .then(() => Alert.alert('Los datos se han actualizado exitosamente'))
+      .catch(() => Alert.alert('Los datos no se han actualizado'))
+  }
 
   return (
     <View style={styles.container}>
@@ -68,10 +79,7 @@ export default function PerfilUsuario(): JSX.Element {
           />
         </View>
 
-        <TouchableOpacity
-          onPress={() => Alert.alert('Datos actualizados')}
-          style={styles.button}
-        >
+        <TouchableOpacity onPress={updateUserData} style={styles.button}>
           <Text style={styles.actualizarDatos}>ACTUALIZAR DATOS</Text>
         </TouchableOpacity>
       </View>
