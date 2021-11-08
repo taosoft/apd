@@ -7,15 +7,19 @@ import { TextInput } from 'react-native-gesture-handler'
 
 import { baseUrl } from '../common/values'
 import useAuth from '../components/providers/useAuth'
+import { Button } from '../components/Themed'
 import { NavigationScreenKey } from '../constants/NavigationKeys'
 
 export default function Login(): JSX.Element {
   const navigator = useNavigation()
-  const [docu, setDocu] = useState('')
-  const [clave, setClave] = useState('')
+  const [docu, setDocu] = useState<string>('')
+  const [clave, setClave] = useState<string>('')
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const { setToken } = useAuth()
 
   const ingresar = () => {
+    setIsLoading(true)
+
     const data = {
       contraseña: clave,
       documento: docu,
@@ -28,14 +32,17 @@ export default function Login(): JSX.Element {
         },
       })
       .then((res) => {
-        setToken(res.data.token)
+        setToken(res.data.data.token)
+        setIsLoading(false)
+        setClave('')
+        setDocu('')
         navigator.navigate(NavigationScreenKey.AUTHENTICATED_STACK)
       })
       .catch((e) => {
+        setIsLoading(false)
         console.log(e)
         Alert.alert('Documento y/o contraseña incorrecta')
       })
-    // TODO: Agregar popup con información para el usuario
   }
 
   return (
@@ -62,9 +69,7 @@ export default function Login(): JSX.Element {
           value={clave}
         />
 
-        <TouchableOpacity onPress={() => ingresar()} style={styles.button}>
-          <Text style={styles.ingresar}>INGRESAR</Text>
-        </TouchableOpacity>
+        <Button isLoading={isLoading} onPress={ingresar} text="INGRESAR" />
 
         <TouchableOpacity
           onPress={() =>

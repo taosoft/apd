@@ -1,15 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useEffect, useState } from 'react'
-import {
-  Alert,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import { Alert, StyleSheet, Text, TextInput, View } from 'react-native'
 
 import useUser from '../components/providers/useUser'
+import { Button } from '../components/Themed'
 import { UserModel } from '../services/user.service'
 
 export default function PerfilUsuario(): JSX.Element {
@@ -79,9 +73,11 @@ export default function PerfilUsuario(): JSX.Element {
           />
         </View>
 
-        <TouchableOpacity onPress={updateUserData} style={styles.button}>
-          <Text style={styles.actualizarDatos}>ACTUALIZAR DATOS</Text>
-        </TouchableOpacity>
+        <Button
+          isLoading={isLoading}
+          onPress={updateUserData}
+          text="ACTUALIZAR DATOS"
+        />
       </View>
     </View>
   )

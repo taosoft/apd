@@ -16,12 +16,18 @@ export interface UpdateUserData {
   contraseña: string
 }
 
-export async function GetUser(documento: string): Promise<UserModel> {
+export async function GetUser(
+  documento: string,
+  token: string,
+): Promise<UserModel> {
   try {
     const result = await axios.get<Response<UserModel>>(
       `${baseUrl}/users/${documento}`,
       {
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
       },
     )
     return result.data.data
@@ -34,6 +40,7 @@ export async function GetUser(documento: string): Promise<UserModel> {
 export async function UpdateUser(
   documento: string,
   updateData: UpdateUserData,
+  token: string,
 ): Promise<boolean> {
   try {
     const result = await axios.put<Response<boolean>>(
@@ -42,7 +49,10 @@ export async function UpdateUser(
         updateData,
       },
       {
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
       },
     )
     return result ? true : false

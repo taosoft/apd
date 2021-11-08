@@ -12,6 +12,6 @@ export default function useAuth() {
 
   return {
     setToken,
-    token: cache.token,
+    token: cache.token ?? '',
   }
 }

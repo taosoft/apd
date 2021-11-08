@@ -27,6 +27,7 @@ export interface ReclamoModel {
 
 export default async function CreateReclamo(
   reclamo: AddReclamo,
+  token: string,
 ): Promise<ReclamoModel> {
   try {
     const response = await axios.post<Response<ReclamoModel>>(
@@ -38,7 +39,10 @@ export default async function CreateReclamo(
         idSitio: '1',
       },
       {
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
       },
     )
     console.log(response.data)
@@ -49,12 +53,15 @@ export default async function CreateReclamo(
   }
 }
 
-export async function GetReclamos(): Promise<ReclamoModel[]> {
+export async function GetReclamos(token: string): Promise<ReclamoModel[]> {
   try {
     const result = await axios.get<Response<ReclamoModel[]>>(
       `${baseUrl}/reclamos`,
       {
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
       },
     )
     return result.data.data
@@ -64,12 +71,18 @@ export async function GetReclamos(): Promise<ReclamoModel[]> {
   }
 }
 
-export async function GetReclamo(idReclamo: number): Promise<ReclamoModel> {
+export async function GetReclamo(
+  idReclamo: number,
+  token: string,
+): Promise<ReclamoModel> {
   try {
     const result = await axios.get<Response<ReclamoModel>>(
       `${baseUrl}/reclamos/${idReclamo}`,
       {
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
       },
     )
     return result.data.data

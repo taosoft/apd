@@ -9,22 +9,27 @@ import CreateReclamo, {
   GetReclamos,
   ReclamoModel,
 } from '../../services/reclamo.service'
+import useAuth from './useAuth'
 import { GenerateType, useCache } from './useCache'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function useReclamos() {
   const { cache, changeCache } = useCache()
+  const { token } = useAuth()
 
   async function submitReclamo(): Promise<boolean> {
     const uploadImagesResponses = await uploadImages()
     try {
-      await CreateReclamo({
-        ...cache.generarReclamo,
-        archivosURL: uploadImagesResponses
-          .map((imagen) => imagen.response?.secure_url ?? '')
-          .join(';'),
-        documento: '12345678',
-      })
+      await CreateReclamo(
+        {
+          ...cache.generarReclamo,
+          archivosURL: uploadImagesResponses
+            .map((imagen) => imagen.response?.secure_url ?? '')
+            .join(';'),
+          documento: '12345678',
+        },
+        token,
+      )
       clearReclamo()
       return true
     } catch (e) {
@@ -42,11 +47,11 @@ export default function useReclamos() {
   }
 
   async function getReclamos(): Promise<ReclamoModel[]> {
-    return await GetReclamos()
+    return await GetReclamos(token)
   }
 
   async function getReclamo(idReclamo: number): Promise<ReclamoModel> {
-    return await GetReclamo(idReclamo)
+    return await GetReclamo(idReclamo, token)
   }
 
   function clearReclamo(): void {

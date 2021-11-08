@@ -25,6 +25,7 @@ export interface DenunciaModel {
 
 export default async function CreateDenuncia(
   denuncia: AddDenuncia,
+  token: string,
 ): Promise<void> {
   try {
     await axios.post<Response<DenunciaModel>>(
@@ -37,7 +38,10 @@ export default async function CreateDenuncia(
         idSitio: '1',
       },
       {
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
       },
     )
   } catch (e) {
@@ -48,12 +52,16 @@ export default async function CreateDenuncia(
 
 export async function GetDenuncias(
   documento: string,
+  token: string,
 ): Promise<DenunciaModel[]> {
   try {
     const result = await axios.get<Response<DenunciaModel[]>>(
       `${baseUrl}/denuncias/${documento}`,
       {
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
       },
     )
     console.log(result.data.data)
@@ -64,12 +72,18 @@ export async function GetDenuncias(
   }
 }
 
-export async function GetDenuncia(idDenuncia: number): Promise<DenunciaModel> {
+export async function GetDenuncia(
+  idDenuncia: number,
+  token: string,
+): Promise<DenunciaModel> {
   try {
     const result = await axios.get<Response<DenunciaModel>>(
       `${baseUrl}/denuncias/${idDenuncia}`,
       {
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
       },
     )
     return result.data.data
