@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
+    marginTop: 40,
   },
   datos: {
     color: '#409DC4',
