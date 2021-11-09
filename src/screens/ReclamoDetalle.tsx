@@ -4,9 +4,11 @@ import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native'
 import ImageLayout from 'react-native-image-layout'
 
 import ItemBitacora from '../components/ItemBitacora'
+import useDesperfecto from '../components/providers/useDesperfecto'
 import useReclamos from '../components/providers/useReclamos'
 import useSitio from '../components/providers/useSitios'
 import useUser from '../components/providers/useUser'
+import { DesperfectoModel } from '../services/desperfecto.service'
 import { ReclamoModel } from '../services/reclamo.service'
 import { SitioModel } from '../services/sitio.service'
 import { UserModel } from '../services/user.service'
@@ -22,10 +24,12 @@ export default function ReclamoDetalle({
   const { getReclamo } = useReclamos()
   const { getSitio } = useSitio()
   const { getUser } = useUser()
+  const { getDesperfecto } = useDesperfecto()
 
   const [reclamo, setReclamo] = useState<ReclamoModel | undefined>(undefined)
   const [sitio, setSitio] = useState<SitioModel>()
   const [user, setUser] = useState<UserModel>()
+  const [desperfecto, setDesperfecto] = useState<DesperfectoModel>()
 
   const imagenes =
     reclamo?.archivosURL.split(';').map((image) => {
@@ -50,6 +54,9 @@ export default function ReclamoDetalle({
       getSitio(data.idSitio).then((sitioData) => {
         setSitio(sitioData)
       })
+      getDesperfecto(data.idDesperfecto).then((desperfectoData) => {
+        setDesperfecto(desperfectoData)
+      })
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -66,9 +73,10 @@ export default function ReclamoDetalle({
             Autor: {user?.nombre} {user?.apellido}
           </Text>
           <Text style={styles.text}>Ubicacion: {sitio?.descripcion}</Text>
-          <Text style={styles.text}>Rubro:</Text>
-          <Text style={styles.text}>Tipo de desperfecto:</Text>
-          <Text style={styles.text}>{reclamo?.descripcion}</Text>
+          <Text style={styles.text}>
+            Tipo de desperfecto: {desperfecto?.descripcion}
+          </Text>
+          <Text style={styles.text}>Descripción: {reclamo?.descripcion}</Text>
           <Text style={styles.textSubBold}>Archivos</Text>
           <Text style={styles.text}>Input de archivos a definir</Text>
           <Text style={styles.textSubBold}>Imagenes</Text>
