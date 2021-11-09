@@ -6,8 +6,10 @@ import ImageLayout from 'react-native-image-layout'
 import ItemBitacora from '../components/ItemBitacora'
 import useReclamos from '../components/providers/useReclamos'
 import useSitio from '../components/providers/useSitios'
+import useUser from '../components/providers/useUser'
 import { ReclamoModel } from '../services/reclamo.service'
 import { SitioModel } from '../services/sitio.service'
+import { UserModel } from '../services/user.service'
 
 interface ReclamoDetalleProps {
   route: RouteProp<{ params: { id: number } }, 'params'>
@@ -19,9 +21,11 @@ export default function ReclamoDetalle({
   const { id } = route.params
   const { getReclamo } = useReclamos()
   const { getSitio } = useSitio()
+  const { getUser } = useUser()
 
   const [reclamo, setReclamo] = useState<ReclamoModel | undefined>(undefined)
   const [sitio, setSitio] = useState<SitioModel>()
+  const [user, setUser] = useState<UserModel>()
 
   const imagenes =
     reclamo?.archivosURL.split(';').map((image) => {
@@ -40,6 +44,9 @@ export default function ReclamoDetalle({
   useEffect(() => {
     getReclamo(id).then((data) => {
       setReclamo(data)
+      getUser(data.documento).then((usuario) => {
+        setUser(usuario)
+      })
       getSitio(data.idSitio).then((sitioData) => {
         setSitio(sitioData)
       })
@@ -55,7 +62,9 @@ export default function ReclamoDetalle({
         <View>
           <Text style={styles.titleText}>Reclamo #{reclamo?.idReclamo}</Text>
           <Text style={styles.textSubBold}>Estado: {reclamo?.estado}</Text>
-          <Text style={styles.text}>Autor: Juan Perez</Text>
+          <Text style={styles.text}>
+            Autor: {user?.nombre} {user?.apellido}
+          </Text>
           <Text style={styles.text}>Ubicacion: {sitio?.descripcion}</Text>
           <Text style={styles.text}>Rubro:</Text>
           <Text style={styles.text}>Tipo de desperfecto:</Text>
