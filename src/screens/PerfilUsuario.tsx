@@ -1,9 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
+import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { Alert, StyleSheet, Text, TextInput, View } from 'react-native'
 
 import useUser from '../components/providers/useUser'
 import { Button } from '../components/Themed'
+import { NavigationScreenKey } from '../constants/NavigationKeys'
 import { UserModel } from '../services/user.service'
 
 export default function PerfilUsuario(): JSX.Element {
@@ -14,10 +16,11 @@ export default function PerfilUsuario(): JSX.Element {
 
   const { getUser } = useUser()
   const { updateUser } = useUser()
+  const navigation = useNavigation()
 
   useEffect(() => {
     setIsLoading(true)
-    getUser('1234').then((user) => {
+    getUser('123').then((user) => {
       setDatosUsuario(user)
       setIsLoading(false)
     })
@@ -29,9 +32,13 @@ export default function PerfilUsuario(): JSX.Element {
       contraseña: nuevaPassword,
       email: nuevoMail,
     }
-    updateUser('1234', updateData)
+    updateUser('123', updateData)
       .then(() => Alert.alert('Los datos se han actualizado exitosamente'))
       .catch(() => Alert.alert('Los datos no se han actualizado'))
+  }
+
+  const closeSession = () => {
+    navigation.navigate(NavigationScreenKey.LOGIN)
   }
 
   return (
@@ -40,7 +47,7 @@ export default function PerfilUsuario(): JSX.Element {
         <View>
           <Text style={styles.datos}>DNI: {datosUsuario?.documento}</Text>
           <Text style={styles.datos}>Nombre: {datosUsuario?.nombre}</Text>
-          <Text style={styles.datos}>Apellido:{datosUsuario?.apellido}</Text>
+          <Text style={styles.datos}>Apellido: {datosUsuario?.apellido}</Text>
           <Text style={styles.datos}>Email: {datosUsuario?.email}</Text>
           <Text style={styles.datos}>
             Inspector: {datosUsuario?.inspector !== 0 ? 'Si' : 'No'}
@@ -77,6 +84,12 @@ export default function PerfilUsuario(): JSX.Element {
           isLoading={isLoading}
           onPress={updateUserData}
           text="ACTUALIZAR DATOS"
+        />
+
+        <Button
+          isLoading={isLoading}
+          onPress={closeSession}
+          text="CERRAR SESIÓN"
         />
       </View>
     </View>
