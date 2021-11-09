@@ -5,7 +5,9 @@ import ImageLayout from 'react-native-image-layout'
 
 import ItemBitacora from '../components/ItemBitacora'
 import useReclamos from '../components/providers/useReclamos'
+import useSitio from '../components/providers/useSitios'
 import { ReclamoModel } from '../services/reclamo.service'
+import { SitioModel } from '../services/sitio.service'
 
 interface ReclamoDetalleProps {
   route: RouteProp<{ params: { id: number } }, 'params'>
@@ -16,7 +18,10 @@ export default function ReclamoDetalle({
 }: ReclamoDetalleProps): JSX.Element {
   const { id } = route.params
   const { getReclamo } = useReclamos()
+  const { getSitio } = useSitio()
+
   const [reclamo, setReclamo] = useState<ReclamoModel | undefined>(undefined)
+  const [sitio, setSitio] = useState<SitioModel>()
 
   const imagenes =
     reclamo?.archivosURL.split(';').map((image) => {
@@ -35,6 +40,9 @@ export default function ReclamoDetalle({
   useEffect(() => {
     getReclamo(id).then((data) => {
       setReclamo(data)
+      getSitio(data.idSitio).then((sitioData) => {
+        setSitio(sitioData)
+      })
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -48,7 +56,7 @@ export default function ReclamoDetalle({
           <Text style={styles.titleText}>Reclamo #{reclamo?.idReclamo}</Text>
           <Text style={styles.textSubBold}>Estado: {reclamo?.estado}</Text>
           <Text style={styles.text}>Autor: Juan Perez</Text>
-          <Text style={styles.text}>Ubicacion: {reclamo?.idSitio}</Text>
+          <Text style={styles.text}>Ubicacion: {sitio?.descripcion}</Text>
           <Text style={styles.text}>Rubro:</Text>
           <Text style={styles.text}>Tipo de desperfecto:</Text>
           <Text style={styles.text}>{reclamo?.descripcion}</Text>
