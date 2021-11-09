@@ -27,6 +27,8 @@ export default function ReclamoListado({
   const navigation = useNavigation()
   const [text, setText] = React.useState('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [propio, setPropio] = useState<boolean>(false)
+  const [copiaReclamos, setCopiaReclamos] = useState<ReclamoModel[]>([])
 
   const [reclamos, setReclamos] = useState<ReclamoModel[]>([])
 
@@ -40,6 +42,16 @@ export default function ReclamoListado({
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  const filtrarReclamosPropios = () => {
+    setCopiaReclamos(reclamos)
+    if (!propio) {
+      setReclamos(reclamos.filter((reclamo) => reclamo.documento === '123'))
+    } else {
+      setReclamos(copiaReclamos)
+    }
+    setPropio(!propio)
+  }
 
   return (
     // Tincho
@@ -67,9 +79,7 @@ export default function ReclamoListado({
           <Text style={{ color: 'white' }}>Tipo</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => {
-            // ordena segun el estado
-          }}
+          onPress={filtrarReclamosPropios}
           style={styles.botonOrdenado}
         >
           <Text style={{ color: 'white' }}>Propio</Text>
