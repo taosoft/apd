@@ -18,9 +18,10 @@ export interface DenunciaModel {
   idDesperfecto: number
   descripcion: string
   estado: string
-  fecha: Date
-  archivosURL: string
+  fechaDenuncia: Date | string
+  archivosURL: string | null
   bitacora: string
+  aceptaResponsabilidad: number
 }
 
 export default async function CreateDenuncia(
@@ -56,7 +57,7 @@ export async function GetDenuncias(
 ): Promise<DenunciaModel[]> {
   try {
     const result = await axios.get<Response<DenunciaModel[]>>(
-      `${baseUrl}/denuncias/${documento}`,
+      `${baseUrl}/denuncias/usuario/${documento}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

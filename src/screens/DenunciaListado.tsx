@@ -36,6 +36,7 @@ export default function DenunciaListado({
     setIsLoading(true)
     getDenuncias('12345678').then((array) => {
       setDenuncias(array)
+      console.log(array)
       setIsLoading(false)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -112,7 +113,7 @@ export default function DenunciaListado({
                 <DenunciaItem
                   descripcion={item.descripcion}
                   estado={item.estado}
-                  fecha={item.fecha.toString()}
+                  fecha={item.fechaDenuncia?.toString()}
                   numeroDenuncia={item.idDenuncia}
                 />
               </TouchableOpacity>
