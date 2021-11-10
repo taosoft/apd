@@ -6,7 +6,9 @@ import {
 } from '../../services/image.service'
 import CreateReclamo, {
   GetReclamo,
+  GetReclamoDetalle,
   GetReclamos,
+  ReclamoDetalleModel,
   ReclamoModel,
 } from '../../services/reclamo.service'
 import useAuth from './useAuth'
@@ -52,6 +54,12 @@ export default function useReclamos() {
 
   async function getReclamo(idReclamo: number): Promise<ReclamoModel> {
     return await GetReclamo(idReclamo, token)
+  }
+
+  async function getReclamoDetalle(
+    idReclamo: number,
+  ): Promise<ReclamoDetalleModel> {
+    return await GetReclamoDetalle(idReclamo, token)
   }
 
   function clearReclamo(): void {
@@ -138,6 +146,7 @@ export default function useReclamos() {
     addImage,
     cachedImage: cache.addedPhoto,
     getReclamo,
+    getReclamoDetalle,
     getReclamos,
     reclamo: cache.generarReclamo,
     removeImage,

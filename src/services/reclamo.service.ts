@@ -2,6 +2,9 @@ import axios from 'axios'
 
 import { Response } from '../common/response'
 import { baseUrl } from '../common/values'
+import { DesperfectoModel } from '../services/desperfecto.service'
+import { SitioModel } from '../services/sitio.service'
+import { UserModel } from '../services/user.service'
 
 interface AddReclamo {
   lugar: string
@@ -17,6 +20,18 @@ export interface ReclamoModel {
   documento: string
   idSitio: number
   idDesperfecto: number
+  descripcion: string
+  estado: string
+  fecha: Date
+  archivosURL: string
+  IdReclamoUnificado: number
+  bitacora: string
+}
+export interface ReclamoDetalleModel {
+  idReclamo: number
+  user: UserModel
+  sitio: SitioModel
+  desperfecto: DesperfectoModel
   descripcion: string
   estado: string
   fecha: Date
@@ -78,6 +93,27 @@ export async function GetReclamo(
   try {
     const result = await axios.get<Response<ReclamoModel>>(
       `${baseUrl}/reclamos/${idReclamo}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      },
+    )
+    return result.data.data
+  } catch (e) {
+    console.log(e)
+    throw e
+  }
+}
+
+export async function GetReclamoDetalle(
+  idReclamo: number,
+  token: string,
+): Promise<ReclamoDetalleModel> {
+  try {
+    const result = await axios.get<Response<ReclamoDetalleModel>>(
+      `${baseUrl}/reclamos/detalle/${idReclamo}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
