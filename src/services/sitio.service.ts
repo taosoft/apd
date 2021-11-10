@@ -17,20 +17,14 @@ export interface SitioModel {
   comentarios: string
 }
 
-export async function GetSitio(
-  idSitio: number,
-  token: string,
-): Promise<SitioModel> {
+export async function GetSitios(token: string): Promise<SitioModel> {
   try {
-    const result = await axios.get<Response<SitioModel>>(
-      `${baseUrl}/sitios/${idSitio}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
+    const result = await axios.get<Response<SitioModel>>(`${baseUrl}/sitios/`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
       },
-    )
+    })
     return result.data.data
   } catch (e) {
     console.log(e)
