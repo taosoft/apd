@@ -97,7 +97,7 @@ function TabInicioNavigator() {
         component={Bienvenido}
         initialParams={{ authenticated: true }}
         name={AuthNavigationScreenKey.BIENVENIDO}
-        options={{ title: '' }}
+        options={{ headerLeft: () => null }}
       />
       <TabInicioStack.Screen
         component={ComercioListado}
