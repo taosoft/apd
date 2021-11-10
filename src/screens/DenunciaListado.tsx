@@ -36,7 +36,6 @@ export default function DenunciaListado({
     setIsLoading(true)
     getDenuncias('12345678').then((array) => {
       setDenuncias(array)
-      console.log(array)
       setIsLoading(false)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
