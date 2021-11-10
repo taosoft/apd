@@ -5,7 +5,6 @@ import ImageLayout from 'react-native-image-layout'
 
 import ItemBitacora from '../components/ItemBitacora'
 import useReclamos from '../components/providers/useReclamos'
-import { ReclamoModel } from '../services/reclamo.service'
 import { ReclamoDetalleModel } from '../services/reclamo.service'
 
 interface ReclamoDetalleProps {
