@@ -64,7 +64,7 @@ export default function ReclamoGenerar(): JSX.Element {
 
   const deleteImage = (index: number): void => {
     Alert.alert(
-      'Seguro desea eliminar la imagen?',
+      '¿Seguro desea eliminar la imagen?',
       undefined,
       [
         {
