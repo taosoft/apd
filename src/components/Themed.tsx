@@ -71,7 +71,7 @@ export function Button(props: ButtonProps): JSX.Element {
       {props.isLoading ? (
         <ActivityIndicator animating={true} color={'white'} size={'large'} />
       ) : (
-        <Text>{props.text}</Text>
+        <Text style={{color: 'white'}}>{props.text}</Text>
       )}
     </TouchableOpacity>
   )
