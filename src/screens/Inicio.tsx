@@ -4,6 +4,7 @@ import React from 'react'
 import {
   Dimensions,
   Image,
+  ImageBackground,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -19,52 +20,55 @@ export default function Inicio(): JSX.Element {
 
   return (
     <View style={styles().container}>
-      <Image
+      <ImageBackground
         source={{
           uri: 'https://res.cloudinary.com/dmdkxer66/image/upload/v1636057175/Logos/MunicipaliApp_2_qa5xdv.png',
         }}
-        style={{ height: windowHeight * 0.8, width: windowWidth }}
-      />
-
-      <View
-        style={{
-          flex: 2,
-          flexDirection: 'row',
-          marginLeft: 10,
-          marginRight: 10,
-        }}
+        style={{ height: windowHeight, width: windowWidth }}
       >
-        <TouchableOpacity
-          onPress={() => navigation.navigate(NavigationScreenKey.LOGIN)}
-          style={styles(windowWidth * 0.5).button}
-        >
-          <Text style={styles().text}>INICIAR SESION</Text>
-        </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => navigation.navigate(NavigationScreenKey.REGISTRARSE)}
-          style={styles(windowWidth * 0.5).button}
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'space-evenly',
+            marginTop: windowHeight * 0.7,
+          }}
         >
-          <Text style={styles().text}>REGISTRARSE</Text>
-        </TouchableOpacity>
-      </View>
-      <View
-        style={{
-          flex: 2,
-          flexDirection: 'row',
-          marginLeft: 10,
-          marginRight: 10,
-        }}
-      >
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate(NavigationScreenKey.UNAUTHENTICATED_STACK)
-          }
-          style={styles(windowWidth).button}
+          <TouchableOpacity
+            onPress={() => navigation.navigate(NavigationScreenKey.LOGIN)}
+            style={styles(windowWidth * 0.5).button}
+          >
+            <Text style={styles().text}>INICIAR SESION</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => navigation.navigate(NavigationScreenKey.REGISTRARSE)}
+            style={styles(windowWidth * 0.5).button}
+          >
+            <Text style={styles().text}>REGISTRARSE</Text>
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            marginBottom: windowHeight * 0.02,
+            marginTop: windowHeight * 0.02,
+            marginLeft: windowWidth * 0.05,
+            marginRight: windowWidth * 0.05,
+          }}
         >
-          <Text style={styles().text}>SERVICIOS Y COMERCIOS</Text>
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate(NavigationScreenKey.UNAUTHENTICATED_STACK)
+            }
+            style={styles(windowWidth).button}
+          >
+            <Text style={styles().text}>SERVICIOS Y COMERCIOS</Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
     </View>
   )
 }
@@ -75,9 +79,9 @@ const styles = (widthScreen = 150) =>
       backgroundColor: '#409DC4',
       borderColor: '#FFF',
       borderRadius: 20,
-      borderWidth: 5,
+      borderWidth: 1,
       justifyContent: 'space-evenly',
-      width: widthScreen,
+      width: widthScreen * 0.9,
     },
     container: {
       alignItems: 'center',
