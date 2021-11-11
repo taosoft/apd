@@ -3,7 +3,6 @@ import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import {
   Dimensions,
-  Image,
   ImageBackground,
   StyleSheet,
   Text,
@@ -26,7 +25,6 @@ export default function Inicio(): JSX.Element {
         }}
         style={{ height: windowHeight, width: windowWidth }}
       >
-
         <View
           style={{
             flex: 1,
@@ -54,9 +52,9 @@ export default function Inicio(): JSX.Element {
             flex: 1,
             flexDirection: 'row',
             marginBottom: windowHeight * 0.02,
-            marginTop: windowHeight * 0.02,
             marginLeft: windowWidth * 0.05,
             marginRight: windowWidth * 0.05,
+            marginTop: windowHeight * 0.02,
           }}
         >
           <TouchableOpacity
