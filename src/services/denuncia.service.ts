@@ -51,13 +51,10 @@ export default async function CreateDenuncia(
   }
 }
 
-export async function GetDenuncias(
-  documento: string,
-  token: string,
-): Promise<DenunciaModel[]> {
+export async function GetDenuncias(token: string): Promise<DenunciaModel[]> {
   try {
     const result = await axios.get<Response<DenunciaModel[]>>(
-      `${baseUrl}/denuncias/usuario/${documento}`,
+      `${baseUrl}/denuncias/usuario`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

@@ -7,10 +7,8 @@ import { SitioModel } from '../services/sitio.service'
 import { UserModel } from '../services/user.service'
 
 interface AddReclamo {
-  lugar: string
-  rubro: string
-  documento: string
-  desperfecto: string
+  idSitio: number
+  idDesperfecto: number
   reason: string
   archivosURL: string
 }
@@ -49,9 +47,6 @@ export default async function CreateReclamo(
       `${baseUrl}/reclamos`,
       {
         ...reclamo,
-        documento: '12345678',
-        idDesperfecto: '1',
-        idSitio: '1',
       },
       {
         headers: {

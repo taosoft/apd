@@ -28,7 +28,6 @@ export default function useReclamos() {
           archivosURL: uploadImagesResponses
             .map((imagen) => imagen.response?.secure_url ?? '')
             .join(';'),
-          documento: '12345678',
         },
         token,
       )
@@ -65,11 +64,11 @@ export default function useReclamos() {
   function clearReclamo(): void {
     changeCache({
       generarReclamo: {
-        desperfecto: '',
+        idDesperfecto: 0,
+        idRubro: 0,
+        idSitio: 0,
         images: [],
-        lugar: '',
         reason: '',
-        rubro: '',
       },
     })
   }
@@ -78,7 +77,7 @@ export default function useReclamos() {
     changeCache({
       generarReclamo: {
         ...cache.generarReclamo,
-        desperfecto: desperfecto,
+        idDesperfecto: +desperfecto,
       },
     })
   }
@@ -86,7 +85,7 @@ export default function useReclamos() {
     changeCache({
       generarReclamo: {
         ...cache.generarReclamo,
-        lugar: lugar,
+        idSitio: +lugar,
       },
     })
   }
@@ -102,7 +101,7 @@ export default function useReclamos() {
     changeCache({
       generarReclamo: {
         ...cache.generarReclamo,
-        rubro: rubro,
+        idRubro: +rubro,
       },
     })
   }

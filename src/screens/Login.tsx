@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import { useNavigation } from '@react-navigation/native'
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 
@@ -15,7 +15,14 @@ export default function Login(): JSX.Element {
   const [docu, setDocu] = useState<string>('')
   const [clave, setClave] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const { setToken } = useAuth()
+  const { setToken, token } = useAuth()
+
+  useEffect(() => {
+    if (token !== '') {
+      navigator.navigate(NavigationScreenKey.AUTHENTICATED_STACK)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token])
 
   const ingresar = () => {
     setIsLoading(true)

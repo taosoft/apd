@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { Alert, StyleSheet, Text, TextInput, View } from 'react-native'
 
+import useAuth from '../components/providers/useAuth'
 import useUser from '../components/providers/useUser'
 import { Button } from '../components/Themed'
 import { NavigationScreenKey } from '../constants/NavigationKeys'
@@ -14,6 +15,7 @@ export default function PerfilUsuario(): JSX.Element {
   const [nuevaPassword, setNuevaPasword] = useState('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
+  const { setToken } = useAuth()
   const { getUser } = useUser()
   const { updateUser } = useUser()
   const navigation = useNavigation()
@@ -38,6 +40,7 @@ export default function PerfilUsuario(): JSX.Element {
   }
 
   const closeSession = () => {
+    setToken('')
     navigation.navigate(NavigationScreenKey.LOGIN)
   }
 
@@ -86,11 +89,7 @@ export default function PerfilUsuario(): JSX.Element {
           text="ACTUALIZAR DATOS"
         />
 
-        <Button
-          isLoading={isLoading}
-          onPress={closeSession}
-          text="CERRAR SESIÓN"
-        />
+        <Button isLoading={false} onPress={closeSession} text="CERRAR SESIÓN" />
       </View>
     </View>
   )

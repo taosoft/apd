@@ -45,8 +45,8 @@ export default function useDenuncias() {
     )
   }
 
-  async function getDenuncias(documento: string): Promise<DenunciaModel[]> {
-    return await GetDenuncias(documento, token)
+  async function getDenuncias(): Promise<DenunciaModel[]> {
+    return await GetDenuncias(token)
   }
 
   async function getDenuncia(idReclamo: number): Promise<DenunciaModel> {

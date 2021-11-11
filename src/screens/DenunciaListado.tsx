@@ -34,7 +34,7 @@ export default function DenunciaListado({
 
   useEffect(() => {
     setIsLoading(true)
-    getDenuncias('12345678').then((array) => {
+    getDenuncias().then((array) => {
       setDenuncias(array)
       setIsLoading(false)
     })

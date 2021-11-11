@@ -1,11 +1,18 @@
+import { Picker } from '@react-native-community/picker'
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { Alert, ScrollView, StyleSheet, TextInput } from 'react-native'
 
 import ImageContainer from '../components/ImageContainer'
 import { GenerateType } from '../components/providers/useCache'
+import useDesperfecto from '../components/providers/useDesperfecto'
 import useReclamos from '../components/providers/useReclamos'
+import useRubros from '../components/providers/useRubros'
+import useSitio from '../components/providers/useSitios'
 import { Button, Text, View } from '../components/Themed'
+import { DesperfectoModel } from '../services/desperfecto.service'
+import { RubroModel } from '../services/rubro.service'
+import { SitioModel } from '../services/sitio.service'
 
 export default function ReclamoGenerar(): JSX.Element {
   const {
@@ -21,9 +28,25 @@ export default function ReclamoGenerar(): JSX.Element {
     setRubro,
   } = useReclamos()
 
+  const { getSitios } = useSitio()
+  const { getDesperfectos } = useDesperfecto()
+  const { getRubros } = useRubros()
   const navigation = useNavigation()
 
+  const [sitios, setSitios] = useState<SitioModel[]>([])
+  const [desperfectos, setDesperfectos] = useState<DesperfectoModel[]>([])
+  const [rubros, setRubros] = useState<RubroModel[]>([])
+
   const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  useEffect(() => {
+    getSitios().then((sitiosResponse) => setSitios(sitiosResponse))
+    getRubros().then((rubrosResponse) => setRubros(rubrosResponse))
+    getDesperfectos().then((desperfectosResponse) =>
+      setDesperfectos(desperfectosResponse),
+    )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleSubmit = async (): Promise<void> => {
     setIsLoading(true)
@@ -61,25 +84,47 @@ export default function ReclamoGenerar(): JSX.Element {
   return (
     <View style={styles.container}>
       <ScrollView>
+        <Picker
+          onValueChange={(value) => setLugar(value?.toString())}
+          selectedValue={reclamo.idSitio}
+        >
+          {sitios.map((sitio, index) => (
+            <Picker.Item
+              key={index}
+              label={sitio.descripcion}
+              value={sitio.idSitio}
+            />
+          ))}
+        </Picker>
+        <Picker
+          onValueChange={(value) => setRubro(value?.toString())}
+          selectedValue={reclamo.idRubro}
+        >
+          {rubros.map((rubro, index) => (
+            <Picker.Item
+              key={index}
+              label={rubro.descripcion}
+              value={rubro.idRubro}
+            />
+          ))}
+        </Picker>
+        <Picker
+          onValueChange={(value) => setDesperfecto(value?.toString())}
+          selectedValue={reclamo.idRubro}
+        >
+          {desperfectos
+            .filter((desperfecto) => desperfecto.idRubro === reclamo.idRubro)
+            .map((desperfecto, index) => (
+              <Picker.Item
+                key={index}
+                label={desperfecto.descripcion}
+                value={desperfecto.idDesperfecto}
+              />
+            ))}
+        </Picker>
         <TextInput
-          onChangeText={setLugar}
-          placeholder="Lugar"
-          style={styles.input}
-          value={reclamo.lugar}
-        />
-        <TextInput
-          onChangeText={setRubro}
-          placeholder="Rubro"
-          style={styles.input}
-          value={reclamo.rubro}
-        />
-        <TextInput
-          onChangeText={setDesperfecto}
-          placeholder="Desperfecto"
-          style={styles.input}
-          value={reclamo.desperfecto}
-        />
-        <TextInput
+          multiline
+          numberOfLines={4}
           onChangeText={setReason}
           placeholder="Motivo de la reclamo"
           style={styles.input}
