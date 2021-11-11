@@ -1,3 +1,4 @@
+// import { Picker } from '@react-native-picker/picker'
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { Alert, ScrollView, StyleSheet, TextInput } from 'react-native'
@@ -5,6 +6,7 @@ import { Alert, ScrollView, StyleSheet, TextInput } from 'react-native'
 import ImageContainer from '../components/ImageContainer'
 import { GenerateType } from '../components/providers/useCache'
 import useReclamos from '../components/providers/useReclamos'
+import useSitio from '../components/providers/useSitios'
 import { Button, Text, View } from '../components/Themed'
 
 export default function ReclamoGenerar(): JSX.Element {
@@ -22,6 +24,7 @@ export default function ReclamoGenerar(): JSX.Element {
   } = useReclamos()
 
   const navigation = useNavigation()
+  const { getSitios } = useSitio()
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -36,12 +39,13 @@ export default function ReclamoGenerar(): JSX.Element {
 
   useEffect(() => {
     addCachedImage()
+    getSitios().then((data) => setLugar(data.descripcion))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cachedImage])
 
   const deleteImage = (index: number): void => {
     Alert.alert(
-      'Seguro desea eliminar la imagen?',
+      '¿Seguro desea eliminar la imagen?',
       undefined,
       [
         {
