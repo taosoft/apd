@@ -21,7 +21,7 @@ export default function Inicio(): JSX.Element {
     <View style={styles().container}>
       <ImageBackground
         source={{
-          uri: 'https://res.cloudinary.com/dmdkxer66/image/upload/v1636057175/Logos/MunicipaliApp_2_qa5xdv.png',
+          uri: 'https://res.cloudinary.com/dmdkxer66/image/upload/v1636597547/Logos/MunicipaliApp_nxqbs0.png',
         }}
         style={{ height: windowHeight, width: windowWidth }}
       >
