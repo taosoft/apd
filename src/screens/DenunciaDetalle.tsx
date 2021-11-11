@@ -1,10 +1,30 @@
 import React from 'react'
-import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import ImageLayout from 'react-native-image-layout'
 
 import ItemBitacora from '../components/ItemBitacora'
 
 export default function DenunciaDetalle(): JSX.Element {
+  const bitacoraArray = [
+    {
+      fecha: '',
+      icono: '',
+      titulo: 'Denuncia creada el 4 de noviembre de 2021 11:09 hs',
+    },
+    {
+      fecha: '',
+      icono: '',
+      titulo:
+        'La Denuncia cambio a En Proceso el 4 de noviembre de 2021 12:09 hs',
+    },
+    {
+      fecha: ' ',
+      icono: '',
+      titulo:
+        'La Denuncia cambio a Finalizado el 4 de noviembre de 2021 14:09 hs',
+    },
+  ]
+
   return (
     <View style={styles.container}>
       <ScrollView keyboardShouldPersistTaps="always">
@@ -74,34 +94,14 @@ export default function DenunciaDetalle(): JSX.Element {
           <Text style={styles.textSubBold}>
             Bitacora del estado del reclamo
           </Text>
-          <FlatList
-            data={[
-              {
-                fecha: '',
-                icono: '',
-                titulo: 'Denuncia creada el 4 de noviembre de 2021 11:09 hs',
-              },
-              {
-                fecha: '',
-                icono: '',
-                titulo:
-                  'La Denuncia cambio a En Proceso el 4 de noviembre de 2021 12:09 hs',
-              },
-              {
-                fecha: ' ',
-                icono: '',
-                titulo:
-                  'La Denuncia cambio a Finalizado el 4 de noviembre de 2021 14:09 hs',
-              },
-            ]}
-            renderItem={({ item }) => (
-              <ItemBitacora
-                fecha={item.fecha}
-                icono={item.icono}
-                titulo={item.titulo}
-              />
-            )}
-          />
+          {bitacoraArray.map((item, index) => (
+            <ItemBitacora
+              fecha={item.fecha}
+              icono={item.icono}
+              key={index}
+              titulo={item.titulo}
+            />
+          ))}
           {/* <Text style={styles.item}>{item.key}</Text> */}
         </View>
       </ScrollView>

@@ -28,6 +28,7 @@ export interface ReclamoModel {
 export interface ReclamoDetalleModel {
   idReclamo: number
   user: UserModel
+  documento: string
   sitio: SitioModel
   desperfecto: DesperfectoModel
   descripcion: string
@@ -63,9 +64,11 @@ export default async function CreateReclamo(
   }
 }
 
-export async function GetReclamos(token: string): Promise<ReclamoModel[]> {
+export async function GetReclamos(
+  token: string,
+): Promise<ReclamoDetalleModel[]> {
   try {
-    const result = await axios.get<Response<ReclamoModel[]>>(
+    const result = await axios.get<Response<ReclamoDetalleModel[]>>(
       `${baseUrl}/reclamos`,
       {
         headers: {

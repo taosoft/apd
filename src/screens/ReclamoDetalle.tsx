@@ -1,6 +1,6 @@
 import { RouteProp } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import ImageLayout from 'react-native-image-layout'
 
 import ItemBitacora from '../components/ItemBitacora'
@@ -22,12 +22,12 @@ export default function ReclamoDetalle({
   )
 
   const imagenes =
-    reclamo?.archivosURL.split(';').map((image) => {
+    reclamo?.archivosURL?.split(';').map((image) => {
       return { uri: image }
     }) ?? []
 
   const itemsBitacora =
-    reclamo?.bitacora.split(';').map((item) => {
+    reclamo?.bitacora?.split(';').map((item) => {
       return {
         fecha: '',
         icono: '',
@@ -41,8 +41,6 @@ export default function ReclamoDetalle({
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  console.log(imagenes)
 
   return (
     <View style={styles.container}>
@@ -70,18 +68,14 @@ export default function ReclamoDetalle({
           <Text style={styles.textSubBold}>
             Bitacora del estado del reclamo
           </Text>
-          <FlatList
-            data={itemsBitacora}
-            keyExtractor={(item) => item.titulo}
-            renderItem={({ item, index }) => (
-              <ItemBitacora
-                fecha={item.fecha}
-                icono={item.icono}
-                key={index}
-                titulo={item.titulo}
-              />
-            )}
-          />
+          {itemsBitacora.map((item, index) => (
+            <ItemBitacora
+              fecha={item.fecha}
+              icono={item.icono}
+              key={index}
+              titulo={item.titulo}
+            />
+          ))}
         </View>
       </ScrollView>
     </View>

@@ -47,7 +47,7 @@ export default function useReclamos() {
     )
   }
 
-  async function getReclamos(): Promise<ReclamoModel[]> {
+  async function getReclamos(): Promise<ReclamoDetalleModel[]> {
     return await GetReclamos(token)
   }
 

@@ -14,7 +14,7 @@ import useReclamos from '../components/providers/useReclamos'
 import ReclamoItem from '../components/ReclamoItem'
 import { View } from '../components/Themed'
 import { AuthNavigationScreenKey } from '../constants/NavigationKeys'
-import { ReclamoModel } from '../services/reclamo.service'
+import { ReclamoDetalleModel } from '../services/reclamo.service'
 
 interface ReclamoListadoProps {
   route: RouteProp<{ params: { authenticated: boolean } }, 'params'>
@@ -28,9 +28,9 @@ export default function ReclamoListado({
   const [text, setText] = React.useState('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [propio, setPropio] = useState<boolean>(false)
-  const [copiaReclamos, setCopiaReclamos] = useState<ReclamoModel[]>([])
+  const [copiaReclamos, setCopiaReclamos] = useState<ReclamoDetalleModel[]>([])
 
-  const [reclamos, setReclamos] = useState<ReclamoModel[]>([])
+  const [reclamos, setReclamos] = useState<ReclamoDetalleModel[]>([])
 
   const { getReclamos } = useReclamos()
 
@@ -46,7 +46,7 @@ export default function ReclamoListado({
   const filtrarReclamosPropios = () => {
     setCopiaReclamos(reclamos)
     if (!propio) {
-      setReclamos(reclamos.filter((reclamo) => reclamo.documento === '123'))
+      setReclamos(reclamos.filter((reclamo) => reclamo.documento === '123')) // TODO: Del token
     } else {
       setReclamos(copiaReclamos)
     }
@@ -122,12 +122,13 @@ export default function ReclamoListado({
               >
                 <ReclamoItem
                   fecha={item.fecha.toString()}
-                  lugar={item.idSitio}
+                  lugar={item.sitio.descripcion}
                   numeroReclamo={item.idReclamo}
                 />
               </TouchableOpacity>
             )
           }}
+          style={styles.flatList}
         />
       )}
     </View>
@@ -151,6 +152,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+  },
+  flatList: {
+    marginBottom: 40,
   },
   horizontal: {
     flexDirection: 'row',

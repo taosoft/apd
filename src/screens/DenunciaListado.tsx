@@ -118,6 +118,7 @@ export default function DenunciaListado({
               </TouchableOpacity>
             )
           }}
+          style={styles.flatList}
         />
       )}
     </View>
@@ -141,6 +142,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+  },
+  flatList: {
+    marginBottom: 40,
   },
   horizontal: {
     flexDirection: 'row',
