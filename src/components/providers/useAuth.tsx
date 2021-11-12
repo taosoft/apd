@@ -10,7 +10,15 @@ export default function useAuth() {
     })
   }
 
+  function setDocumento(documento: string): void {
+    changeCache({
+      documento: documento,
+    })
+  }
+
   return {
+    documento: cache.documento ?? '',
+    setDocumento,
     setToken,
     token: cache.token ?? '',
   }

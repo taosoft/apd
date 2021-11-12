@@ -15,7 +15,7 @@ export default function Login(): JSX.Element {
   const [docu, setDocu] = useState<string>('')
   const [clave, setClave] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const { setToken, token } = useAuth()
+  const { setToken, token, setDocumento } = useAuth()
 
   useEffect(() => {
     if (token !== '') {
@@ -32,6 +32,8 @@ export default function Login(): JSX.Element {
       documento: docu,
     }
 
+    setDocumento(docu)
+
     axios
       .post(`${baseUrl}/users/login`, JSON.stringify(data), {
         headers: {
@@ -47,6 +49,7 @@ export default function Login(): JSX.Element {
       })
       .catch((e) => {
         setIsLoading(false)
+        setDocumento('')
         console.log(e)
         Alert.alert('Documento y/o contraseña incorrecta')
       })

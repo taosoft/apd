@@ -33,7 +33,6 @@ export async function cloudinaryUpload(
         },
       },
     )
-    console.log(result)
     if (result.status === 200) {
       return {
         response: result.data,

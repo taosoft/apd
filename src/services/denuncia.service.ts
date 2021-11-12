@@ -62,7 +62,6 @@ export async function GetDenuncias(token: string): Promise<DenunciaModel[]> {
         },
       },
     )
-    console.log(result.data.data)
     return result.data.data ?? []
   } catch (e) {
     console.log(e)

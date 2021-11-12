@@ -5,6 +5,7 @@ export interface Cache {
   generarDenuncia: GenerarDenuncia
   generarReclamo: GenerarReclamo
   token?: string
+  documento?: string
 }
 
 export interface GenerarDenuncia {
@@ -36,10 +37,12 @@ export interface UpdateCache {
   generarDenuncia?: GenerarDenuncia
   generarReclamo?: GenerarReclamo
   token?: string
+  documento?: string
 }
 
 export const defaultCache: Cache = {
   addedPhoto: undefined,
+  documento: undefined,
   generarDenuncia: {
     address: '',
     date: '',
@@ -87,6 +90,9 @@ export function CacheProvider(props: CacheProviderProps): JSX.Element {
       }),
       ...(config.token && {
         token: config.token,
+      }),
+      ...(config.documento && {
+        documento: config.documento,
       }),
       ...(config.generarDenuncia && {
         generarDenuncia: {

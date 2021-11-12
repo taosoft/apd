@@ -56,7 +56,6 @@ export default async function CreateReclamo(
         },
       },
     )
-    console.log(response.data)
     return response.data.data
   } catch (e) {
     console.log(e)

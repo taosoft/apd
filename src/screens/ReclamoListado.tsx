@@ -10,6 +10,7 @@ import {
 } from 'react-native'
 import { Icon } from 'react-native-elements'
 
+import useAuth from '../components/providers/useAuth'
 import useReclamos from '../components/providers/useReclamos'
 import ReclamoItem from '../components/ReclamoItem'
 import { View } from '../components/Themed'
@@ -33,6 +34,7 @@ export default function ReclamoListado({
   const [reclamos, setReclamos] = useState<ReclamoDetalleModel[]>([])
 
   const { getReclamos } = useReclamos()
+  const { documento } = useAuth()
 
   useEffect(() => {
     setIsLoading(true)
@@ -46,7 +48,7 @@ export default function ReclamoListado({
   const filtrarReclamosPropios = () => {
     setCopiaReclamos(reclamos)
     if (!propio) {
-      setReclamos(reclamos.filter((reclamo) => reclamo.documento === '123')) // TODO: Del token
+      setReclamos(reclamos.filter((reclamo) => reclamo.documento === documento))
     } else {
       setReclamos(copiaReclamos)
     }
