@@ -32,8 +32,6 @@ export default function Login(): JSX.Element {
       documento: docu,
     }
 
-    setDocumento(docu)
-
     axios
       .post(`${baseUrl}/users/login`, JSON.stringify(data), {
         headers: {
@@ -45,6 +43,7 @@ export default function Login(): JSX.Element {
         setIsLoading(false)
         setClave('')
         setDocu('')
+        setDocumento(res.data.data.user.documento)
         navigator.navigate(NavigationScreenKey.AUTHENTICATED_STACK)
       })
       .catch((e) => {
