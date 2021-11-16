@@ -32,12 +32,19 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   wrapper: {
-    backgroundColor: '#fff',
+    backgroundColor: '#EFE5D9',
+    borderBottomRightRadius: 0,
+    borderBottomLeftRadius: 15,
+    borderTopRightRadius: 15,
+    borderTopLeftRadius: 15,
+    paddingLeft: 10,
+    paddingRight: 10,
     borderColor: '#000',
     borderRadius: 20,
     borderWidth: 1,
     lineHeight: 25,
     marginTop: 10,
     width: 200,
+
   },
 })
