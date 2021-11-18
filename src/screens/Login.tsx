@@ -15,7 +15,7 @@ export default function Login(): JSX.Element {
   const [docu, setDocu] = useState<string>('')
   const [clave, setClave] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const { setToken, token, setDocumento } = useAuth()
+  const { setLoginResponse, token} = useAuth()
 
   useEffect(() => {
     if (token !== '') {
@@ -39,16 +39,15 @@ export default function Login(): JSX.Element {
         },
       })
       .then((res) => {
-        setToken(res.data.data.token)
+        setLoginResponse(res.data.data.token, res.data.data.user.documento)
         setIsLoading(false)
         setClave('')
         setDocu('')
-        setDocumento(res.data.data.user.documento)
         navigator.navigate(NavigationScreenKey.AUTHENTICATED_STACK)
       })
       .catch((e) => {
         setIsLoading(false)
-        setDocumento('')
+        setLoginResponse('', '')
         console.log(e)
         Alert.alert('Documento y/o contraseña incorrecta')
       })
