@@ -15,7 +15,7 @@ export default function Login(): JSX.Element {
   const [docu, setDocu] = useState<string>('')
   const [clave, setClave] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const { setLoginResponse, token} = useAuth()
+  const { setLoginResponse, token } = useAuth()
 
   useEffect(() => {
     if (token !== '') {

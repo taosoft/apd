@@ -33,6 +33,7 @@ export default function ComercioListado({
   const { authenticated } = route.params
   const navigation = useNavigation()
   const [text, setText] = React.useState('')
+  const [isInspector] = React.useState(false)
 
   return (
     <View style={styles.view}>
@@ -49,7 +50,7 @@ export default function ComercioListado({
           style={styles.textInput}
           underlineColorAndroid="transparent"
         />
-        {authenticated && (
+        {authenticated && !isInspector && (
           <Button
             icon={<Icon color="white" name="plus" size={15} />}
             onPress={() => {

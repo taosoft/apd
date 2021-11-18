@@ -9,11 +9,14 @@ export default function useAuth() {
       token: token,
     })
   }
-  
-  async function setLoginResponse(token: string, documento: string): Promise<void> {
+
+  async function setLoginResponse(
+    token: string,
+    documento: string,
+  ): Promise<void> {
     changeCache({
-      token: token,
       documento: documento,
+      token: token,
     })
   }
 
@@ -26,8 +29,8 @@ export default function useAuth() {
   return {
     documento: cache.documento ?? '',
     setDocumento,
-    setToken,
     setLoginResponse,
+    setToken,
     token: cache.token ?? '',
   }
 }
