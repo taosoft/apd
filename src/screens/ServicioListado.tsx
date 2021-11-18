@@ -94,10 +94,6 @@ export default function ServicioListado({
 }
 
 const styles = StyleSheet.create({
-  sectionTitle: {
-    fontSize: 30,
-    margin: 15,
-  },
   textInput: {
     borderColor: '#D3D3D3',
     borderRadius: 0,

@@ -65,16 +65,6 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     width: 300,
   },
-  condicion: {
-    borderBottomWidth: 1,
-    borderColor: '#C9E9FC',
-    color: '#409DC4',
-    fontStyle: 'italic',
-    marginLeft: 30,
-    marginTop: 20,
-    textAlign: 'left',
-    width: 277,
-  },
   container: {
     alignItems: 'center',
     backgroundColor: '#fff',

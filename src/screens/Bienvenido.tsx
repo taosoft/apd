@@ -85,17 +85,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  titlePosition: {
-    alignSelf: 'flex-start',
-    flex: 1,
-    marginLeft: 30,
-    position: 'relative',
-  },
-  titleText: {
-    color: '#409DC4',
-    fontFamily: 'sans-serif',
-    fontSize: 30,
-    fontWeight: 'bold',
-    marginTop: 70,
-  },
 })

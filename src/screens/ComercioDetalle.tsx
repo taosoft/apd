@@ -1,18 +1,8 @@
 import React from 'react'
-import {
-  // Dimensions,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import ImageLayout from 'react-native-image-layout'
 
-export default function Login(): JSX.Element {
-  // const [dni, setDNI] = React.useState('')
-  // const [clave, setClave] = React.useState('')
-  // const { width, height } = Dimensions.get('screen')
-
+export default function ComercioDetalle(): JSX.Element {
   return (
     <View style={styles.container}>
       <ScrollView keyboardShouldPersistTaps="always">
@@ -94,19 +84,6 @@ export default function Login(): JSX.Element {
 }
 
 const styles = StyleSheet.create({
-  button: {
-    backgroundColor: '#FFF',
-    borderColor: '#C9E9FC',
-    borderRadius: 20,
-    borderWidth: 2,
-    justifyContent: 'space-between',
-    marginLeft: 30,
-    marginRight: 30,
-    marginTop: 40,
-    paddingBottom: 10,
-    paddingTop: 10,
-    width: 300,
-  },
   container: {
     backgroundColor: '#fff',
     flex: 1,
@@ -131,13 +108,6 @@ const styles = StyleSheet.create({
     marginTop: 15,
     textAlign: 'left',
   },
-  textRubro: {
-    color: '#409DC4',
-    fontSize: 13,
-    fontWeight: 'bold',
-    marginTop: 5,
-    textAlign: 'left',
-  },
   textSubBold: {
     color: '#409DC4',
     fontSize: 20,
@@ -145,12 +115,6 @@ const styles = StyleSheet.create({
     marginTop: 15,
     textAlign: 'left',
     textTransform: 'uppercase',
-  },
-  titlePosition: {
-    alignSelf: 'flex-start',
-    flex: 1,
-    marginLeft: 30,
-    position: 'relative',
   },
   titleText: {
     color: '#409DC4',

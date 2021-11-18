@@ -73,10 +73,7 @@ function TabPerfilNavigator() {
         headerTitleStyle: { fontWeight: 'bold' },
       }}
     >
-      <TabPerfilStack.Screen
-        component={PerfilUsuario}
-        name="TabPerfilScreen" // Reemplazar TabOneScreen por Perfil cuando esté implementado
-      />
+      <TabPerfilStack.Screen component={PerfilUsuario} name="TabPerfilScreen" />
     </TabPerfilStack.Navigator>
   )
 }
@@ -188,7 +185,6 @@ function TabNotificacionNavigator() {
         component={Notificaciones}
         initialParams={{ authenticated: true }}
         name="Notificaciones"
-        // options={headerOptions("Notificaciones")}
       />
     </TabNotificacionesStack.Navigator>
   )
