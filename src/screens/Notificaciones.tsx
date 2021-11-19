@@ -90,5 +90,6 @@ export default function Notificaciones({
 const styles = StyleSheet.create({
   view: {
     backgroundColor: '#fff',
+    marginTop: 40,
   },
 })

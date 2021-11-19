@@ -10,11 +10,12 @@ import {
 } from 'react-native'
 import { Icon } from 'react-native-elements'
 
+import useAuth from '../components/providers/useAuth'
 import useReclamos from '../components/providers/useReclamos'
 import ReclamoItem from '../components/ReclamoItem'
 import { View } from '../components/Themed'
 import { AuthNavigationScreenKey } from '../constants/NavigationKeys'
-import { ReclamoModel } from '../services/reclamo.service'
+import { ReclamoDetalleModel } from '../services/reclamo.service'
 
 interface ReclamoListadoProps {
   route: RouteProp<{ params: { authenticated: boolean } }, 'params'>
@@ -27,10 +28,13 @@ export default function ReclamoListado({
   const navigation = useNavigation()
   const [text, setText] = React.useState('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [propio, setPropio] = useState<boolean>(false)
+  const [copiaReclamos, setCopiaReclamos] = useState<ReclamoDetalleModel[]>([])
 
-  const [reclamos, setReclamos] = useState<ReclamoModel[]>([])
+  const [reclamos, setReclamos] = useState<ReclamoDetalleModel[]>([])
 
   const { getReclamos } = useReclamos()
+  const { documento } = useAuth()
 
   useEffect(() => {
     setIsLoading(true)
@@ -40,6 +44,16 @@ export default function ReclamoListado({
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  const filtrarReclamosPropios = () => {
+    setCopiaReclamos(reclamos)
+    if (!propio) {
+      setReclamos(reclamos.filter((reclamo) => reclamo.documento === documento))
+    } else {
+      setReclamos(copiaReclamos)
+    }
+    setPropio(!propio)
+  }
 
   return (
     // Tincho
@@ -69,9 +83,7 @@ export default function ReclamoListado({
           <Text style={{ color: 'white' }}>Tipo</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => {
-            // ordena segun el estado
-          }}
+          onPress={filtrarReclamosPropios}
           style={styles.botonOrdenado}
         >
           <Text style={{ color: 'white' }}>Propio</Text>
@@ -114,12 +126,13 @@ export default function ReclamoListado({
               >
                 <ReclamoItem
                   fecha={item.fecha.toString()}
-                  lugar={item.idSitio}
+                  lugar={item.sitio.descripcion}
                   numeroReclamo={item.idReclamo}
                 />
               </TouchableOpacity>
             )
           }}
+          style={styles.flatList}
         />
       )}
     </View>
@@ -143,6 +156,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+  },
+  flatList: {
+    marginBottom: 40,
   },
   horizontal: {
     flexDirection: 'row',

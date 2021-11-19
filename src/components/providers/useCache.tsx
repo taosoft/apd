@@ -5,6 +5,7 @@ export interface Cache {
   generarDenuncia: GenerarDenuncia
   generarReclamo: GenerarReclamo
   token?: string
+  documento?: string
 }
 
 export interface GenerarDenuncia {
@@ -17,10 +18,10 @@ export interface GenerarDenuncia {
 }
 
 export interface GenerarReclamo {
-  lugar: string
-  rubro: string
-  desperfecto: string
+  idSitio: number
+  idDesperfecto: number
   reason: string
+  idRubro: number
   images: string[]
 }
 
@@ -36,10 +37,12 @@ export interface UpdateCache {
   generarDenuncia?: GenerarDenuncia
   generarReclamo?: GenerarReclamo
   token?: string
+  documento?: string
 }
 
 export const defaultCache: Cache = {
   addedPhoto: undefined,
+  documento: undefined,
   generarDenuncia: {
     address: '',
     date: '',
@@ -49,11 +52,11 @@ export const defaultCache: Cache = {
     reason: '',
   },
   generarReclamo: {
-    desperfecto: '',
+    idDesperfecto: 0,
+    idRubro: 0,
+    idSitio: 0,
     images: [],
-    lugar: '',
     reason: '',
-    rubro: '',
   },
   token: undefined,
 }
@@ -88,6 +91,9 @@ export function CacheProvider(props: CacheProviderProps): JSX.Element {
       ...(config.token && {
         token: config.token,
       }),
+      ...(config.documento && {
+        documento: config.documento,
+      }),
       ...(config.generarDenuncia && {
         generarDenuncia: {
           address: config.generarDenuncia.address,
@@ -100,11 +106,11 @@ export function CacheProvider(props: CacheProviderProps): JSX.Element {
       }),
       ...(config.generarReclamo && {
         generarReclamo: {
-          desperfecto: config.generarReclamo.desperfecto,
+          idDesperfecto: config.generarReclamo.idDesperfecto,
+          idRubro: config.generarReclamo.idRubro,
+          idSitio: config.generarReclamo.idSitio,
           images: config.generarReclamo.images,
-          lugar: config.generarReclamo.lugar,
           reason: config.generarReclamo.reason,
-          rubro: config.generarReclamo.rubro,
         },
       }),
     }

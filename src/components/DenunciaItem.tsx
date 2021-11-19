@@ -21,7 +21,7 @@ export default function DenunciaItem(props: DenunciaItemProps): JSX.Element {
         <Text style={styles.fecha}>{fecha}</Text>
       </View>
       <View style={styles.row}>
-        <Text style={styles.descripcion}>{props.descripcion}</Text>
+        <Text style={styles.descripcion}>{props.descripcion.slice(0, 30)}</Text>
         <Text style={styles.estado}>{props.estado}</Text>
       </View>
     </View>
@@ -36,20 +36,20 @@ const styles = StyleSheet.create({
     paddingTop: 15,
   },
   descripcion: {
-    flex: 1,
+    flex: 3,
     fontSize: 14,
     fontWeight: 'bold',
   },
   estado: {
-    flex: 16,
+    flex: 1,
     fontSize: 14,
   },
   fecha: {
-    flex: 16,
+    flex: 1,
     fontSize: 14,
   },
   numeroReclamo: {
-    flex: 14,
+    flex: 1,
     fontSize: 14,
     fontWeight: 'bold',
   },

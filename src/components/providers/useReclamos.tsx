@@ -6,25 +6,31 @@ import {
 } from '../../services/image.service'
 import CreateReclamo, {
   GetReclamo,
+  GetReclamoDetalle,
   GetReclamos,
+  ReclamoDetalleModel,
   ReclamoModel,
 } from '../../services/reclamo.service'
+import useAuth from './useAuth'
 import { GenerateType, useCache } from './useCache'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function useReclamos() {
   const { cache, changeCache } = useCache()
+  const { token } = useAuth()
 
   async function submitReclamo(): Promise<boolean> {
     const uploadImagesResponses = await uploadImages()
     try {
-      await CreateReclamo({
-        ...cache.generarReclamo,
-        archivosURL: uploadImagesResponses
-          .map((imagen) => imagen.response?.secure_url ?? '')
-          .join(';'),
-        documento: '12345678',
-      })
+      await CreateReclamo(
+        {
+          ...cache.generarReclamo,
+          archivosURL: uploadImagesResponses
+            .map((imagen) => imagen.response?.secure_url ?? '')
+            .join(';'),
+        },
+        token,
+      )
       clearReclamo()
       return true
     } catch (e) {
@@ -41,22 +47,28 @@ export default function useReclamos() {
     )
   }
 
-  async function getReclamos(): Promise<ReclamoModel[]> {
-    return await GetReclamos()
+  async function getReclamos(): Promise<ReclamoDetalleModel[]> {
+    return await GetReclamos(token)
   }
 
   async function getReclamo(idReclamo: number): Promise<ReclamoModel> {
-    return await GetReclamo(idReclamo)
+    return await GetReclamo(idReclamo, token)
+  }
+
+  async function getReclamoDetalle(
+    idReclamo: number,
+  ): Promise<ReclamoDetalleModel> {
+    return await GetReclamoDetalle(idReclamo, token)
   }
 
   function clearReclamo(): void {
     changeCache({
       generarReclamo: {
-        desperfecto: '',
+        idDesperfecto: 0,
+        idRubro: 0,
+        idSitio: 0,
         images: [],
-        lugar: '',
         reason: '',
-        rubro: '',
       },
     })
   }
@@ -65,7 +77,7 @@ export default function useReclamos() {
     changeCache({
       generarReclamo: {
         ...cache.generarReclamo,
-        desperfecto: desperfecto,
+        idDesperfecto: +desperfecto,
       },
     })
   }
@@ -73,7 +85,7 @@ export default function useReclamos() {
     changeCache({
       generarReclamo: {
         ...cache.generarReclamo,
-        lugar: lugar,
+        idSitio: +lugar,
       },
     })
   }
@@ -89,7 +101,7 @@ export default function useReclamos() {
     changeCache({
       generarReclamo: {
         ...cache.generarReclamo,
-        rubro: rubro,
+        idRubro: +rubro,
       },
     })
   }
@@ -133,6 +145,7 @@ export default function useReclamos() {
     addImage,
     cachedImage: cache.addedPhoto,
     getReclamo,
+    getReclamoDetalle,
     getReclamos,
     reclamo: cache.generarReclamo,
     removeImage,

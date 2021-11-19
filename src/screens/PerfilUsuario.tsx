@@ -1,27 +1,60 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react'
-import {
-  Alert,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import React, { useEffect, useState } from 'react'
+import { Alert, StyleSheet, Text, TextInput, View } from 'react-native'
+
+import useAuth from '../components/providers/useAuth'
+import useUser from '../components/providers/useUser'
+import { Button } from '../components/Themed'
+import { NavigationScreenKey } from '../constants/NavigationKeys'
+import { UserModel } from '../services/user.service'
 
 export default function PerfilUsuario(): JSX.Element {
-  const [nuevoMail, setNuevoMail] = React.useState('')
-  const [nuevaPassword, setNuevaPasword] = React.useState('')
+  const [datosUsuario, setDatosUsuario] = useState<UserModel>()
+  const [nuevoMail, setNuevoMail] = useState('')
+  const [nuevaPassword, setNuevaPasword] = useState('')
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  const { setToken } = useAuth()
+  const { getUser } = useUser()
+  const { updateUser } = useUser()
+  const navigation = useNavigation()
+
+  useEffect(() => {
+    setIsLoading(true)
+    getUser('123').then((user) => {
+      setDatosUsuario(user)
+      setIsLoading(false)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const updateUserData = () => {
+    const updateData = {
+      contraseña: nuevaPassword,
+      email: nuevoMail,
+    }
+    updateUser('123', updateData)
+      .then(() => Alert.alert('Los datos se han actualizado exitosamente'))
+      .catch(() => Alert.alert('Los datos no se han actualizado'))
+  }
+
+  const closeSession = () => {
+    setToken('')
+    navigation.navigate(NavigationScreenKey.LOGIN)
+  }
 
   return (
     <View style={styles.container}>
       <View style={{ flex: 3, marginTop: 20 }}>
         <View>
-          <Text style={styles.datos}>DNI:</Text>
-          <Text style={styles.datos}>Nombre:</Text>
-          <Text style={styles.datos}>Apellido:</Text>
-          <Text style={styles.datos}>Email:</Text>
-          <Text style={styles.datos}>Municipio:</Text>
+          <Text style={styles.datos}>DNI: {datosUsuario?.documento}</Text>
+          <Text style={styles.datos}>Nombre: {datosUsuario?.nombre}</Text>
+          <Text style={styles.datos}>Apellido: {datosUsuario?.apellido}</Text>
+          <Text style={styles.datos}>Email: {datosUsuario?.email}</Text>
+          <Text style={styles.datos}>
+            Inspector: {datosUsuario?.inspector !== 0 ? 'Si' : 'No'}
+          </Text>
         </View>
 
         <View style={styles.groupInputDescription}>
@@ -50,12 +83,13 @@ export default function PerfilUsuario(): JSX.Element {
           />
         </View>
 
-        <TouchableOpacity
-          onPress={() => Alert.alert('Datos actualizados')}
-          style={styles.button}
-        >
-          <Text style={styles.actualizarDatos}>ACTUALIZAR DATOS</Text>
-        </TouchableOpacity>
+        <Button
+          isLoading={isLoading}
+          onPress={updateUserData}
+          text="ACTUALIZAR DATOS"
+        />
+
+        <Button isLoading={false} onPress={closeSession} text="CERRAR SESIÓN" />
       </View>
     </View>
   )
@@ -86,6 +120,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
+    marginTop: 40,
   },
   datos: {
     color: '#409DC4',

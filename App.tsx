@@ -6,6 +6,7 @@ import React from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import { CacheProvider } from './src/components/providers/useCache'
+import { CronProvider } from './src/components/providers/useCron'
 import useCachedResources from './src/hooks/useCachedResources'
 import useColorScheme from './src/hooks/useColorScheme'
 import Navigation from './src/navigation'
@@ -20,10 +21,12 @@ export default function App(): JSX.Element | null {
   } else {
     return (
       <SafeAreaProvider>
-        <CacheProvider>
-          <Navigation colorScheme={colorScheme} />
-          <StatusBar />
-        </CacheProvider>
+        <CronProvider>
+          <CacheProvider>
+            <Navigation colorScheme={colorScheme} />
+            <StatusBar />
+          </CacheProvider>
+        </CronProvider>
       </SafeAreaProvider>
     )
   }

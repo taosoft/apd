@@ -5,7 +5,7 @@ import { Text } from 'react-native-elements'
 
 export interface ComercioItemProps {
   fecha: string
-  lugar: number
+  lugar: string
   numeroReclamo: number
 }
 

@@ -9,21 +9,26 @@ import {
   cloudinaryUpload,
   UploadImageResponse,
 } from '../../services/image.service'
+import useAuth from './useAuth'
 import { GenerateType, useCache } from './useCache'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function useDenuncias() {
   const { cache, changeCache } = useCache()
+  const { token } = useAuth()
 
   async function submitDenuncia(): Promise<boolean> {
     const uploadImagesResponses = await uploadImages()
     try {
-      CreateDenuncia({
-        ...cache.generarDenuncia,
-        archivosURL: uploadImagesResponses
-          .map((imagen) => imagen.response?.secure_url ?? '')
-          .join(';'),
-      })
+      CreateDenuncia(
+        {
+          ...cache.generarDenuncia,
+          archivosURL: uploadImagesResponses
+            .map((imagen) => imagen.response?.secure_url ?? '')
+            .join(';'),
+        },
+        token,
+      )
       clearDenuncia()
       return true
     } catch (e) {
@@ -40,12 +45,12 @@ export default function useDenuncias() {
     )
   }
 
-  async function getDenuncias(documento: string): Promise<DenunciaModel[]> {
-    return await GetDenuncias(documento)
+  async function getDenuncias(): Promise<DenunciaModel[]> {
+    return await GetDenuncias(token)
   }
 
   async function getDenuncia(idReclamo: number): Promise<DenunciaModel> {
-    return await GetDenuncia(idReclamo)
+    return await GetDenuncia(idReclamo, token)
   }
 
   function clearDenuncia(): void {

@@ -1,21 +1,32 @@
 /* eslint-disable react-native/no-inline-styles */
 import { useNavigation } from '@react-navigation/native'
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 
 import { baseUrl } from '../common/values'
 import useAuth from '../components/providers/useAuth'
+import { Button } from '../components/Themed'
 import { NavigationScreenKey } from '../constants/NavigationKeys'
 
 export default function Login(): JSX.Element {
   const navigator = useNavigation()
-  const [docu, setDocu] = useState('')
-  const [clave, setClave] = useState('')
-  const { setToken } = useAuth()
+  const [docu, setDocu] = useState<string>('')
+  const [clave, setClave] = useState<string>('')
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const { setLoginResponse, token } = useAuth()
+
+  useEffect(() => {
+    if (token !== '') {
+      navigator.navigate(NavigationScreenKey.AUTHENTICATED_STACK)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token])
 
   const ingresar = () => {
+    setIsLoading(true)
+
     const data = {
       contraseña: clave,
       documento: docu,
@@ -28,14 +39,18 @@ export default function Login(): JSX.Element {
         },
       })
       .then((res) => {
-        setToken(res.data.token)
+        setLoginResponse(res.data.data.token, res.data.data.user.documento)
+        setIsLoading(false)
+        setClave('')
+        setDocu('')
         navigator.navigate(NavigationScreenKey.AUTHENTICATED_STACK)
       })
       .catch((e) => {
+        setIsLoading(false)
+        setLoginResponse('', '')
         console.log(e)
         Alert.alert('Documento y/o contraseña incorrecta')
       })
-    // TODO: Agregar popup con información para el usuario
   }
 
   return (
@@ -44,7 +59,7 @@ export default function Login(): JSX.Element {
         <TextInput
           keyboardType="email-address"
           onChangeText={setDocu}
-          placeholder="Ingrese su DNI o Legajo"
+          placeholder="Ingrese su Documento o Legajo"
           placeholderTextColor="#409DC4"
           style={styles.input}
           textContentType="username"
@@ -54,7 +69,7 @@ export default function Login(): JSX.Element {
         <TextInput
           keyboardType="ascii-capable"
           onChangeText={setClave}
-          placeholder="Ingrese su clave"
+          placeholder="Ingrese su contraseña"
           placeholderTextColor="#409DC4"
           secureTextEntry={true}
           style={styles.input}
@@ -62,9 +77,7 @@ export default function Login(): JSX.Element {
           value={clave}
         />
 
-        <TouchableOpacity onPress={() => ingresar()} style={styles.button}>
-          <Text style={styles.ingresar}>INGRESAR</Text>
-        </TouchableOpacity>
+        <Button isLoading={isLoading} onPress={ingresar} text="INGRESAR" />
 
         <TouchableOpacity
           onPress={() =>

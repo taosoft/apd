@@ -34,7 +34,7 @@ export default function DenunciaListado({
 
   useEffect(() => {
     setIsLoading(true)
-    getDenuncias('12345678').then((array) => {
+    getDenuncias().then((array) => {
       setDenuncias(array)
       setIsLoading(false)
     })
@@ -114,12 +114,13 @@ export default function DenunciaListado({
                 <DenunciaItem
                   descripcion={item.descripcion}
                   estado={item.estado}
-                  fecha={item.fecha.toString()}
+                  fecha={item.fechaDenuncia?.toString()}
                   numeroDenuncia={item.idDenuncia}
                 />
               </TouchableOpacity>
             )
           }}
+          style={styles.flatList}
         />
       )}
     </View>
@@ -143,6 +144,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+  },
+  flatList: {
+    marginBottom: 40,
   },
   horizontal: {
     flexDirection: 'row',

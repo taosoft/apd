@@ -1,11 +1,11 @@
 import { RouteProp } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import ImageLayout from 'react-native-image-layout'
 
 import ItemBitacora from '../components/ItemBitacora'
 import useReclamos from '../components/providers/useReclamos'
-import { ReclamoModel } from '../services/reclamo.service'
+import { ReclamoDetalleModel } from '../services/reclamo.service'
 
 interface ReclamoDetalleProps {
   route: RouteProp<{ params: { id: number } }, 'params'>
@@ -15,16 +15,19 @@ export default function ReclamoDetalle({
   route,
 }: ReclamoDetalleProps): JSX.Element {
   const { id } = route.params
-  const { getReclamo } = useReclamos()
-  const [reclamo, setReclamo] = useState<ReclamoModel | undefined>(undefined)
+  const { getReclamoDetalle } = useReclamos()
+
+  const [reclamo, setReclamo] = useState<ReclamoDetalleModel | undefined>(
+    undefined,
+  )
 
   const imagenes =
-    reclamo?.archivosURL.split(';').map((image) => {
+    reclamo?.archivosURL?.split(';').map((image) => {
       return { uri: image }
     }) ?? []
 
   const itemsBitacora =
-    reclamo?.bitacora.split(';').map((item) => {
+    reclamo?.bitacora?.split(';').map((item) => {
       return {
         fecha: '',
         icono: '',
@@ -33,13 +36,11 @@ export default function ReclamoDetalle({
     }) ?? []
 
   useEffect(() => {
-    getReclamo(id).then((data) => {
+    getReclamoDetalle(id).then((data) => {
       setReclamo(data)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  console.log(imagenes)
 
   return (
     <View style={styles.container}>
@@ -47,11 +48,16 @@ export default function ReclamoDetalle({
         <View>
           <Text style={styles.titleText}>Reclamo #{reclamo?.idReclamo}</Text>
           <Text style={styles.textSubBold}>Estado: {reclamo?.estado}</Text>
-          <Text style={styles.text}>Autor: Juan Perez</Text>
-          <Text style={styles.text}>Ubicacion: {reclamo?.idSitio}</Text>
-          <Text style={styles.text}>Rubro:</Text>
-          <Text style={styles.text}>Tipo de desperfecto:</Text>
-          <Text style={styles.text}>{reclamo?.descripcion}</Text>
+          <Text style={styles.text}>
+            Autor: {reclamo?.user?.nombre} {reclamo?.user?.apellido}
+          </Text>
+          <Text style={styles.text}>
+            Ubicacion: {reclamo?.sitio?.descripcion}
+          </Text>
+          <Text style={styles.text}>
+            Tipo de desperfecto: {reclamo?.desperfecto?.descripcion}
+          </Text>
+          <Text style={styles.text}>Descripción: {reclamo?.descripcion}</Text>
           <Text style={styles.textSubBold}>Archivos</Text>
           <Text style={styles.text}>Input de archivos a definir</Text>
           <Text style={styles.textSubBold}>Imagenes</Text>
@@ -62,18 +68,14 @@ export default function ReclamoDetalle({
           <Text style={styles.textSubBold}>
             Bitacora del estado del reclamo
           </Text>
-          <FlatList
-            data={itemsBitacora}
-            keyExtractor={(item) => item.titulo}
-            renderItem={({ item, index }) => (
-              <ItemBitacora
-                fecha={item.fecha}
-                icono={item.icono}
-                key={index}
-                titulo={item.titulo}
-              />
-            )}
-          />
+          {itemsBitacora.map((item, index) => (
+            <ItemBitacora
+              fecha={item.fecha}
+              icono={item.icono}
+              key={index}
+              titulo={item.titulo}
+            />
+          ))}
         </View>
       </ScrollView>
     </View>

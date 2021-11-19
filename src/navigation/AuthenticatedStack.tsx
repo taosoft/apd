@@ -73,7 +73,11 @@ function TabPerfilNavigator() {
         headerTitleStyle: { fontWeight: 'bold' },
       }}
     >
-      <TabPerfilStack.Screen component={PerfilUsuario} name="TabPerfilScreen" />
+      <TabPerfilStack.Screen
+        component={PerfilUsuario}
+        name="TabPerfilScreen"
+        options={{ headerShown: false, headerTitle: 'Perfil' }}
+      />
     </TabPerfilStack.Navigator>
   )
 }
@@ -93,7 +97,7 @@ function TabInicioNavigator() {
         component={Bienvenido}
         initialParams={{ authenticated: true }}
         name={AuthNavigationScreenKey.BIENVENIDO}
-        options={{ title: '' }}
+        options={{ headerLeft: () => null }}
       />
       <TabInicioStack.Screen
         component={ComercioListado}
@@ -185,6 +189,7 @@ function TabNotificacionNavigator() {
         component={Notificaciones}
         initialParams={{ authenticated: true }}
         name="Notificaciones"
+        options={{ headerShown: false }}
       />
     </TabNotificacionesStack.Navigator>
   )
