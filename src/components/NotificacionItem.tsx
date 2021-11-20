@@ -18,7 +18,9 @@ export default function NotificacionItem(
         <Avatar rounded size="medium" source={{ uri: props.imgUsuario }} />
         <ListItem.Content>
           <ListItem.Title style={styles.titulo}>{props.titulo}</ListItem.Title>
-          <ListItem.Subtitle>{props.texto}</ListItem.Subtitle>
+          <ListItem.Subtitle style={styles.descripcion}>
+            {props.texto}
+          </ListItem.Subtitle>
         </ListItem.Content>
         <ListItem.Chevron />
       </ListItem>
@@ -32,6 +34,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     width: '100%',
+  },
+  descripcion: {
+    color: '#808080',
+    fontSize: 14,
   },
   titulo: {
     fontSize: 19,

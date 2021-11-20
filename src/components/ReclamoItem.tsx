@@ -36,15 +36,17 @@ const styles = StyleSheet.create({
   fecha: {
     flex: 16,
     fontSize: 14,
+    textAlign: 'right',
   },
   lugar: {
+    color: '#808080',
     flex: 1,
     fontSize: 14,
     fontWeight: 'bold',
   },
   numeroReclamo: {
     flex: 14,
-    fontSize: 14,
+    fontSize: 19,
     fontWeight: 'bold',
   },
   row: {

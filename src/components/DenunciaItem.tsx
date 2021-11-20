@@ -36,21 +36,24 @@ const styles = StyleSheet.create({
     paddingTop: 15,
   },
   descripcion: {
+    color: '#808080',
     flex: 3,
     fontSize: 14,
     fontWeight: 'bold',
   },
   estado: {
+    color: '#808080',
     flex: 1,
     fontSize: 14,
   },
   fecha: {
     flex: 1,
     fontSize: 14,
+    textAlign: 'right',
   },
   numeroReclamo: {
     flex: 1,
-    fontSize: 14,
+    fontSize: 19,
     fontWeight: 'bold',
   },
   row: {

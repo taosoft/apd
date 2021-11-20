@@ -47,22 +47,38 @@ export default function ReclamoDetalle({
       <ScrollView keyboardShouldPersistTaps="always">
         <View>
           <Text style={styles.titleText}>Reclamo #{reclamo?.idReclamo}</Text>
-          <Text style={styles.textSubBold}>Estado: {reclamo?.estado}</Text>
-          <Text style={styles.text}>
-            Autor: {reclamo?.user?.nombre} {reclamo?.user?.apellido}
-          </Text>
-          <Text style={styles.text}>
-            Ubicacion: {reclamo?.sitio?.descripcion}
-          </Text>
-          <Text style={styles.text}>
-            Tipo de desperfecto: {reclamo?.desperfecto?.descripcion}
-          </Text>
-          <Text style={styles.text}>Descripción: {reclamo?.descripcion}</Text>
+          <View style={styles.row}>
+            <Text style={styles.titulo}>Estado:</Text>
+            <Text style={styles.datos}>{reclamo?.estado}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.titulo}>Autor:</Text>
+            <Text style={styles.datos}>
+              {reclamo?.user?.nombre} {reclamo?.user?.apellido}
+            </Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.titulo}>Ubicacion:</Text>
+            <Text style={styles.datos}>{reclamo?.sitio?.descripcion}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.titulo}>Tipo de desperfecto:</Text>
+            <Text style={styles.datos}>
+              {reclamo?.desperfecto?.descripcion}
+            </Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.titulo}>Descripción:</Text>
+            <Text style={styles.datos}>{reclamo?.descripcion}</Text>
+          </View>
+
           <Text style={styles.textSubBold}>Archivos</Text>
-          <Text style={styles.text}>Input de archivos a definir</Text>
+          <View style={styles.row}>
+            <Text style={styles.alert}>Input de archivos a definir</Text>
+          </View>
           <Text style={styles.textSubBold}>Imagenes</Text>
           {imagenes.length === 0 && (
-            <Text style={styles.text}>No hay imágenes disponibles</Text>
+            <Text style={styles.alert}>No hay imágenes disponibles</Text>
           )}
           {imagenes.length !== 0 && <ImageLayout images={imagenes} />}
           <Text style={styles.textSubBold}>
@@ -83,11 +99,27 @@ export default function ReclamoDetalle({
 }
 
 const styles = StyleSheet.create({
+  alert: {
+    color: 'red',
+  },
   container: {
     backgroundColor: '#fff',
     flex: 1,
     flexDirection: 'column',
     paddingHorizontal: 15,
+  },
+  datos: {
+    color: '#808080',
+    flex: 1,
+    fontSize: 19,
+    paddingLeft: 5,
+    paddingTop: 5,
+    textAlign: 'justify',
+  },
+  row: {
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   text: {
     color: '#409DC4',
@@ -98,16 +130,22 @@ const styles = StyleSheet.create({
     color: '#409DC4',
     fontSize: 20,
     fontWeight: 'bold',
-    marginTop: 15,
+    marginBottom: 5,
+    marginTop: 25,
     textAlign: 'left',
     textTransform: 'uppercase',
   },
   titleText: {
     color: '#409DC4',
-    fontFamily: 'sans-serif',
     fontSize: 30,
     fontWeight: 'bold',
     marginTop: 30,
     textAlign: 'left',
+  },
+  titulo: {
+    color: '#409DC4',
+    fontSize: 19,
+    fontWeight: 'bold',
+    marginTop: 5,
   },
 })

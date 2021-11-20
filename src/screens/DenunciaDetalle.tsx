@@ -30,12 +30,28 @@ export default function DenunciaDetalle(): JSX.Element {
       <ScrollView keyboardShouldPersistTaps="always">
         <View>
           <Text style={styles.titleText}>Denuncia #1234567</Text>
-          <Text style={styles.textSubBold}>Estado: Abierto</Text>
-          <Text style={styles.text}>Denunciado: Juan Perez</Text>
-          <Text style={styles.text}>Ubicacion: Calle Falsa 123</Text>
-          <Text style={styles.text}>Motivo de la denuncia:</Text>
+          <View style={styles.row}>
+            <Text style={styles.titulo}>Estado:</Text>
+            <Text style={styles.datos}>Estado</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.titulo}>Denunciado:</Text>
+            <Text style={styles.datos}>Juan Perez</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.titulo}>Ubicacion:</Text>
+            <Text style={styles.datos}>Calle Falsa 123</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.titulo}>Motivo:</Text>
+            <Text style={styles.datos}>
+              Pone la música alta despues de la medianoche.
+            </Text>
+          </View>
           <Text style={styles.textSubBold}>Archivos</Text>
-          <Text style={styles.text}>Input de archivos a definir</Text>
+          <View style={styles.row}>
+            <Text style={styles.alert}>Input de archivos a definir</Text>
+          </View>
           <Text style={styles.textSubBold}>Imagenes</Text>
 
           <ImageLayout
@@ -110,11 +126,27 @@ export default function DenunciaDetalle(): JSX.Element {
 }
 
 const styles = StyleSheet.create({
+  alert: {
+    color: 'red',
+  },
   container: {
     backgroundColor: '#fff',
     flex: 1,
     flexDirection: 'column',
     paddingHorizontal: 15,
+  },
+  datos: {
+    color: '#808080',
+    flex: 1,
+    fontSize: 19,
+    paddingLeft: 5,
+    paddingTop: 5,
+    textAlign: 'justify',
+  },
+  row: {
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   text: {
     color: '#409DC4',
@@ -125,7 +157,8 @@ const styles = StyleSheet.create({
     color: '#409DC4',
     fontSize: 20,
     fontWeight: 'bold',
-    marginTop: 15,
+    marginBottom: 5,
+    marginTop: 25,
     textAlign: 'left',
     textTransform: 'uppercase',
   },
@@ -136,5 +169,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 30,
     textAlign: 'left',
+  },
+  titulo: {
+    color: '#409DC4',
+    fontSize: 19,
+    fontWeight: 'bold',
+    marginTop: 5,
   },
 })

@@ -7,12 +7,17 @@ export default function ComercioDetalle(): JSX.Element {
     <View style={styles.container}>
       <ScrollView keyboardShouldPersistTaps="always">
         <View>
-          <Text style={styles.titleText}>Comercio... tal</Text>
-          <Text style={styles.text}>De 09:00 hs a 14:00 hs</Text>
-          <Text style={styles.text}>De 16:00 hs a 18:00 hs</Text>
-          <Text style={styles.textNomApe}>Ofertas y promociones</Text>
+          <Text style={styles.titleText}>Comercio Paula</Text>
+          <View style={styles.row}>
+            <Text style={styles.titulo}>Horario:</Text>
+            <Text style={styles.datos}>De 9hs a 14hs / De 15hs a 19hs</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.titulo}>Ofertas y promociones:</Text>
+            <Text style={styles.datos}>2x1</Text>
+          </View>
           <Text style={styles.textSubBold}>Descripcion</Text>
-          <Text style={styles.textDesc}>
+          <Text style={styles.datosDescripcion}>
             Mucha descripcion, Mucha descripcion, Mucha descripcion, Mucha
             descripcion, Mucha descripcion, Mucha descripcion, Mucha
             descripcion, Mucha descripcion, Mucha descripcion, Mucha
@@ -84,35 +89,40 @@ export default function ComercioDetalle(): JSX.Element {
 }
 
 const styles = StyleSheet.create({
+  alert: {
+    color: 'red',
+  },
   container: {
     backgroundColor: '#fff',
     flex: 1,
     flexDirection: 'column',
     paddingHorizontal: 15,
   },
-  text: {
-    color: '#409DC4',
-    marginTop: 5,
-    textAlign: 'left',
+  datos: {
+    color: '#808080',
+    flex: 1,
+    fontSize: 19,
+    paddingLeft: 5,
+    paddingTop: 5,
+    textAlign: 'justify',
   },
-  textDesc: {
-    color: '#409DC4',
-    fontSize: 13,
+  datosDescripcion: {
+    color: '#808080',
+    fontSize: 19,
     marginTop: 5,
-    textAlign: 'left',
+    textAlign: 'justify',
   },
-  textNomApe: {
-    color: '#409DC4',
-    fontSize: 13,
-    fontWeight: 'bold',
-    marginTop: 15,
-    textAlign: 'left',
+  row: {
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   textSubBold: {
     color: '#409DC4',
     fontSize: 20,
     fontWeight: 'bold',
-    marginTop: 15,
+    marginBottom: 5,
+    marginTop: 25,
     textAlign: 'left',
     textTransform: 'uppercase',
   },
@@ -123,5 +133,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 30,
     textAlign: 'left',
+  },
+  titulo: {
+    color: '#409DC4',
+    fontSize: 19,
+    fontWeight: 'bold',
+    marginTop: 5,
   },
 })
