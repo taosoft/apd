@@ -37,7 +37,9 @@ export default function DenunciaGenerar(): JSX.Element {
   const [denunciaAddress, setDenunciaAddress] = useState<string>(
     denuncia.address,
   )
-  const [denunciaReason, setDenunciaReason] = useState<string>(denuncia.reason)
+  const [denunciaReason, setDenunciaReason] = useState<string>(
+    denuncia.descripcion,
+  )
   const [isTermsAndConditions, setIsTermsAndConditions] = useState<boolean>(
     denuncia.isTermsAndConditions,
   )
