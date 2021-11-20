@@ -58,10 +58,10 @@ export default function useDenuncias() {
       generarDenuncia: {
         address: '',
         date: '',
+        descripcion: '',
         images: [],
         isTermsAndConditions: false,
         name: '',
-        reason: '',
       },
     })
   }
