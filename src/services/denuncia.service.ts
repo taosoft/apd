@@ -2,6 +2,8 @@ import axios from 'axios'
 
 import { Response } from '../common/response'
 import { baseUrl } from '../common/values'
+import { useAuth } from '../components/providers/useAuth'
+
 interface AddDenuncia {
   // verificar si los campos declarddos son los correctos datos
   date: string
@@ -28,13 +30,14 @@ export default async function CreateDenuncia(
   denuncia: AddDenuncia,
   token: string,
 ): Promise<void> {
+  const { documento } = useAuth()
   try {
     await axios.post<Response<DenunciaModel>>(
       `${baseUrl}/denuncias`,
       {
         ...denuncia,
         aceptaResponsabilidad: denuncia.isTermsAndConditions,
-        documento: '12345678',
+        documento: documento,
         fechaHecho: denuncia.date,
         idSitio: '1',
       },
