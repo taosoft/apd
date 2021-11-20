@@ -12,7 +12,7 @@ export interface GenerarDenuncia {
   date: string
   name: string
   address: string
-  reason: string
+  descripcion: string
   images: string[]
   isTermsAndConditions: boolean
 }
@@ -20,7 +20,7 @@ export interface GenerarDenuncia {
 export interface GenerarReclamo {
   idSitio: number
   idDesperfecto: number
-  reason: string
+  descripcion: string
   idRubro: number
   images: string[]
 }
@@ -46,17 +46,17 @@ export const defaultCache: Cache = {
   generarDenuncia: {
     address: '',
     date: '',
+    descripcion: '',
     images: [],
     isTermsAndConditions: false,
     name: '',
-    reason: '',
   },
   generarReclamo: {
+    descripcion: '',
     idDesperfecto: 0,
     idRubro: 0,
     idSitio: 0,
     images: [],
-    reason: '',
   },
   token: undefined,
 }
@@ -98,19 +98,19 @@ export function CacheProvider(props: CacheProviderProps): JSX.Element {
         generarDenuncia: {
           address: config.generarDenuncia.address,
           date: config.generarDenuncia.date,
+          descripcion: config.generarDenuncia.descripcion,
           images: config.generarDenuncia.images,
           isTermsAndConditions: config.generarDenuncia.isTermsAndConditions,
           name: config.generarDenuncia.name,
-          reason: config.generarDenuncia.reason,
         },
       }),
       ...(config.generarReclamo && {
         generarReclamo: {
+          descripcion: config.generarReclamo.descripcion,
           idDesperfecto: config.generarReclamo.idDesperfecto,
           idRubro: config.generarReclamo.idRubro,
           idSitio: config.generarReclamo.idSitio,
           images: config.generarReclamo.images,
-          reason: config.generarReclamo.reason,
         },
       }),
     }

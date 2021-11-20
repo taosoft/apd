@@ -9,7 +9,7 @@ interface AddDenuncia {
   isTermsAndConditions: boolean
   address: string
   name: string
-  reason: string
+  descripcion: string
 }
 export interface DenunciaModel {
   // verificar si los campos declarddos son los correctos datos

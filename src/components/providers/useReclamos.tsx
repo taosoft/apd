@@ -64,11 +64,11 @@ export default function useReclamos() {
   function clearReclamo(): void {
     changeCache({
       generarReclamo: {
+        descripcion: '',
         idDesperfecto: 0,
         idRubro: 0,
         idSitio: 0,
         images: [],
-        reason: '',
       },
     })
   }
@@ -93,7 +93,7 @@ export default function useReclamos() {
     changeCache({
       generarReclamo: {
         ...cache.generarReclamo,
-        reason: reason,
+        descripcion: reason,
       },
     })
   }
