@@ -50,6 +50,8 @@ export default function Login(): JSX.Element {
         setLoginResponse('', '')
         console.log(e)
         Alert.alert('Documento y/o contraseña incorrecta')
+        setDocu('')
+        setClave('')
       })
   }
 
