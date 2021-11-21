@@ -48,7 +48,7 @@ export default function PerfilUsuario(): JSX.Element {
     <View style={styles.container}>
       <View style={{ flex: 3, marginTop: 20 }}>
         <View>
-          <Text style={styles.datos}>DNI: {datosUsuario?.documento}</Text>
+          <Text style={styles.datos}>Documento: {datosUsuario?.documento}</Text>
           <Text style={styles.datos}>Nombre: {datosUsuario?.nombre}</Text>
           <Text style={styles.datos}>Apellido: {datosUsuario?.apellido}</Text>
           <Text style={styles.datos}>Email: {datosUsuario?.email}</Text>

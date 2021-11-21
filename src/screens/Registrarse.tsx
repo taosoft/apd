@@ -19,7 +19,7 @@ export default function Registrarse(): JSX.Element {
         <TextInput
           keyboardType="number-pad"
           onChangeText={setDNI}
-          placeholder="Ingrese su DNI"
+          placeholder="Ingrese su Documento"
           placeholderTextColor="#409DC4"
           style={styles.input}
           textContentType="username"

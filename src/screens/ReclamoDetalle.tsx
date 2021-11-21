@@ -52,7 +52,7 @@ export default function ReclamoDetalle({
             Autor: {reclamo?.user?.nombre} {reclamo?.user?.apellido}
           </Text>
           <Text style={styles.text}>
-            Ubicacion: {reclamo?.sitio?.descripcion}
+            Ubicación: {reclamo?.sitio?.descripcion}
           </Text>
           <Text style={styles.text}>
             Tipo de desperfecto: {reclamo?.desperfecto?.descripcion}
@@ -60,13 +60,13 @@ export default function ReclamoDetalle({
           <Text style={styles.text}>Descripción: {reclamo?.descripcion}</Text>
           <Text style={styles.textSubBold}>Archivos</Text>
           <Text style={styles.text}>Input de archivos a definir</Text>
-          <Text style={styles.textSubBold}>Imagenes</Text>
+          <Text style={styles.textSubBold}>Imágenes</Text>
           {imagenes.length === 0 && (
             <Text style={styles.text}>No hay imágenes disponibles</Text>
           )}
           {imagenes.length !== 0 && <ImageLayout images={imagenes} />}
           <Text style={styles.textSubBold}>
-            Bitacora del estado del reclamo
+            Bitácora del estado del reclamo
           </Text>
           {itemsBitacora.map((item, index) => (
             <ItemBitacora

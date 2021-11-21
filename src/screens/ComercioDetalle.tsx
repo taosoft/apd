@@ -32,9 +32,9 @@ export default function ComercioDetalle({
           <Text style={styles.text}>De 09:00 hs a 14:00 hs</Text>
           <Text style={styles.text}>De 16:00 hs a 18:00 hs</Text>
           <Text style={styles.textNomApe}>Ofertas y promociones</Text>
-          <Text style={styles.textSubBold}>Descripcion</Text>
+          <Text style={styles.textSubBold}>Descripción</Text>
           <Text style={styles.textDesc}>{comercio?.descripcion}</Text>
-          <Text style={styles.textSubBold}>Imagenes</Text>
+          <Text style={styles.textSubBold}>Imágenes</Text>
 
           <ImageLayout
             images={[

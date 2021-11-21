@@ -121,7 +121,7 @@ export default function Notificaciones({
               )
             } else {
               return (
-                <Text>Usted no posee ninguna notificacion de momento.</Text>
+                <Text>Usted no posee ninguna notificación de momento.</Text>
               )
             }
           }}
