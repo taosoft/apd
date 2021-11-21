@@ -1,32 +1,48 @@
-import React from 'react'
+import { RouteProp } from '@react-navigation/native'
+import React, { useEffect, useState } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import ImageLayout from 'react-native-image-layout'
 
-export default function Login(): JSX.Element {
+import useServicio from '../components/providers/useServicios'
+import { ServicioModelDetalle } from '../services/servicios.service'
+
+interface ServicioDetalleProps {
+  route: RouteProp<{ params: { id: number } }, 'params'>
+}
+
+export default function ServicioDetalle({
+  route,
+}: ServicioDetalleProps): JSX.Element {
+  const { id } = route.params
+  const { getServicioDetalle } = useServicio()
+  const [servicio, setServicio] = useState<ServicioModelDetalle>()
+
+  useEffect(() => {
+    getServicioDetalle(id).then((res) => {
+      setServicio(res)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <View style={styles.container}>
       <ScrollView keyboardShouldPersistTaps="always">
         <View>
-          <Text style={styles.titleText}>Servicio... tal</Text>
-          <Text style={styles.text}>De 09:00 hs a 14:00 hs</Text>
-          <Text style={styles.text}>De 16:00 hs a 18:00 hs</Text>
-          <Text style={styles.textNomApe}>Nombre y Apellido</Text>
-          <Text style={styles.textRubro}>Direccion</Text>
-          <Text style={styles.textRubro}>Telefono</Text>
-          <Text style={styles.textRubro}>Email</Text>
-          <Text style={styles.textRubro}>Rubro</Text>
-          <Text style={styles.textSubBold}>Descripcion</Text>
-          <Text style={styles.textDesc}>
-            Mucha descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion,
+          <Text style={styles.titleText}>{servicio?.nombreServicio}</Text>
+          <Text style={styles.textRubro}>De 09:00 hs a 14:00 hs</Text>
+          <Text style={styles.textRubro}>De 16:00 hs a 18:00 hs</Text>
+          <Text style={styles.textRubro}>
+            Nombre de contacto: {servicio?.nombrePersona}
           </Text>
-          <Text style={styles.textSubBold}>Imagenes</Text>
+          <Text style={styles.textRubro}>Dirección: {servicio?.direccion}</Text>
+          <Text style={styles.textRubro}>Teléfono: {servicio?.telefono}</Text>
+          <Text style={styles.textRubro}>Email: {servicio?.email}</Text>
+          <Text style={styles.textRubro}>
+            Rubro: {servicio?.rubro.descripcion}
+          </Text>
+          <Text style={styles.textSubBold}>Descripción</Text>
+          <Text style={styles.textDesc}>{servicio?.descripcion}</Text>
+          <Text style={styles.textSubBold}>Imágenes</Text>
 
           <ImageLayout
             images={[
@@ -75,20 +91,13 @@ const styles = StyleSheet.create({
   },
   textDesc: {
     color: '#409DC4',
-    fontSize: 13,
+    fontSize: 20,
     marginTop: 5,
-    textAlign: 'left',
-  },
-  textNomApe: {
-    color: '#409DC4',
-    fontSize: 13,
-    fontWeight: 'bold',
-    marginTop: 15,
     textAlign: 'left',
   },
   textRubro: {
     color: '#409DC4',
-    fontSize: 13,
+    fontSize: 20,
     fontWeight: 'bold',
     marginTop: 5,
     textAlign: 'left',

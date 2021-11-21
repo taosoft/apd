@@ -1,27 +1,13 @@
 import { RouteProp, useNavigation } from '@react-navigation/native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FlatList, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
+import useServicio from '../components/providers/useServicios'
 import ServicioItem from '../components/ServicioItem'
 import { View } from '../components/Themed'
-
-const DATA = [
-  {
-    foto: '',
-    id: '1',
-    texto:
-      'Hago arreglos desde cambio de cueritos hasta reforma de baños y cocinas.',
-    titulo: 'Plomeria Cacho',
-  },
-  {
-    foto: '',
-    id: '2',
-    texto: 'Trabajo de lunes a sabados de 8hs a 18hs.',
-    titulo: 'Instalacion de Aire Acondicionado JuanCa',
-  },
-]
+import { ServicioModel } from '../services/servicios.service'
 
 interface ServicioListadoProps {
   route: RouteProp<{ params: { authenticated: boolean } }, 'params'>
@@ -32,8 +18,17 @@ export default function ServicioListado({
 }: ServicioListadoProps): JSX.Element {
   const { authenticated } = route.params
   const navigation = useNavigation()
-  const [text, setText] = React.useState('')
-  const [isInspector] = React.useState(false)
+  const { getServicios } = useServicio()
+  const [text, setText] = useState('')
+  const [isInspector] = useState(false)
+  const [servicios, setServicios] = useState<ServicioModel[]>([])
+
+  useEffect(() => {
+    getServicios().then((res) => {
+      setServicios(res)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <View style={styles.view}>
@@ -61,8 +56,8 @@ export default function ServicioListado({
       </View>
       {/* Tincho: aca poner el listado de servicios. recordar q van con filtro  */}
       <FlatList
-        data={DATA}
-        keyExtractor={(item) => item.id}
+        data={servicios}
+        keyExtractor={(item) => item.idServicio.toString()}
         renderItem={({ item }) => {
           return (
             /*
@@ -70,13 +65,13 @@ export default function ServicioListado({
             */
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate('ServicioDetalle', { id: item.id })
+                navigation.navigate('ServicioDetalle', { id: item.idServicio })
               }
             >
               <ServicioItem
-                foto={item.foto}
-                texto={item.texto}
-                titulo={item.titulo}
+                foto={item.archivosURL}
+                texto={item.descripcion}
+                titulo={item.nombreServicio}
               />
             </TouchableOpacity>
           )
