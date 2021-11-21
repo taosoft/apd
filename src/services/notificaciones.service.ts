@@ -4,11 +4,12 @@ import { Response } from '../common/response'
 import { baseUrl } from '../common/values'
 
 export interface NotificacionesModel {
-  id: number
-  documento: string
-  idGestion: number
-  descripcion: string
-  visto: number
+  id: string
+  idNotificacion: string
+  fecha: string
+  imgUsuario: string
+  texto: string
+  titulo: string
 }
 
 export async function GetNotificaciones(

@@ -1,28 +1,37 @@
 import { RouteProp, useNavigation } from '@react-navigation/native'
-import React from 'react'
-import { FlatList, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import {
+  Alert,
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from 'react-native'
 
 import NotificacionItem from '../components/NotificacionItem'
+import useAuth from '../components/providers/useAuth'
+import useNotificaciones from '../components/providers/useNotificaciones'
 import { View } from '../components/Themed'
+import { NotificacionesModel } from '../services/notificaciones.service'
 
-const DATA = [
-  {
-    fecha: '12/10/2021',
-    id: '1',
-    imgUsuario:
-      'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-    texto: 'Nuevo estado de la denuncia #1234',
-    titulo: 'Denuncia',
-  },
-  {
-    fecha: '11/10/2021',
-    id: '2',
-    imgUsuario:
-      'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-    texto: 'Nuevo reclamo generado #5678',
-    titulo: 'Reclamo',
-  },
-]
+// const DATA = [
+//   {
+//     fecha: '12/10/2021',
+//     id: '1',
+//     imgUsuario:
+//       'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+//     texto: 'Nuevo estado de la denuncia #1234',
+//     titulo: 'Denuncia',
+//   },
+//   {
+//     fecha: '11/10/2021',
+//     id: '2',
+//     imgUsuario:
+//       'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+//     texto: 'Nuevo reclamo generado #5678',
+//     titulo: 'Reclamo',
+//   },
+// ]
 
 interface NotificacionesListadoProps {
   route: RouteProp<{ params: { authenticated: boolean } }, 'params'>
@@ -33,13 +42,50 @@ export default function Notificaciones({
 }: NotificacionesListadoProps): JSX.Element {
   const { authenticated } = route.params
   const navigation = useNavigation()
+  const { documento } = useAuth()
+  const { getNotificaciones, updateNotificaciones } = useNotificaciones()
+  const [items, setItems] = useState<NotificacionesModel[]>([])
+
+  useEffect(() => {
+    getNotificaciones(documento).then((res) => {
+      setItems(res)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const updateAndOpenDenunciaDetails = async (
+    idDenuncia: string,
+    idNotificacion: string,
+  ) => {
+    // eslint-disable-next-line radix
+    const response = await updateNotificaciones(parseInt(idNotificacion))
+    if (response) {
+      navigation.navigate('DenunciaDetalle', { id: idDenuncia })
+    } else {
+      Alert.alert('No se pudo abrir la denuncia')
+    }
+  }
+
+  const updateAndOpenReclamoDetails = async (
+    idReclamo: string,
+    idNotificacion: string,
+  ) => {
+    console.log(idNotificacion)
+    // eslint-disable-next-line radix
+    const response = await updateNotificaciones(parseInt(idNotificacion))
+    if (response) {
+      navigation.navigate('ReclamoDetalle', { id: idReclamo })
+    } else {
+      Alert.alert('No se pudo abrir el reclamo')
+    }
+  }
 
   return (
     <View style={styles.view}>
       {authenticated && (
         /* Tincho: Listado de notificaciones  */
         <FlatList
-          data={DATA}
+          data={items}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => {
             // Validar que tipo de componente es (para saber hacia que tipo de componente va a navegar luego)
@@ -48,13 +94,13 @@ export default function Notificaciones({
                 // Al hacer click, abre el reclamo que posea id = item.id
                 <TouchableOpacity
                   onPress={() =>
-                    navigation.navigate('DenunciaDetalle', { id: item.id })
+                    updateAndOpenDenunciaDetails(item.id, item.idNotificacion)
                   }
                 >
                   <NotificacionItem
                     fecha={item.fecha}
                     imgUsuario={item.imgUsuario}
-                    texto={item.texto}
+                    texto={'Nuevo estado: ' + item.texto}
                     titulo={item.titulo}
                   />
                 </TouchableOpacity>
@@ -64,13 +110,13 @@ export default function Notificaciones({
                 // Al hacer click, abre el reclamo que posea id = item.id
                 <TouchableOpacity
                   onPress={() =>
-                    navigation.navigate('ReclamoDetalle', { id: item.id })
+                    updateAndOpenReclamoDetails(item.id, item.idNotificacion)
                   }
                 >
                   <NotificacionItem
                     fecha={item.fecha}
                     imgUsuario={item.imgUsuario}
-                    texto={item.texto}
+                    texto={'Nuevo estado: ' + item.texto}
                     titulo={item.titulo}
                   />
                 </TouchableOpacity>
