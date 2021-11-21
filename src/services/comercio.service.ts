@@ -9,6 +9,7 @@ export interface ComercioModel {
   horario: string
   descripcion: string
   archivosURL: string
+  aprobado: string
 }
 
 export async function GetComercioDetalle(

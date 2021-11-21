@@ -15,6 +15,7 @@ export interface ServicioModelDetalle {
   horario: string
   descripcion: string
   archivosURL: string
+  aprobado: string
   rubro: RubroModel
 }
 export interface ServicioModel {
@@ -28,6 +29,7 @@ export interface ServicioModel {
   horario: string
   descripcion: string
   archivosURL: string
+  aprobado: string
 }
 
 export async function GetServicioDetalle(
