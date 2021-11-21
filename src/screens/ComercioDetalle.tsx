@@ -1,27 +1,39 @@
-import React from 'react'
+import { RouteProp } from '@react-navigation/native'
+import React, { useEffect, useState } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import ImageLayout from 'react-native-image-layout'
 
-export default function ComercioDetalle(): JSX.Element {
+import useComercio from '../components/providers/useComercio'
+import { ComercioModel } from '../services/comercio.service'
+
+interface ComercioDetalleProps {
+  route: RouteProp<{ params: { id: number } }, 'params'>
+}
+
+export default function ComercioDetalle({
+  route,
+}: ComercioDetalleProps): JSX.Element {
+  const { id } = route.params
+  const { getComercioDetalle } = useComercio()
+  const [comercio, setComercio] = useState<ComercioModel>()
+
+  useEffect(() => {
+    getComercioDetalle(id).then((res) => {
+      setComercio(res)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <View style={styles.container}>
       <ScrollView keyboardShouldPersistTaps="always">
         <View>
-          <Text style={styles.titleText}>Comercio... tal</Text>
+          <Text style={styles.titleText}>{comercio?.nombre}</Text>
           <Text style={styles.text}>De 09:00 hs a 14:00 hs</Text>
           <Text style={styles.text}>De 16:00 hs a 18:00 hs</Text>
           <Text style={styles.textNomApe}>Ofertas y promociones</Text>
           <Text style={styles.textSubBold}>Descripcion</Text>
-          <Text style={styles.textDesc}>
-            Mucha descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion,
-          </Text>
+          <Text style={styles.textDesc}>{comercio?.descripcion}</Text>
           <Text style={styles.textSubBold}>Imagenes</Text>
 
           <ImageLayout
