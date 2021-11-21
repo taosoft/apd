@@ -58,7 +58,7 @@ export default function Notificaciones({
     idNotificacion: string,
   ) => {
     // eslint-disable-next-line radix
-    const response = await updateNotificaciones(parseInt(idNotificacion))
+    const response = await updateNotificaciones(idNotificacion)
     if (response) {
       navigation.navigate('DenunciaDetalle', { id: idDenuncia })
     } else {
@@ -72,7 +72,7 @@ export default function Notificaciones({
   ) => {
     console.log(idNotificacion)
     // eslint-disable-next-line radix
-    const response = await updateNotificaciones(parseInt(idNotificacion))
+    const response = await updateNotificaciones(idNotificacion)
     if (response) {
       navigation.navigate('ReclamoDetalle', { id: idReclamo })
     } else {

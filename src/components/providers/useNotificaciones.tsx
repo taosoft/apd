@@ -15,7 +15,7 @@ export default function useNotificaciones() {
   }
 
   async function updateNotificaciones(
-    notificacionId: number,
+    notificacionId: string,
   ): Promise<boolean> {
     return await UpdateNotificaciones(notificacionId, token)
   }

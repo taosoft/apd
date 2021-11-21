@@ -34,12 +34,15 @@ export async function GetNotificaciones(
 }
 
 export async function UpdateNotificaciones(
-  notificacionId: number,
+  notificacionId: string,
   token: string,
 ): Promise<boolean> {
   try {
     const result = await axios.patch<Response<boolean>>(
       `${baseUrl}/notificaciones/${notificacionId}`,
+      {
+        visto: 1,
+      },
       {
         headers: {
           Authorization: `Bearer ${token}`,
