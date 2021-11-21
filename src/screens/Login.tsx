@@ -94,19 +94,6 @@ export default function Login(): JSX.Element {
 }
 
 const styles = StyleSheet.create({
-  button: {
-    backgroundColor: '#409DC4',
-    borderColor: '#FFF',
-    borderRadius: 20,
-    borderWidth: 2,
-    justifyContent: 'space-between',
-    marginLeft: 30,
-    marginRight: 30,
-    marginTop: 40,
-    paddingBottom: 10,
-    paddingTop: 10,
-    width: 300,
-  },
   container: {
     alignItems: 'center',
     backgroundColor: '#fff',
@@ -114,17 +101,13 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
   },
-  ingresar: {
-    color: '#FFF',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
   input: {
     backgroundColor: '#FFF',
     borderColor: '#C9E9FC',
     borderRadius: 20,
     borderWidth: 2,
     color: '#000',
+    fontSize: 17,
     fontStyle: 'italic',
     justifyContent: 'space-between',
     marginLeft: 30,
@@ -139,10 +122,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#C9E9FC',
     color: '#409DC4',
+    fontSize: 20,
     fontStyle: 'italic',
     marginLeft: 30,
     marginTop: 20,
     textAlign: 'left',
-    width: 118,
+    width: 170,
   },
 })

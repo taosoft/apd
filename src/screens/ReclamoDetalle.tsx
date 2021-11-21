@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#409DC4',
+    fontSize: 20,
     marginTop: 5,
     textAlign: 'left',
   },

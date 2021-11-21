@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#409DC4',
+    fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
   },

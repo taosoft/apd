@@ -28,11 +28,12 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#000',
+    fontSize: 20,
     fontWeight: 'normal',
     textAlign: 'center',
   },
   wrapper: {
-    backgroundColor: '#EFE5D9',
+    backgroundColor: '#FFF',
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 0,
     borderColor: '#000',
