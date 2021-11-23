@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   datos: {
-    color: '#808080',
+    color: '#FFF',
     flex: 1,
     fontSize: 19,
     paddingLeft: 5,

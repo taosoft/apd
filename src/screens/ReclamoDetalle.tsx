@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   datos: {
-    color: '#808080',
+    color: '#000',
     flex: 1,
     fontSize: 19,
     paddingLeft: 5,
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   text: {
-    color: '#409DC4',
+    color: '#000',
     fontSize: 20,
     marginTop: 5,
     textAlign: 'left',
