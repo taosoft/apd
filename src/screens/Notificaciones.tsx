@@ -28,7 +28,6 @@ export default function Notificaciones({
 
   useEffect(() => {
     getNotificaciones(documento).then((res) => {
-      console.log(res)
       setItems(res)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -67,8 +66,6 @@ export default function Notificaciones({
           data={items}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => {
-            console.log(item)
-            // Validar que tipo de componente es (para saber hacia que tipo de componente va a navegar luego)
             if (item.titulo.includes('Denuncia')) {
               return (
                 <TouchableOpacity
