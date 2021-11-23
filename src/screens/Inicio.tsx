@@ -92,5 +92,6 @@ const styles = (widthScreen = 150) =>
       color: '#FFF',
       fontWeight: 'bold',
       textAlign: 'center',
+      fontSize: 18,
     },
   })
