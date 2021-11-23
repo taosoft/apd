@@ -1,7 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { Alert, StyleSheet, Text, TextInput, View, ScrollView } from 'react-native'
+import {
+  Alert,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native'
 
 import useAuth from '../components/providers/useAuth'
 import useUser from '../components/providers/useUser'
@@ -105,7 +112,11 @@ export default function PerfilUsuario(): JSX.Element {
             text="ACTUALIZAR DATOS"
           />
 
-          <Button isLoading={false} onPress={closeSession} text="CERRAR SESIÓN" />
+          <Button
+            isLoading={false}
+            onPress={closeSession}
+            text="CERRAR SESIÓN"
+          />
         </View>
       </ScrollView>
     </View>
@@ -134,13 +145,13 @@ const styles = StyleSheet.create({
   },
   container: {
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#FFF',
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
   },
   datos: {
-    color: '#808080',
+    color: '#000',
     flex: 1,
     fontSize: 19,
     paddingLeft: 5,
@@ -163,7 +174,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 2,
     color: '#000',
-    fontSize: 14,
+    fontSize: 17,
     fontStyle: 'italic',
     justifyContent: 'space-between',
     paddingBottom: 10,
