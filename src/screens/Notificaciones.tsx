@@ -13,26 +13,6 @@ import useAuth from '../components/providers/useAuth'
 import useNotificaciones from '../components/providers/useNotificaciones'
 import { View } from '../components/Themed'
 import { NotificacionesModel } from '../services/notificaciones.service'
-
-// const DATA = [
-//   {
-//     fecha: '12/10/2021',
-//     id: '1',
-//     imgUsuario:
-//       'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-//     texto: 'Nuevo estado de la denuncia #1234',
-//     titulo: 'Denuncia',
-//   },
-//   {
-//     fecha: '11/10/2021',
-//     id: '2',
-//     imgUsuario:
-//       'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-//     texto: 'Nuevo reclamo generado #5678',
-//     titulo: 'Reclamo',
-//   },
-// ]
-
 interface NotificacionesListadoProps {
   route: RouteProp<{ params: { authenticated: boolean } }, 'params'>
 }
@@ -48,6 +28,7 @@ export default function Notificaciones({
 
   useEffect(() => {
     getNotificaciones(documento).then((res) => {
+      console.log(res)
       setItems(res)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -86,10 +67,10 @@ export default function Notificaciones({
           data={items}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => {
+            console.log(item)
             // Validar que tipo de componente es (para saber hacia que tipo de componente va a navegar luego)
             if (item.titulo.includes('Denuncia')) {
               return (
-                // Al hacer click, abre el reclamo que posea id = item.id
                 <TouchableOpacity
                   onPress={() =>
                     updateAndOpenDenunciaDetails(item.id, item.idNotificacion)
@@ -97,6 +78,7 @@ export default function Notificaciones({
                 >
                   <NotificacionItem
                     fecha={item.fecha}
+                    idReclamo={item.id}
                     imgUsuario={item.imgUsuario}
                     texto={'Nuevo estado: ' + item.texto}
                     titulo={item.titulo}
@@ -105,7 +87,6 @@ export default function Notificaciones({
               )
             } else if (item.titulo.includes('Reclamo')) {
               return (
-                // Al hacer click, abre el reclamo que posea id = item.id
                 <TouchableOpacity
                   onPress={() =>
                     updateAndOpenReclamoDetails(item.id, item.idNotificacion)
@@ -113,6 +94,7 @@ export default function Notificaciones({
                 >
                   <NotificacionItem
                     fecha={item.fecha}
+                    idReclamo={item.id}
                     imgUsuario={item.imgUsuario}
                     texto={'Nuevo estado: ' + item.texto}
                     titulo={item.titulo}

@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native'
 import { Avatar, ListItem } from 'react-native-elements'
 
 export interface NotificacionItemProps {
+  idReclamo: string
   imgUsuario: string
   fecha: string
   texto: string
@@ -17,7 +18,9 @@ export default function NotificacionItem(
       <ListItem bottomDivider>
         <Avatar rounded size="medium" source={{ uri: props.imgUsuario }} />
         <ListItem.Content>
-          <ListItem.Title style={styles.titulo}>{props.titulo}</ListItem.Title>
+          <ListItem.Title style={styles.titulo}>
+            {props.titulo} #{props.idReclamo}
+          </ListItem.Title>
           <ListItem.Subtitle style={styles.descripcion}>
             {props.texto}
           </ListItem.Subtitle>
