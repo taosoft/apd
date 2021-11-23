@@ -45,12 +45,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
-  fecha: {
-    color: '#000',
-    fontWeight: 'normal',
-    textAlign: 'left',
-  },
   subtitulo: {
+    color: '#808080',
     fontSize: 14,
   },
   titulo: {

@@ -29,19 +29,36 @@ export default function ServicioDetalle({
       <ScrollView keyboardShouldPersistTaps="always">
         <View>
           <Text style={styles.titleText}>{servicio?.nombreServicio}</Text>
-          <Text style={styles.textRubro}>De 09:00 hs a 14:00 hs</Text>
-          <Text style={styles.textRubro}>De 16:00 hs a 18:00 hs</Text>
-          <Text style={styles.textRubro}>
-            Nombre de contacto: {servicio?.nombrePersona}
-          </Text>
-          <Text style={styles.textRubro}>Dirección: {servicio?.direccion}</Text>
-          <Text style={styles.textRubro}>Teléfono: {servicio?.telefono}</Text>
-          <Text style={styles.textRubro}>Email: {servicio?.email}</Text>
-          <Text style={styles.textRubro}>
-            Rubro: {servicio?.rubro.descripcion}
+          <View style={styles.row}>
+            <Text style={styles.titulo}>Horario:</Text>
+            <Text style={styles.datos}>De 9hs a 14hs / De 15hs a 19hs</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.titulo}>Nombre de contacto:</Text>
+            <Text style={styles.datos}>{servicio?.nombrePersona}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.titulo}>Dirección:</Text>
+            <Text style={styles.datos}>{servicio?.direccion}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.titulo}>Teléfono:</Text>
+            <Text style={styles.datos}>{servicio?.telefono}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.titulo}>E-mail:</Text>
+            <Text style={styles.datos}>{servicio?.email}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.titulo}>Rubro:</Text>
+            <Text style={styles.datos}>Contable</Text>
+          </View>
+          <Text style={styles.textSubBold}>Descripcion</Text>
+          <Text style={styles.datosDescripcion}>
+            {servicio?.rubro.descripcion}
           </Text>
           <Text style={styles.textSubBold}>Descripción</Text>
-          <Text style={styles.textDesc}>{servicio?.descripcion}</Text>
+          <Text style={styles.datosDescripcion}>{servicio?.descripcion}</Text>
           <Text style={styles.textSubBold}>Imágenes</Text>
 
           <ImageLayout
@@ -78,35 +95,40 @@ export default function ServicioDetalle({
 }
 
 const styles = StyleSheet.create({
+  alert: {
+    color: 'red',
+  },
   container: {
     backgroundColor: '#fff',
     flex: 1,
     flexDirection: 'column',
     paddingHorizontal: 15,
   },
-  text: {
-    color: '#409DC4',
-    marginTop: 5,
-    textAlign: 'left',
+  datos: {
+    color: '#808080',
+    flex: 1,
+    fontSize: 19,
+    paddingLeft: 5,
+    paddingTop: 5,
+    textAlign: 'justify',
   },
-  textDesc: {
-    color: '#409DC4',
-    fontSize: 20,
+  datosDescripcion: {
+    color: '#808080',
+    fontSize: 19,
     marginTop: 5,
-    textAlign: 'left',
+    textAlign: 'justify',
   },
-  textRubro: {
-    color: '#409DC4',
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginTop: 5,
-    textAlign: 'left',
+  row: {
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   textSubBold: {
     color: '#409DC4',
     fontSize: 20,
     fontWeight: 'bold',
-    marginTop: 15,
+    marginBottom: 5,
+    marginTop: 25,
     textAlign: 'left',
     textTransform: 'uppercase',
   },
@@ -117,5 +139,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 30,
     textAlign: 'left',
+  },
+  titulo: {
+    color: '#409DC4',
+    fontSize: 19,
+    fontWeight: 'bold',
+    marginTop: 5,
   },
 })

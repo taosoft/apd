@@ -48,13 +48,28 @@ export default function PerfilUsuario(): JSX.Element {
     <View style={styles.container}>
       <View style={{ flex: 3, marginTop: 20 }}>
         <View>
-          <Text style={styles.datos}>Documento: {datosUsuario?.documento}</Text>
-          <Text style={styles.datos}>Nombre: {datosUsuario?.nombre}</Text>
-          <Text style={styles.datos}>Apellido: {datosUsuario?.apellido}</Text>
-          <Text style={styles.datos}>Email: {datosUsuario?.email}</Text>
-          <Text style={styles.datos}>
-            Inspector: {datosUsuario?.inspector !== 0 ? 'Si' : 'No'}
-          </Text>
+          <View style={styles.row}>
+            <Text style={styles.titulo}>DNI:</Text>
+            <Text style={styles.datos}>{datosUsuario?.documento}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.titulo}>Nombre:</Text>
+            <Text style={styles.datos}>{datosUsuario?.nombre}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.titulo}>Apellido:</Text>
+            <Text style={styles.datos}>{datosUsuario?.apellido}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.titulo}>Email:</Text>
+            <Text style={styles.datos}>{datosUsuario?.email}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.titulo}>Inspector:</Text>
+            <Text style={styles.datos}>
+              {datosUsuario?.inspector !== 0 ? 'Si' : 'No'}
+            </Text>
+          </View>
         </View>
 
         <View style={styles.groupInputDescription}>
@@ -106,6 +121,7 @@ const styles = StyleSheet.create({
     borderColor: '#FFF',
     borderRadius: 20,
     borderWidth: 2,
+    fontSize: 14,
     justifyContent: 'center',
     marginLeft: 30,
     marginRight: 30,
@@ -122,34 +138,46 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   datos: {
-    color: '#409DC4',
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginTop: 5,
-    textAlign: 'justify',
+    color: '#808080',
+    flex: 1,
+    fontSize: 19,
+    paddingLeft: 5,
+    paddingTop: 5,
   },
   descripcion: {
     color: '#409DC4',
-    fontSize: 20,
+    fontSize: 19,
     fontWeight: 'bold',
-    textAlign: 'justify',
+    textAlign: 'center',
   },
   groupInputDescription: {
     justifyContent: 'space-evenly',
     marginTop: 40,
   },
   input: {
+    alignSelf: 'center',
     backgroundColor: '#FFF',
     borderColor: '#C9E9FC',
     borderRadius: 20,
     borderWidth: 2,
     color: '#000',
-    fontSize: 20,
+    fontSize: 14,
     fontStyle: 'italic',
     justifyContent: 'space-between',
     paddingBottom: 10,
     paddingTop: 10,
     textAlign: 'center',
     width: 300,
+  },
+  row: {
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+  },
+  titulo: {
+    color: '#409DC4',
+    fontSize: 19,
+    fontWeight: 'bold',
+    marginTop: 5,
+    textAlign: 'justify',
   },
 })

@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
   },
   subtitulo: {
+    color: '#808080',
     fontSize: 14,
   },
   titulo: {
