@@ -1,4 +1,8 @@
-import { RouteProp, useNavigation } from '@react-navigation/native'
+import {
+  RouteProp,
+  useIsFocused,
+  useNavigation,
+} from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import {
   Alert,
@@ -25,7 +29,7 @@ export default function Notificaciones({
   const { documento } = useAuth()
   const { getNotificaciones, updateNotificaciones } = useNotificaciones()
   const [items, setItems] = useState<NotificacionesModel[]>([])
-  const [loaded, setLoaded] = useState<boolean>(false)
+  const loaded = useIsFocused()
 
   useEffect(() => {
     getNotificaciones(documento).then((res) => {
@@ -40,7 +44,6 @@ export default function Notificaciones({
   ) => {
     const response = await updateNotificaciones(idNotificacion)
     if (response) {
-      setLoaded(!loaded)
       navigation.navigate('DenunciaDetalle', { id: idDenuncia })
     } else {
       Alert.alert('No se pudo abrir la denuncia')
@@ -53,7 +56,6 @@ export default function Notificaciones({
   ) => {
     const response = await updateNotificaciones(idNotificacion)
     if (response) {
-      setLoaded(!loaded)
       navigation.navigate('ReclamoDetalle', { id: idReclamo })
     } else {
       Alert.alert('No se pudo abrir el reclamo')
