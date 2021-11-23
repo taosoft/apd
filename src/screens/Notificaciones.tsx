@@ -25,13 +25,14 @@ export default function Notificaciones({
   const { documento } = useAuth()
   const { getNotificaciones, updateNotificaciones } = useNotificaciones()
   const [items, setItems] = useState<NotificacionesModel[]>([])
+  const [loaded, setLoaded] = useState<boolean>(false)
 
   useEffect(() => {
     getNotificaciones(documento).then((res) => {
       setItems(res)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [loaded])
 
   const updateAndOpenDenunciaDetails = async (
     idDenuncia: string,
@@ -39,6 +40,7 @@ export default function Notificaciones({
   ) => {
     const response = await updateNotificaciones(idNotificacion)
     if (response) {
+      setLoaded(!loaded)
       navigation.navigate('DenunciaDetalle', { id: idDenuncia })
     } else {
       Alert.alert('No se pudo abrir la denuncia')
@@ -49,9 +51,9 @@ export default function Notificaciones({
     idReclamo: string,
     idNotificacion: string,
   ) => {
-    console.log(idNotificacion)
     const response = await updateNotificaciones(idNotificacion)
     if (response) {
+      setLoaded(!loaded)
       navigation.navigate('ReclamoDetalle', { id: idReclamo })
     } else {
       Alert.alert('No se pudo abrir el reclamo')
