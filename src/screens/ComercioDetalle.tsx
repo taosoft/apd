@@ -1,13 +1,34 @@
-import React from 'react'
+import { RouteProp } from '@react-navigation/native'
+import React, { useEffect, useState } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import ImageLayout from 'react-native-image-layout'
 
-export default function ComercioDetalle(): JSX.Element {
+import useComercio from '../components/providers/useComercio'
+import { ComercioModel } from '../services/comercio.service'
+
+interface ComercioDetalleProps {
+  route: RouteProp<{ params: { id: number } }, 'params'>
+}
+
+export default function ComercioDetalle({
+  route,
+}: ComercioDetalleProps): JSX.Element {
+  const { id } = route.params
+  const { getComercioDetalle } = useComercio()
+  const [comercio, setComercio] = useState<ComercioModel>()
+
+  useEffect(() => {
+    getComercioDetalle(id).then((res) => {
+      setComercio(res)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <View style={styles.container}>
       <ScrollView keyboardShouldPersistTaps="always">
         <View>
-          <Text style={styles.titleText}>Comercio Paula</Text>
+          <Text style={styles.titleText}>{comercio?.nombre}</Text>
           <View style={styles.row}>
             <Text style={styles.titulo}>Horario:</Text>
             <Text style={styles.datos}>De 9hs a 14hs / De 15hs a 19hs</Text>
@@ -17,18 +38,8 @@ export default function ComercioDetalle(): JSX.Element {
             <Text style={styles.datos}>2x1</Text>
           </View>
           <Text style={styles.textSubBold}>Descripcion</Text>
-          <Text style={styles.datosDescripcion}>
-            Mucha descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion,
-          </Text>
+          <Text style={styles.datosDescripcion}>{comercio?.descripcion}</Text>
           <Text style={styles.textSubBold}>Imagenes</Text>
-
           <ImageLayout
             images={[
               // Version *3.0.0 update (or greater versions):

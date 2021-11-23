@@ -82,7 +82,7 @@ export default function ReclamoDetalle({
           )}
           {imagenes.length !== 0 && <ImageLayout images={imagenes} />}
           <Text style={styles.textSubBold}>
-            Bitacora del estado del reclamo
+            Bitácora del estado del reclamo
           </Text>
           {itemsBitacora.map((item, index) => (
             <ItemBitacora
@@ -123,6 +123,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#409DC4',
+    fontSize: 20,
     marginTop: 5,
     textAlign: 'left',
   },

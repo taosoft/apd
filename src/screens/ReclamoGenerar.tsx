@@ -128,7 +128,7 @@ export default function ReclamoGenerar(): JSX.Element {
           onChangeText={setReason}
           placeholder="Motivo de la reclamo"
           style={styles.input}
-          value={reclamo.reason}
+          value={reclamo.descripcion}
         />
         <View
           darkColor="rgba(255,255,255,0.1)"

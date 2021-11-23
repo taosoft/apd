@@ -76,7 +76,11 @@ function TabPerfilNavigator() {
       <TabPerfilStack.Screen
         component={PerfilUsuario}
         name="TabPerfilScreen"
-        options={{ headerShown: false, headerTitle: 'Perfil' }}
+        options={{
+          headerLeft: () => null,
+          headerShown: true,
+          headerTitle: 'Perfil',
+        }}
       />
     </TabPerfilStack.Navigator>
   )

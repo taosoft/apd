@@ -1,27 +1,14 @@
 import { RouteProp, useNavigation } from '@react-navigation/native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FlatList, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 import ComercioItem from '../components/ComercioItem'
+import useComercio from '../components/providers/useComercio'
 import { View } from '../components/Themed'
 import { AuthNavigationScreenKey } from '../constants/NavigationKeys'
-
-const DATA = [
-  {
-    foto: '',
-    id: '1',
-    texto: 'Tenemos todo lo que necesites',
-    titulo: 'Ferretería Freire',
-  },
-  {
-    foto: '',
-    id: '2',
-    texto: 'Abierto las 24hs',
-    titulo: 'Farmacia La Danesa',
-  },
-]
+import { ComercioModel } from '../services/comercio.service'
 
 interface ComercioListadoProps {
   route: RouteProp<{ params: { authenticated: boolean } }, 'params'>
@@ -32,8 +19,17 @@ export default function ComercioListado({
 }: ComercioListadoProps): JSX.Element {
   const { authenticated } = route.params
   const navigation = useNavigation()
+  const { getComercios } = useComercio()
   const [text, setText] = React.useState('')
   const [isInspector] = React.useState(false)
+  const [comercios, setComercios] = useState<ComercioModel[]>([])
+
+  useEffect(() => {
+    getComercios().then((res) => {
+      setComercios(res)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <View style={styles.view}>
@@ -61,21 +57,21 @@ export default function ComercioListado({
       </View>
       {/* Tincho: aca poner el listado de comercios. recordar q van con filtro  */}
       <FlatList
-        data={DATA}
-        keyExtractor={(item) => item.id}
+        data={comercios}
+        keyExtractor={(item) => item.idComercio.toString()}
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
               onPress={() =>
                 navigation.navigate(AuthNavigationScreenKey.COMERCIODETALLE, {
-                  id: item.id,
+                  id: item.idComercio,
                 })
               }
             >
               <ComercioItem
-                foto={item.foto}
-                texto={item.texto}
-                titulo={item.titulo}
+                foto={item.archivosURL.split(';').pop()}
+                texto={item.descripcion}
+                titulo={item.nombre}
               />
             </TouchableOpacity>
           )

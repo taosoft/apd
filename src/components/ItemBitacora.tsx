@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#000',
+    fontSize: 20,
     fontWeight: 'normal',
     textAlign: 'center',
   },

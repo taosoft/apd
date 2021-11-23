@@ -9,7 +9,7 @@ import { UserModel } from '../services/user.service'
 interface AddReclamo {
   idSitio: number
   idDesperfecto: number
-  reason: string
+  descripcion: string
   archivosURL: string
 }
 

@@ -15,14 +15,14 @@ export default function PerfilUsuario(): JSX.Element {
   const [nuevaPassword, setNuevaPasword] = useState('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const { setToken } = useAuth()
+  const { setToken, documento } = useAuth()
   const { getUser } = useUser()
   const { updateUser } = useUser()
   const navigation = useNavigation()
 
   useEffect(() => {
     setIsLoading(true)
-    getUser('123').then((user) => {
+    getUser(documento).then((user) => {
       setDatosUsuario(user)
       setIsLoading(false)
     })
@@ -34,7 +34,7 @@ export default function PerfilUsuario(): JSX.Element {
       contraseña: nuevaPassword,
       email: nuevoMail,
     }
-    updateUser('123', updateData)
+    updateUser(documento, updateData)
       .then(() => Alert.alert('Los datos se han actualizado exitosamente'))
       .catch(() => Alert.alert('Los datos no se han actualizado'))
   }
@@ -136,7 +136,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    marginTop: 40,
   },
   datos: {
     color: '#808080',

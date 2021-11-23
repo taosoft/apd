@@ -1,32 +1,53 @@
-import React from 'react'
+import { RouteProp } from '@react-navigation/native'
+import React, { useEffect, useState } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import ImageLayout from 'react-native-image-layout'
 
-export default function Login(): JSX.Element {
+import useServicio from '../components/providers/useServicios'
+import { ServicioModelDetalle } from '../services/servicios.service'
+
+interface ServicioDetalleProps {
+  route: RouteProp<{ params: { id: number } }, 'params'>
+}
+
+export default function ServicioDetalle({
+  route,
+}: ServicioDetalleProps): JSX.Element {
+  const { id } = route.params
+  const { getServicioDetalle } = useServicio()
+  const [servicio, setServicio] = useState<ServicioModelDetalle>()
+
+  useEffect(() => {
+    getServicioDetalle(id).then((res) => {
+      setServicio(res)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <View style={styles.container}>
       <ScrollView keyboardShouldPersistTaps="always">
         <View>
-          <Text style={styles.titleText}>Servicio de contaduría</Text>
+          <Text style={styles.titleText}>{servicio?.nombreServicio}</Text>
           <View style={styles.row}>
             <Text style={styles.titulo}>Horario:</Text>
             <Text style={styles.datos}>De 9hs a 14hs / De 15hs a 19hs</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.titulo}>Nombre completo:</Text>
-            <Text style={styles.datos}>Paula Sarasa</Text>
+            <Text style={styles.titulo}>Nombre de contacto:</Text>
+            <Text style={styles.datos}>{servicio?.nombrePersona}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.titulo}>Dirección:</Text>
-            <Text style={styles.datos}>Cuchacucha 123</Text>
+            <Text style={styles.datos}>{servicio?.direccion}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.titulo}>Teléfono:</Text>
-            <Text style={styles.datos}>0800-123-4567</Text>
+            <Text style={styles.datos}>{servicio?.telefono}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.titulo}>E-mail:</Text>
-            <Text style={styles.datos}>ventas@servicioTal.com.ar</Text>
+            <Text style={styles.datos}>{servicio?.email}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.titulo}>Rubro:</Text>
@@ -34,16 +55,11 @@ export default function Login(): JSX.Element {
           </View>
           <Text style={styles.textSubBold}>Descripcion</Text>
           <Text style={styles.datosDescripcion}>
-            Mucha descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion,
+            {servicio?.rubro.descripcion}
           </Text>
-          <Text style={styles.textSubBold}>Imagenes</Text>
+          <Text style={styles.textSubBold}>Descripción</Text>
+          <Text style={styles.datosDescripcion}>{servicio?.descripcion}</Text>
+          <Text style={styles.textSubBold}>Imágenes</Text>
 
           <ImageLayout
             images={[
