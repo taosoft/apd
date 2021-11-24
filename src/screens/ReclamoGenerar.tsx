@@ -84,6 +84,7 @@ export default function ReclamoGenerar(): JSX.Element {
   return (
     <View style={styles.container}>
       <ScrollView>
+        <Text style={styles.subtitle}>Seleccione un lugar</Text>
         <Picker
           onValueChange={(value) => setLugar(value?.toString())}
           selectedValue={reclamo.idSitio}
@@ -96,6 +97,7 @@ export default function ReclamoGenerar(): JSX.Element {
             />
           ))}
         </Picker>
+        <Text style={styles.subtitle}>Seleccione un rubro</Text>
         <Picker
           onValueChange={(value) => setRubro(value?.toString())}
           selectedValue={reclamo.idRubro}
@@ -108,6 +110,7 @@ export default function ReclamoGenerar(): JSX.Element {
             />
           ))}
         </Picker>
+        <Text style={styles.subtitle}>Seleccione un desperfecto</Text>
         <Picker
           onValueChange={(value) => setDesperfecto(value?.toString())}
           selectedValue={reclamo.idRubro}
@@ -172,5 +175,10 @@ const styles = StyleSheet.create({
     height: 1,
     marginVertical: 30,
     width: '80%',
+  },
+  subtitle: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginTop: 10,
   },
 })
