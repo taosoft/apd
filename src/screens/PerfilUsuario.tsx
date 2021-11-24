@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import { useNavigation } from '@react-navigation/native'
+import { useIsFocused, useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import {
   Alert,
@@ -19,13 +19,14 @@ import { UserModel } from '../services/user.service'
 export default function PerfilUsuario(): JSX.Element {
   const [datosUsuario, setDatosUsuario] = useState<UserModel>()
   const [nuevoMail, setNuevoMail] = useState('')
-  const [nuevaPassword, setNuevaPasword] = useState('')
+  const [nuevaPassword, setNuevaPassword] = useState('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const { setToken, documento } = useAuth()
   const { getUser } = useUser()
   const { updateUser } = useUser()
   const navigation = useNavigation()
+  const loaded = useIsFocused()
 
   useEffect(() => {
     setIsLoading(true)
@@ -34,7 +35,7 @@ export default function PerfilUsuario(): JSX.Element {
       setIsLoading(false)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [loaded])
 
   const updateUserData = () => {
     const updateData = {
@@ -97,7 +98,7 @@ export default function PerfilUsuario(): JSX.Element {
             <Text style={styles.descripcion}>CAMBIO DE CONTRASEÑA</Text>
             <TextInput
               keyboardType="visible-password"
-              onChangeText={setNuevaPasword}
+              onChangeText={setNuevaPassword}
               placeholder="Ingrese una nueva contraseña"
               placeholderTextColor="#409DC4"
               style={styles.input}
