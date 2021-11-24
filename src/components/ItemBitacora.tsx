@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   wrapper: {
     backgroundColor: '#d2f7f7',
     borderBottomLeftRadius: 15,
-    borderBottomRightRadius: 0,
+    borderBottomRightRadius: 15,
     borderColor: '#000',
     borderRadius: 20,
     borderTopLeftRadius: 15,
