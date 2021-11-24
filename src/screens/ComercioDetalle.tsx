@@ -31,11 +31,7 @@ export default function ComercioDetalle({
           <Text style={styles.titleText}>{comercio?.nombre}</Text>
           <View style={styles.row}>
             <Text style={styles.titulo}>Horario:</Text>
-            <Text style={styles.datos}>De 9hs a 14hs / De 15hs a 19hs</Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.titulo}>Ofertas y promociones:</Text>
-            <Text style={styles.datos}>2x1</Text>
+            <Text style={styles.datos}>{comercio?.horario}</Text>
           </View>
           <Text style={styles.textSubBold}>Descripcion</Text>
           <Text style={styles.datosDescripcion}>{comercio?.descripcion}</Text>
