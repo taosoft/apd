@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 
 import CameraPicker from '../components/Camera'
+import { useBadge } from '../components/providers/useNotificationBadge'
 import { AuthNavigationScreenKey } from '../constants/NavigationKeys'
 import Bienvenido from '../screens/Bienvenido'
 import ComercioDetalle from '../screens/ComercioDetalle'
@@ -30,6 +31,8 @@ import { TabBarIcon } from './helpers'
 const TabStack = createBottomTabNavigator<BottomTabParamList>()
 
 export default function AuthenticatedStack(): JSX.Element {
+  const { counter } = useBadge()
+
   return (
     <TabStack.Navigator
       backBehavior="initialRoute" // TODO: Check?
@@ -54,6 +57,7 @@ export default function AuthenticatedStack(): JSX.Element {
         component={TabNotificacionNavigator}
         name={AuthNavigationScreenKey.NOTIFICACIONES}
         options={{
+          tabBarBadge: counter === 0 ? undefined : counter,
           tabBarIcon: () =>
             TabBarIcon({ color: '#409DC4', name: 'notification' }),
         }}

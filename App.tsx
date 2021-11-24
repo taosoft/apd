@@ -7,6 +7,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import { CacheProvider } from './src/components/providers/useCache'
 import { CronProvider } from './src/components/providers/useCron'
+import { CounterProvider } from './src/components/providers/useNotificationBadge'
 import useCachedResources from './src/hooks/useCachedResources'
 import useColorScheme from './src/hooks/useColorScheme'
 import Navigation from './src/navigation'
@@ -23,8 +24,10 @@ export default function App(): JSX.Element | null {
       <SafeAreaProvider>
         <CronProvider>
           <CacheProvider>
-            <Navigation colorScheme={colorScheme} />
-            <StatusBar />
+            <CounterProvider>
+              <Navigation colorScheme={colorScheme} />
+              <StatusBar />
+            </CounterProvider>
           </CacheProvider>
         </CronProvider>
       </SafeAreaProvider>
