@@ -30,7 +30,6 @@ export default function ReclamoListado({
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [propio, setPropio] = useState<boolean>(false)
   const [copiaReclamos, setCopiaReclamos] = useState<ReclamoDetalleModel[]>([])
-
   const [reclamos, setReclamos] = useState<ReclamoDetalleModel[]>([])
   const [reclamosFiltrados, setReclamosFiltrados] = useState<
     ReclamoDetalleModel[]
@@ -52,7 +51,9 @@ export default function ReclamoListado({
   const filtrarReclamosPropios = () => {
     setCopiaReclamos(reclamosFiltrados)
     if (!propio) {
-      setReclamosFiltrados(reclamosFiltrados.filter((reclamo) => reclamo.documento === documento))
+      setReclamosFiltrados(
+        reclamosFiltrados.filter((reclamo) => reclamo.documento === documento),
+      )
     } else {
       setReclamosFiltrados(copiaReclamos)
     }
@@ -65,7 +66,7 @@ export default function ReclamoListado({
     } else {
       setReclamosFiltrados(
         reclamos.filter((item) => {
-          return (item.idReclamo.toString().toLowerCase().match(text))
+          return item.idReclamo.toString().toLowerCase().match(text)
         }),
       )
     }
@@ -82,19 +83,11 @@ export default function ReclamoListado({
           maxLength={30}
           onChangeText={(changedText) => setText(changedText.toLowerCase())}
           onSubmitEditing={filtrarDatos}
-          placeholder="Buscar"
+          placeholder="Buscar por #"
           placeholderTextColor="#D3D3D3"
           style={styles.textInput}
           underlineColorAndroid="transparent"
         />
-        <TouchableOpacity
-          onPress={() => {
-            // ordena segun el estado
-          }}
-          style={styles.botonOrdenado}
-        >
-          <Text style={{ color: 'white' }}>Tipo</Text>
-        </TouchableOpacity>
         <TouchableOpacity
           onPress={filtrarReclamosPropios}
           style={styles.botonOrdenado}
@@ -190,7 +183,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginRight: 15,
     paddingLeft: 10,
-    width: 150,
+    width: 240,
   },
   view: {
     backgroundColor: '#fff',
