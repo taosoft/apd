@@ -10,7 +10,6 @@ export interface ComercioItemProps {
 
 export default function ComercioItem(props: ComercioItemProps): JSX.Element {
   return (
-    console.log(props.foto),
     <View style={styles.container}>
       <ListItem bottomDivider>
         <Avatar
