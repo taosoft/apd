@@ -69,7 +69,7 @@ export default function ComercioListado({
               }
             >
               <ComercioItem
-                foto={item.archivosURL.split(';').pop()}
+                foto={item.archivosURL.split(';').shift()}
                 texto={item.descripcion}
                 titulo={item.nombre}
               />

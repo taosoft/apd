@@ -14,11 +14,8 @@ export default function ComercioItem(props: ComercioItemProps): JSX.Element {
       <ListItem bottomDivider>
         <Avatar
           size="large"
-          source={require('../../borrar-ImagenComercio.jpg')}
+          source={{ uri: props.foto }}
         />
-        {
-          // aca iria en realidad props.foto
-        }
         <ListItem.Content>
           <ListItem.Title style={styles.titulo}>{props.titulo}</ListItem.Title>
           <ListItem.Subtitle style={styles.subtitulo}>

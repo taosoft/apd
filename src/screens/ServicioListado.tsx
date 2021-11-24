@@ -69,7 +69,7 @@ export default function ServicioListado({
               }
             >
               <ServicioItem
-                foto={item.archivosURL}
+                foto={item.archivosURL.split(';').shift()}
                 texto={item.descripcion}
                 titulo={item.nombreServicio}
               />
