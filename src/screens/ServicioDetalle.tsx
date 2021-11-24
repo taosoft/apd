@@ -36,7 +36,7 @@ export default function ServicioDetalle({
           <Text style={styles.titleText}>{servicio?.nombreServicio}</Text>
           <View style={styles.row}>
             <Text style={styles.titulo}>Horario:</Text>
-            <Text style={styles.datos}>De 9hs a 14hs / De 15hs a 19hs</Text>
+            <Text style={styles.datos}>{servicio?.horario}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.titulo}>Nombre de contacto:</Text>
@@ -54,18 +54,13 @@ export default function ServicioDetalle({
             <Text style={styles.titulo}>E-mail:</Text>
             <Text style={styles.datos}>{servicio?.email}</Text>
           </View>
-          <View style={styles.row}>
-            <Text style={styles.titulo}>Rubro:</Text>
-            <Text style={styles.datos}>Contable</Text>
-          </View>
-          <Text style={styles.textSubBold}>Descripcion</Text>
+          <Text style={styles.textSubBold}>Rubro</Text>
           <Text style={styles.datosDescripcion}>
             {servicio?.rubro.descripcion}
           </Text>
           <Text style={styles.textSubBold}>Descripción</Text>
           <Text style={styles.datosDescripcion}>{servicio?.descripcion}</Text>
           <Text style={styles.textSubBold}>Imágenes</Text>
-
           {imagenes.length === 0 && (
             <Text style={styles.alert}>No hay imágenes disponibles</Text>
           )}
