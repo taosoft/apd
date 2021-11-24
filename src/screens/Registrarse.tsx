@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     textAlign: 'center',
     width: 300,
+    fontSize: 18,
   },
   municipio: {
     borderColor: '#C9E9FC',
@@ -106,5 +107,6 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontWeight: 'bold',
     textAlign: 'center',
+    fontSize: 18,
   },
 })

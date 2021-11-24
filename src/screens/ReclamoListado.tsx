@@ -32,6 +32,9 @@ export default function ReclamoListado({
   const [copiaReclamos, setCopiaReclamos] = useState<ReclamoDetalleModel[]>([])
 
   const [reclamos, setReclamos] = useState<ReclamoDetalleModel[]>([])
+  const [reclamosFiltrados, setReclamosFiltrados] = useState<
+    ReclamoDetalleModel[]
+  >([])
 
   const { getReclamos } = useReclamos()
   const { documento } = useAuth()
@@ -55,6 +58,19 @@ export default function ReclamoListado({
     setPropio(!propio)
   }
 
+  const filtrarDatos = () => {
+    if (!text) {
+      setReclamosFiltrados([...reclamos])
+    } else {
+      setReclamosFiltrados(
+        reclamos.filter((item) => {
+          item.descripcion.toLowerCase().match(text) ||
+            item.idReclamo.toString().toLowerCase().match(text)
+        }),
+      )
+    }
+  }
+
   return (
     // Tincho
     <View style={styles.view}>
@@ -64,11 +80,8 @@ export default function ReclamoListado({
           autoCapitalize="none"
           defaultValue={text}
           maxLength={30}
-          onChangeText={(changedText) => setText(changedText)}
-          onSubmitEditing={(changedText) => {
-            // Como reaccionar cuando presiona el boton "submit" en el teclado
-            setText(changedText.nativeEvent.text)
-          }}
+          onChangeText={(changedText) => setText(changedText.toLowerCase())}
+          onSubmitEditing={filtrarDatos}
           placeholder="Buscar"
           placeholderTextColor="#D3D3D3"
           style={styles.textInput}
@@ -112,7 +125,7 @@ export default function ReclamoListado({
       )}
       {!isLoading && (
         <FlatList
-          data={reclamos}
+          data={reclamosFiltrados}
           keyExtractor={(item) => item.idReclamo.toString()}
           renderItem={({ item }) => {
             return (

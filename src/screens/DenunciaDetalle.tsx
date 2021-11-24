@@ -164,7 +164,6 @@ const styles = StyleSheet.create({
   },
   titleText: {
     color: '#409DC4',
-    fontFamily: 'sans-serif',
     fontSize: 30,
     fontWeight: 'bold',
     marginTop: 30,
