@@ -39,6 +39,7 @@ export default function DenunciaListado({
     setIsLoading(true)
     getDenuncias().then((array) => {
       setDenuncias(array)
+      setDenunciasFiltradas(array)
       setIsLoading(false)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps

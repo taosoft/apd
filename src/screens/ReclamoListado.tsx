@@ -43,6 +43,7 @@ export default function ReclamoListado({
     setIsLoading(true)
     getReclamos().then((array) => {
       setReclamos(array)
+      setReclamosFiltrados(array)
       setIsLoading(false)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
