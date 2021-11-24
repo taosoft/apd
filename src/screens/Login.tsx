@@ -25,34 +25,41 @@ export default function Login(): JSX.Element {
   }, [token])
 
   const ingresar = () => {
-    setIsLoading(true)
-
-    const data = {
-      contraseña: clave,
-      documento: docu,
+    if (clave === '' || docu === '') {
+      Alert.alert('Los campos deben estar completos')
     }
+    // else if (docu.length !== 8) {
+    //  Alert.alert('El documento debe tener 8 dígitos')
+    // }
+    else {
+      setIsLoading(true)
+      const data = {
+        contraseña: clave,
+        documento: docu,
+      }
 
-    axios
-      .post(`${baseUrl}/users/login`, JSON.stringify(data), {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      .then((res) => {
-        setLoginResponse(res.data.data.token, res.data.data.user.documento)
-        setIsLoading(false)
-        setClave('')
-        setDocu('')
-        navigator.navigate(NavigationScreenKey.AUTHENTICATED_STACK)
-      })
-      .catch((e) => {
-        setIsLoading(false)
-        setLoginResponse('', '')
-        console.log(e)
-        Alert.alert('Documento y/o contraseña incorrecta')
-        setDocu('')
-        setClave('')
-      })
+      axios
+        .post(`${baseUrl}/users/login`, JSON.stringify(data), {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        .then((res) => {
+          setLoginResponse(res.data.data.token, res.data.data.user.documento)
+          setIsLoading(false)
+          setClave('')
+          setDocu('')
+          navigator.navigate(NavigationScreenKey.AUTHENTICATED_STACK)
+        })
+        .catch((e) => {
+          setIsLoading(false)
+          setLoginResponse('', '')
+          console.log(e)
+          Alert.alert('Documento y/o contraseña incorrecta')
+          setDocu('')
+          setClave('')
+        })
+    }
   }
 
   return (
