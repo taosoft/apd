@@ -50,11 +50,11 @@ export default function ReclamoListado({
   }, [])
 
   const filtrarReclamosPropios = () => {
-    setCopiaReclamos(reclamos)
+    setCopiaReclamos(reclamosFiltrados)
     if (!propio) {
-      setReclamos(reclamos.filter((reclamo) => reclamo.documento === documento))
+      setReclamosFiltrados(reclamosFiltrados.filter((reclamo) => reclamo.documento === documento))
     } else {
-      setReclamos(copiaReclamos)
+      setReclamosFiltrados(copiaReclamos)
     }
     setPropio(!propio)
   }
@@ -65,8 +65,7 @@ export default function ReclamoListado({
     } else {
       setReclamosFiltrados(
         reclamos.filter((item) => {
-          item.descripcion.toLowerCase().match(text) ||
-            item.idReclamo.toString().toLowerCase().match(text)
+          return (item.idReclamo.toString().toLowerCase().match(text))
         }),
       )
     }
