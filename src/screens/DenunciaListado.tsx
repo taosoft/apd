@@ -27,11 +27,12 @@ export default function DenunciaListado({
   const navigation = useNavigation()
   const [text, setText] = React.useState('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
-
   const [denuncias, setDenuncias] = useState<DenunciaModel[]>([])
-  const [denunciasFiltradas, setDenunciasFiltradas] = useState<DenunciaModel[]>(
-    [],
-  )
+  const [denunciasFiltradasTexto, setDenunciasFiltradasTexto] = useState<
+    DenunciaModel[]
+  >([])
+  const [estado, setEstado] = useState<boolean>(false)
+  const [fecha, setFecha] = useState<boolean>(false)
 
   const { getDenuncias } = useDenuncias()
 
@@ -39,21 +40,56 @@ export default function DenunciaListado({
     setIsLoading(true)
     getDenuncias().then((array) => {
       setDenuncias(array)
-      setDenunciasFiltradas(array)
+      setDenunciasFiltradasTexto(array)
       setIsLoading(false)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const filtrarDatos = () => {
+  const filtrarDatosTexto = () => {
     if (!text) {
-      setDenunciasFiltradas([...denuncias])
+      setDenunciasFiltradasTexto([...denuncias])
     } else {
-      setDenunciasFiltradas(
+      setDenunciasFiltradasTexto(
         denuncias.filter((item) => {
-          item.descripcion.toLowerCase().match(text) ||
-            item.idDenuncia.toString().toLowerCase().match(text)
+          return item.idDenuncia.toString().toLowerCase().includes(text)
         }),
+      )
+    }
+  }
+
+  const ordenarPorEstado = () => {
+    setEstado(!estado)
+    if (estado) {
+      setDenunciasFiltradasTexto(
+        denunciasFiltradasTexto.sort((a, b) => (a.estado >= b.estado ? 1 : 0)),
+      )
+    } else {
+      setDenunciasFiltradasTexto(
+        denunciasFiltradasTexto.sort((a, b) =>
+          a.idDenuncia > b.idDenuncia ? 1 : 0,
+        ),
+      )
+    }
+  }
+
+  const ordenarPorFecha = () => {
+    setFecha(!fecha)
+    if (fecha) {
+      setDenunciasFiltradasTexto(
+        denunciasFiltradasTexto.sort((a, b) =>
+          a.fechaDenuncia > b.fechaDenuncia
+            ? 1
+            : b.fechaDenuncia > a.fechaDenuncia
+            ? -1
+            : 0,
+        ),
+      )
+    } else {
+      setDenunciasFiltradasTexto(
+        denunciasFiltradasTexto.sort((a, b) =>
+          a.idDenuncia > b.idDenuncia ? 1 : 0,
+        ),
       )
     }
   }
@@ -68,24 +104,20 @@ export default function DenunciaListado({
           defaultValue={text}
           maxLength={30}
           onChangeText={(changedText) => setText(changedText.toLowerCase())}
-          onSubmitEditing={filtrarDatos}
+          onSubmitEditing={filtrarDatosTexto}
           placeholder="Buscar"
           placeholderTextColor="#D3D3D3"
           style={styles.textInput}
           underlineColorAndroid="transparent"
         />
         <TouchableOpacity
-          onPress={() => {
-            // ordena segun el estado
-          }}
+          onPress={ordenarPorEstado}
           style={styles.botonOrdenado}
         >
           <Text style={{ color: 'white' }}>Estado</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => {
-            // ordena segun el estado
-          }}
+          onPress={ordenarPorFecha}
           style={styles.botonOrdenado}
         >
           <Text style={{ color: 'white' }}>Fecha</Text>
@@ -114,7 +146,7 @@ export default function DenunciaListado({
       )}
       {!isLoading && (
         <FlatList
-          data={denunciasFiltradas}
+          data={denunciasFiltradasTexto}
           keyExtractor={(item) => item.idDenuncia.toString()}
           renderItem={({ item }) => {
             return (

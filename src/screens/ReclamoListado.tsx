@@ -66,7 +66,7 @@ export default function ReclamoListado({
     } else {
       setReclamosFiltrados(
         reclamos.filter((item) => {
-          return item.idReclamo.toString().toLowerCase().match(text)
+          return item.idReclamo.toString().toLowerCase().includes(text)
         }),
       )
     }
