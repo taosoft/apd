@@ -17,6 +17,11 @@ export default function ServicioDetalle({
   const { getServicioDetalle } = useServicio()
   const [servicio, setServicio] = useState<ServicioModelDetalle>()
 
+  const imagenes =
+    servicio?.archivosURL?.split(';').map((image) => {
+      return { uri: image }
+    }) ?? []
+
   useEffect(() => {
     getServicioDetalle(id).then((res) => {
       setServicio(res)
@@ -61,33 +66,10 @@ export default function ServicioDetalle({
           <Text style={styles.datosDescripcion}>{servicio?.descripcion}</Text>
           <Text style={styles.textSubBold}>Imágenes</Text>
 
-          <ImageLayout
-            images={[
-              {
-                uri: 'https://www.olavarria.gov.ar/wp-content/uploads/2017/12/Plaza-Julio-Pagano-B%C2%BA-Bancario-1-1024x683.jpg',
-              },
-              {
-                source: {
-                  uri: 'https://www.pergamino.gob.ar/wp-content/uploads/2019/09/juegos-Plaza-Da%CC%81vila-7-1024x682.jpeg',
-                },
-              },
-              {
-                dimensions: { height: 1920, width: 1080 },
-
-                uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Plaza_25_de_Mayo_Rosario_2.jpg/1200px-Plaza_25_de_Mayo_Rosario_2.jpg',
-              },
-              {
-                URI: 'https://www.msm.gov.ar/wp-content/uploads/2014/12/PLAZA-TRUJUI.jpg',
-                id: 'blpccx4cn',
-              },
-              {
-                url: 'https://greatruns.com/wp-content/uploads/2017/05/plaza-holanda.jpg',
-              },
-              {
-                URL: 'https://www.welcomeargentina.com/paseos/plazas_mendoza/plazas_mendoza-2.jpg',
-              },
-            ]}
-          />
+          {imagenes.length === 0 && (
+            <Text style={styles.alert}>No hay imágenes disponibles</Text>
+          )}
+          {imagenes.length !== 0 && <ImageLayout images={imagenes} />}
         </View>
       </ScrollView>
     </View>
