@@ -8,7 +8,7 @@ import useReclamos from '../components/providers/useReclamos'
 import { ReclamoDetalleModel } from '../services/reclamo.service'
 
 interface ReclamoDetalleProps {
-  route: RouteProp<{ params: { id: number, idSelected: number } }, 'params'>
+  route: RouteProp<{ params: { id: number; idSelected: number } }, 'params'>
 }
 
 export default function ReclamoDetalle({
@@ -36,8 +36,8 @@ export default function ReclamoDetalle({
       }
     }) ?? []
 
-  console.log("reclamo id: ", idSelected)
-  console.log("Reclamo id unificado ", reclamo?.IdReclamoUnificado)
+  console.log('reclamo id: ', idSelected)
+  console.log('Reclamo id unificado ', reclamo?.IdReclamoUnificado)
 
   useEffect(() => {
     getReclamoDetalle(id).then((data) => {
@@ -52,7 +52,12 @@ export default function ReclamoDetalle({
         <View>
           <View style={styles.row}>
             <Text style={styles.titleText}>Reclamo #{reclamo?.idReclamo} </Text>
-            <Text style={styles.titleText2}> {reclamo?.idReclamo == idSelected ? "" : "Unificado con su #" + idSelected} </Text>
+            <Text style={styles.titleText2}>
+              {' '}
+              {reclamo?.idReclamo === idSelected
+                ? ''
+                : 'Unificado con su #' + idSelected}{' '}
+            </Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.titulo}>Estado:</Text>

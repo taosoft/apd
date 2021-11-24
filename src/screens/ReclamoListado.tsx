@@ -126,7 +126,9 @@ export default function ReclamoListado({
               <TouchableOpacity
                 onPress={() =>
                   navigation.navigate(AuthNavigationScreenKey.RECLAMODETALLE, {
-                    id: item.IdReclamoUnificado ? item.IdReclamoUnificado : item.idReclamo,
+                    id: item.IdReclamoUnificado
+                      ? item.IdReclamoUnificado
+                      : item.idReclamo,
                     idSelected: item.idReclamo,
                   })
                 }
