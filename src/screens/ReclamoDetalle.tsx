@@ -8,13 +8,14 @@ import useReclamos from '../components/providers/useReclamos'
 import { ReclamoDetalleModel } from '../services/reclamo.service'
 
 interface ReclamoDetalleProps {
-  route: RouteProp<{ params: { id: number } }, 'params'>
+  route: RouteProp<{ params: { id: number, idSelected: number } }, 'params'>
 }
 
 export default function ReclamoDetalle({
   route,
 }: ReclamoDetalleProps): JSX.Element {
   const { id } = route.params
+  const { idSelected } = route.params
   const { getReclamoDetalle } = useReclamos()
 
   const [reclamo, setReclamo] = useState<ReclamoDetalleModel | undefined>(
@@ -35,6 +36,9 @@ export default function ReclamoDetalle({
       }
     }) ?? []
 
+  console.log("reclamo id: ", idSelected)
+  console.log("Reclamo id unificado ", reclamo?.IdReclamoUnificado)
+
   useEffect(() => {
     getReclamoDetalle(id).then((data) => {
       setReclamo(data)
@@ -46,7 +50,10 @@ export default function ReclamoDetalle({
     <View style={styles.container}>
       <ScrollView keyboardShouldPersistTaps="always">
         <View>
-          <Text style={styles.titleText}>Reclamo #{reclamo?.idReclamo}</Text>
+          <View style={styles.row}>
+            <Text style={styles.titleText}>Reclamo #{reclamo?.idReclamo} </Text>
+            <Text style={styles.titleText2}> {reclamo?.idReclamo == idSelected ? "" : "Unificado con su #" + idSelected} </Text>
+          </View>
           <View style={styles.row}>
             <Text style={styles.titulo}>Estado:</Text>
             <Text style={styles.datos}>{reclamo?.estado}</Text>
@@ -141,6 +148,13 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     marginTop: 30,
+    textAlign: 'left',
+  },
+  titleText2: {
+    color: '#409DC4',
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginTop: 45,
     textAlign: 'left',
   },
   titulo: {
