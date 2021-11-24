@@ -1,7 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { Alert, StyleSheet, Text, TextInput, View } from 'react-native'
+import {
+  Alert,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native'
 
 import useAuth from '../components/providers/useAuth'
 import useUser from '../components/providers/useUser'
@@ -46,66 +53,72 @@ export default function PerfilUsuario(): JSX.Element {
 
   return (
     <View style={styles.container}>
-      <View style={{ flex: 3, marginTop: 20 }}>
-        <View>
-          <View style={styles.row}>
-            <Text style={styles.titulo}>DNI:</Text>
-            <Text style={styles.datos}>{datosUsuario?.documento}</Text>
+      <ScrollView keyboardShouldPersistTaps="always">
+        <View style={{ flex: 3, marginTop: 20 }}>
+          <View>
+            <View style={styles.row}>
+              <Text style={styles.titulo}>DNI:</Text>
+              <Text style={styles.datos}>{datosUsuario?.documento}</Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.titulo}>Nombre:</Text>
+              <Text style={styles.datos}>{datosUsuario?.nombre}</Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.titulo}>Apellido:</Text>
+              <Text style={styles.datos}>{datosUsuario?.apellido}</Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.titulo}>Email:</Text>
+              <Text style={styles.datos}>{datosUsuario?.email}</Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.titulo}>Inspector:</Text>
+              <Text style={styles.datos}>
+                {datosUsuario?.inspector !== 0 ? 'Si' : 'No'}
+              </Text>
+            </View>
           </View>
-          <View style={styles.row}>
-            <Text style={styles.titulo}>Nombre:</Text>
-            <Text style={styles.datos}>{datosUsuario?.nombre}</Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.titulo}>Apellido:</Text>
-            <Text style={styles.datos}>{datosUsuario?.apellido}</Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.titulo}>Email:</Text>
-            <Text style={styles.datos}>{datosUsuario?.email}</Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.titulo}>Inspector:</Text>
-            <Text style={styles.datos}>
-              {datosUsuario?.inspector !== 0 ? 'Si' : 'No'}
-            </Text>
-          </View>
-        </View>
 
-        <View style={styles.groupInputDescription}>
-          <Text style={styles.descripcion}>CAMBIO DE EMAIL</Text>
-          <TextInput
-            keyboardType="email-address"
-            onChangeText={setNuevoMail}
-            placeholder="Ingrese un nuevo email"
-            placeholderTextColor="#409DC4"
-            style={styles.input}
-            textContentType="emailAddress"
-            value={nuevoMail}
+          <View style={styles.groupInputDescription}>
+            <Text style={styles.descripcion}>CAMBIO DE EMAIL</Text>
+            <TextInput
+              keyboardType="email-address"
+              onChangeText={setNuevoMail}
+              placeholder="Ingrese un nuevo email"
+              placeholderTextColor="#409DC4"
+              style={styles.input}
+              textContentType="emailAddress"
+              value={nuevoMail}
+            />
+          </View>
+
+          <View style={styles.groupInputDescription}>
+            <Text style={styles.descripcion}>CAMBIO DE CONTRASEÑA</Text>
+            <TextInput
+              keyboardType="visible-password"
+              onChangeText={setNuevaPasword}
+              placeholder="Ingrese una nueva contraseña"
+              placeholderTextColor="#409DC4"
+              style={styles.input}
+              textContentType="password"
+              value={nuevaPassword}
+            />
+          </View>
+
+          <Button
+            isLoading={isLoading}
+            onPress={updateUserData}
+            text="ACTUALIZAR DATOS"
+          />
+
+          <Button
+            isLoading={false}
+            onPress={closeSession}
+            text="CERRAR SESIÓN"
           />
         </View>
-
-        <View style={styles.groupInputDescription}>
-          <Text style={styles.descripcion}>CAMBIO DE CONTRASEÑA</Text>
-          <TextInput
-            keyboardType="visible-password"
-            onChangeText={setNuevaPasword}
-            placeholder="Ingrese una nueva contraseña"
-            placeholderTextColor="#409DC4"
-            style={styles.input}
-            textContentType="password"
-            value={nuevaPassword}
-          />
-        </View>
-
-        <Button
-          isLoading={isLoading}
-          onPress={updateUserData}
-          text="ACTUALIZAR DATOS"
-        />
-
-        <Button isLoading={false} onPress={closeSession} text="CERRAR SESIÓN" />
-      </View>
+      </ScrollView>
     </View>
   )
 }
