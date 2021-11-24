@@ -29,6 +29,9 @@ export default function DenunciaListado({
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const [denuncias, setDenuncias] = useState<DenunciaModel[]>([])
+  const [denunciasFiltradas, setDenunciasFiltradas] = useState<DenunciaModel[]>(
+    [],
+  )
 
   const { getDenuncias } = useDenuncias()
 
@@ -41,6 +44,19 @@ export default function DenunciaListado({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const filtrarDatos = () => {
+    if (!text) {
+      setDenunciasFiltradas([...denuncias])
+    } else {
+      setDenunciasFiltradas(
+        denuncias.filter((item) => {
+          item.descripcion.toLowerCase().match(text) ||
+            item.idDenuncia.toString().toLowerCase().match(text)
+        }),
+      )
+    }
+  }
+
   return (
     // Tincho
     <View style={styles.view}>
@@ -50,11 +66,8 @@ export default function DenunciaListado({
           autoCapitalize="none"
           defaultValue={text}
           maxLength={30}
-          onChangeText={(changedText) => setText(changedText)}
-          onSubmitEditing={(changedText) => {
-            // Como reaccionar cuando presiona el boton "submit" en el teclado
-            setText(changedText.nativeEvent.text)
-          }}
+          onChangeText={(changedText) => setText(changedText.toLowerCase())}
+          onSubmitEditing={filtrarDatos}
           placeholder="Buscar"
           placeholderTextColor="#D3D3D3"
           style={styles.textInput}
@@ -100,7 +113,7 @@ export default function DenunciaListado({
       )}
       {!isLoading && (
         <FlatList
-          data={denuncias}
+          data={denunciasFiltradas}
           keyExtractor={(item) => item.idDenuncia.toString()}
           renderItem={({ item }) => {
             return (
