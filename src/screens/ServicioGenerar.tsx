@@ -3,8 +3,8 @@ import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { Alert, ScrollView, StyleSheet } from 'react-native'
 import InputValidator from 'react-native-input-validator'
-import { TextInputMask } from 'react-native-masked-text'
 
+import { horariosAtencion } from '../common/values'
 import ImageContainer from '../components/ImageContainer'
 import { GenerateType } from '../components/providers/useCache'
 import useRubros from '../components/providers/useRubros'
@@ -129,50 +129,30 @@ export default function ServicioGenerar(): JSX.Element {
           value={servicio.direccion}
         />
         <Text style={styles.subtitle}>Horario de atención</Text>
-        <TextInputMask
-          onChangeText={(text) => {
-            setHorario(true, text)
-          }}
-          options={{
-            format: 'HH:mm',
-          }}
-          placeholder="HH:mm"
-          // eslint-disable-next-line react-native/no-inline-styles
-          style={{
-            backgroundColor: 'white',
-            borderColor: 'black',
-            borderWidth: 1,
-            marginBottom: 30,
-            padding: 10,
-            paddingHorizontal: 30,
-            textAlign: 'center',
-            width: 300,
-          }}
-          type={'datetime'}
-          value={servicio.horario.split(';')[0]}
-        />
-        <TextInputMask
-          onChangeText={(text) => {
-            setHorario(false, text)
-          }}
-          options={{
-            format: 'HH:mm',
-          }}
-          placeholder="HH:mm"
-          // eslint-disable-next-line react-native/no-inline-styles
-          style={{
-            backgroundColor: 'white',
-            borderColor: 'black',
-            borderWidth: 1,
-            marginBottom: 30,
-            padding: 10,
-            paddingHorizontal: 30,
-            textAlign: 'center',
-            width: 300,
-          }}
-          type={'datetime'}
-          value={servicio.horario.split(';')[1]}
-        />
+        <Picker
+          onValueChange={(value) => setHorario(true, value?.toString())}
+          selectedValue={servicio.horario.split(';')[0]}
+        >
+          {horariosAtencion.map((horario, index) => (
+            <Picker.Item
+              key={index}
+              label={`${horario.horario} hs`}
+              value={horario.horario}
+            />
+          ))}
+        </Picker>
+        <Picker
+          onValueChange={(value) => setHorario(false, value?.toString())}
+          selectedValue={servicio.horario.split(';')[1]}
+        >
+          {horariosAtencion.map((horario, index) => (
+            <Picker.Item
+              key={index}
+              label={`${horario.horario} hs`}
+              value={horario.horario}
+            />
+          ))}
+        </Picker>
         <InputValidator
           multiline
           numberOfLines={4}

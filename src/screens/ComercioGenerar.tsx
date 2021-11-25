@@ -1,8 +1,10 @@
+import { Picker } from '@react-native-community/picker'
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { Alert, ScrollView, StyleSheet } from 'react-native'
 import InputValidator from 'react-native-input-validator'
 
+import { horariosAtencion } from '../common/values'
 import ImageContainer from '../components/ImageContainer'
 import { GenerateType } from '../components/providers/useCache'
 import useComercio from '../components/providers/useComercio'
@@ -19,6 +21,7 @@ export default function ComercioGenerar(): JSX.Element {
     submitComercio,
     setDescripcion,
     setDireccion,
+    setHorario,
     setNombreComercio,
   } = useComercio()
   const navigation = useNavigation()
@@ -88,7 +91,31 @@ export default function ComercioGenerar(): JSX.Element {
           style={styles.input}
           value={comercio.direccion}
         />
-        {/* Picker time */}
+        <Text style={styles.subtitle}>Horario de atención</Text>
+        <Picker
+          onValueChange={(value) => setHorario(true, value?.toString())}
+          selectedValue={comercio.horario.split(';')[0]}
+        >
+          {horariosAtencion.map((horario, index) => (
+            <Picker.Item
+              key={index}
+              label={`${horario.horario} hs`}
+              value={horario.horario}
+            />
+          ))}
+        </Picker>
+        <Picker
+          onValueChange={(value) => setHorario(false, value?.toString())}
+          selectedValue={comercio.horario.split(';')[1]}
+        >
+          {horariosAtencion.map((horario, index) => (
+            <Picker.Item
+              key={index}
+              label={`${horario.horario} hs`}
+              value={horario.horario}
+            />
+          ))}
+        </Picker>
         <InputValidator
           multiline
           numberOfLines={5}
@@ -154,5 +181,10 @@ const styles = StyleSheet.create({
     height: 1,
     marginVertical: 30,
     width: '80%',
+  },
+  subtitle: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginTop: 10,
   },
 })

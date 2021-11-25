@@ -132,6 +132,18 @@ export default function useComercio() {
     })
   }
 
+  function setHorario(first: boolean, horario: string): void {
+    const horarios = cache.generarServicio.horario.split(';')
+    changeCache({
+      generarServicio: {
+        ...cache.generarServicio,
+        horario: first
+          ? `${horario};${horarios[1]}`
+          : `${horarios[0]};${horario}`,
+      },
+    })
+  }
+
   return {
     addCachedImage,
     addImage,
@@ -144,6 +156,7 @@ export default function useComercio() {
     removeImage,
     setDescripcion,
     setDireccion,
+    setHorario,
     setNombreComercio,
     submitComercio,
   }
