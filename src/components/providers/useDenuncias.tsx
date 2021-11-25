@@ -2,6 +2,7 @@ import { Alert } from 'react-native'
 
 import CreateDenuncia, {
   DenunciaModel,
+  DenunciaModelDetalle,
   GetDenuncia,
   GetDenuncias,
 } from '../../services/denuncia.service'
@@ -49,7 +50,7 @@ export default function useDenuncias() {
     return await GetDenuncias(token)
   }
 
-  async function getDenuncia(idReclamo: number): Promise<DenunciaModel> {
+  async function getDenuncia(idReclamo: number): Promise<DenunciaModelDetalle> {
     return await GetDenuncia(idReclamo, token)
   }
 
