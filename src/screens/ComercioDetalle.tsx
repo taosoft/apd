@@ -48,6 +48,10 @@ export default function ComercioDetalle({
             <Text style={styles.titulo}>Horario:</Text>
             <Text style={styles.datos}>{horario()}</Text>
           </View>
+          <View style={styles.row}>
+            <Text style={styles.titulo}>Dirección:</Text>
+            <Text style={styles.datos}>{comercio?.direccion}</Text>
+          </View>
           <Text style={styles.textSubBold}>Descripcion</Text>
           <Text style={styles.datosDescripcion}>{comercio?.descripcion}</Text>
           <Text style={styles.textSubBold}>Imagenes</Text>
