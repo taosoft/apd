@@ -62,12 +62,18 @@ export default function DenunciaListado({
     setEstado(!estado)
     if (estado) {
       setDenunciasFiltradasTexto(
-        denunciasFiltradasTexto.sort((a, b) => (a.estado >= b.estado ? 1 : 0)),
+        denunciasFiltradasTexto.sort((a, b) =>
+          a.estado > b.estado ? 1 : b.estado > a.estado ? -1 : 0,
+        ),
       )
     } else {
       setDenunciasFiltradasTexto(
         denunciasFiltradasTexto.sort((a, b) =>
-          a.idDenuncia > b.idDenuncia ? 1 : 0,
+          a.idDenuncia > b.idDenuncia
+            ? 1
+            : b.idDenuncia > a.idDenuncia
+            ? -1
+            : 0,
         ),
       )
     }
@@ -88,7 +94,11 @@ export default function DenunciaListado({
     } else {
       setDenunciasFiltradasTexto(
         denunciasFiltradasTexto.sort((a, b) =>
-          a.idDenuncia > b.idDenuncia ? 1 : 0,
+          a.idDenuncia > b.idDenuncia
+            ? 1
+            : b.idDenuncia > a.idDenuncia
+            ? -1
+            : 0,
         ),
       )
     }
@@ -112,15 +122,19 @@ export default function DenunciaListado({
         />
         <TouchableOpacity
           onPress={ordenarPorEstado}
-          style={ estado ? styles.botonOrdenado : styles.botonOrdenadoOnPress}
+          style={!estado ? styles.botonOrdenado : styles.botonOrdenadoOnPress}
         >
-          <Text style={ estado ? { color: 'white' } : { color: 'black' }}>Estado</Text>
+          <Text style={!estado ? { color: 'white' } : { color: 'black' }}>
+            Estado
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={ordenarPorFecha}
-          style={ fecha ? styles.botonOrdenado : styles.botonOrdenadoOnPress}
+          style={!fecha ? styles.botonOrdenado : styles.botonOrdenadoOnPress}
         >
-          <Text style={ fecha ? { color: 'white' } : { color: 'black' }}>Fecha</Text>
+          <Text style={!fecha ? { color: 'white' } : { color: 'black' }}>
+            Fecha
+          </Text>
         </TouchableOpacity>
         {authenticated && (
           <Icon
@@ -178,8 +192,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginRight: 15,
   },
-  botonOrdenadoOnPress: {
-    backgroundColor: 'aqua',
+  botonOrdenado: {
+    backgroundColor: 'gray',
     borderRadius: 50,
     marginRight: 15,
     paddingBottom: 2,
@@ -187,8 +201,8 @@ const styles = StyleSheet.create({
     paddingRight: 15,
     paddingTop: 2,
   },
-  botonOrdenado: {
-    backgroundColor: 'gray',
+  botonOrdenadoOnPress: {
+    backgroundColor: 'aqua',
     borderRadius: 50,
     marginRight: 15,
     paddingBottom: 2,
