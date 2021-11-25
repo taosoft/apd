@@ -116,10 +116,12 @@ export default function DenunciaGenerar(): JSX.Element {
           placeholder="DD/MM/YYYY HH:mm"
           // eslint-disable-next-line react-native/no-inline-styles
           style={{
+            alignSelf: 'center',
             backgroundColor: 'white',
             borderColor: 'black',
             borderWidth: 1,
-            marginBottom: 30,
+            marginBottom: 5,
+            marginTop: 5,
             padding: 10,
             paddingHorizontal: 30,
             textAlign: 'center',
@@ -127,19 +129,6 @@ export default function DenunciaGenerar(): JSX.Element {
           }}
           type={'datetime'}
           value={denuncia.date}
-        />
-        <TextInput
-          onChangeText={setDenunciaName}
-          placeholder="Nombre del vecino o comercio"
-          style={styles.input}
-          value={denuncia.name}
-        />
-        <TextInput
-          onChangeText={setDocumentoDenunciado}
-          placeholder="Documento del denunciado (si lo tuviese)"
-          style={styles.input}
-          type={'numeric'}
-          value={denuncia.documentoDenunciado}
         />
         <Text style={styles.subtitle}>Seleccione un lugar</Text>
         <Picker
@@ -154,6 +143,19 @@ export default function DenunciaGenerar(): JSX.Element {
             />
           ))}
         </Picker>
+        <TextInput
+          onChangeText={setDenunciaName}
+          placeholder="Nombre del vecino o comercio"
+          style={styles.input}
+          value={denuncia.name}
+        />
+        <TextInput
+          onChangeText={setDocumentoDenunciado}
+          placeholder="Documento del denunciado (si lo tuviese)"
+          style={styles.input}
+          type={'numeric'}
+          value={denuncia.documentoDenunciado}
+        />
         <TextInput
           onChangeText={setDenunciaAddress}
           placeholder="Dirección del vecino o comercio"
