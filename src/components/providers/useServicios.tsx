@@ -1,3 +1,9 @@
+import { Alert } from 'react-native'
+
+import {
+  cloudinaryUpload,
+  UploadImageResponse,
+} from '../../services/image.service'
 import {
   CreateServicio,
   GetServicioDetalle,
@@ -6,10 +12,12 @@ import {
   ServicioModelDetalle,
 } from '../../services/servicios.service'
 import useAuth from './useAuth'
+import { GenerateType, useCache } from './useCache'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function useServicio() {
   const { token } = useAuth()
+  const { cache, changeCache } = useCache()
 
   async function getServicioDetalle(
     comercioId: number,
@@ -25,9 +33,89 @@ export default function useServicio() {
     return await CreateServicio(data, token)
   }
 
+  async function submitServicio(): Promise<boolean> {
+    const uploadImagesResponses = await uploadImages()
+    try {
+      CreateServicio(
+        {
+          ...cache.generarServicio,
+          archivosURL: uploadImagesResponses
+            .map((imagen) => imagen.response?.secure_url ?? '')
+            .join(';'),
+        },
+        token,
+      )
+      clearServicio()
+      return true
+    } catch (e) {
+      Alert.alert(e)
+      return false
+    }
+  }
+
+  async function uploadImages(): Promise<UploadImageResponse[]> {
+    return await Promise.all<UploadImageResponse>(
+      cache.generarServicio.images.map(async (image) => {
+        return await cloudinaryUpload(image, GenerateType.COMERCIO)
+      }),
+    )
+  }
+
+  function clearServicio(): void {
+    changeCache({
+      generarComercio: {
+        descripcion: '',
+        horario: '',
+        images: [],
+        nombre: '',
+      },
+    })
+  }
+
+  function addCachedImage(): void {
+    if (cache.addedPhoto) {
+      const image = cache.addedPhoto
+      changeCache({
+        addedPhoto: undefined,
+        generarComercio: {
+          ...cache.generarComercio,
+          images: [...cache.generarComercio.images, image],
+        },
+      })
+    }
+  }
+
+  function addImage(uri: string): void {
+    changeCache({
+      generarComercio: {
+        ...cache.generarComercio,
+        images: [...cache.generarComercio.images, uri],
+      },
+    })
+  }
+
+  function removeImage(index: number): void {
+    changeCache({
+      generarComercio: {
+        ...cache.generarComercio,
+        images: [
+          ...cache.generarComercio.images.slice(0, index),
+          ...cache.generarComercio.images.slice(index + 1),
+        ],
+      },
+    })
+  }
+
   return {
+    addCachedImage,
+    addImage,
+    cachedImage: cache.addedPhoto,
+    clearServicio,
     createServicios,
     getServicioDetalle,
     getServicios,
+    removeImage,
+    servicio: cache.generarServicio,
+    submitServicio,
   }
 }

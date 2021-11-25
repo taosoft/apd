@@ -1,4 +1,5 @@
 import CheckBox from '@react-native-community/checkbox'
+import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import {
   Alert,
@@ -12,6 +13,7 @@ import ImageContainer from '../components/ImageContainer'
 import { GenerateType } from '../components/providers/useCache'
 import useDenuncias from '../components/providers/useDenuncias'
 import { Button, Text, View } from '../components/Themed'
+import { AuthNavigationScreenKey } from '../constants/NavigationKeys'
 
 const handleTerminosCondiciones = (): void => {
   Alert.alert(
@@ -32,6 +34,8 @@ export default function DenunciaGenerar(): JSX.Element {
     submitDenuncia,
   } = useDenuncias()
 
+  const navigation = useNavigation()
+
   const [denunciaDate, setDenunciaDate] = useState<string>(denuncia.date)
   const [denunciaName, setDenunciaName] = useState<string>(denuncia.name)
   const [denunciaAddress, setDenunciaAddress] = useState<string>(
@@ -47,7 +51,10 @@ export default function DenunciaGenerar(): JSX.Element {
 
   const handleSubmit = async (): Promise<void> => {
     setIsLoading(true)
-    await submitDenuncia()
+    const response = await submitDenuncia()
+    if (response) {
+      navigation.navigate(AuthNavigationScreenKey.DENUNCIALISTADO)
+    }
     setIsLoading(false)
   }
 
@@ -114,7 +121,7 @@ export default function DenunciaGenerar(): JSX.Element {
             data={denuncia.images.map((image) => image ?? '')}
             deleteImage={deleteImage}
             generateType={GenerateType.DENUNCIA}
-            maxImages={7}
+            maxImages={Infinity}
             readonly={false}
           />
         </View>

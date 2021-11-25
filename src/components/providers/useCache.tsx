@@ -4,6 +4,8 @@ export interface Cache {
   addedPhoto?: string
   generarDenuncia: GenerarDenuncia
   generarReclamo: GenerarReclamo
+  generarComercio: GenerarComercio
+  generarServicio: GenerarServicio
   token?: string
   documento?: string
 }
@@ -24,6 +26,23 @@ export interface GenerarReclamo {
   idRubro: number
   images: string[]
 }
+export interface GenerarComercio {
+  nombre: string
+  horario: string
+  descripcion: string
+  images: string[]
+}
+export interface GenerarServicio {
+  idRubro: number
+  nombreServicio: string
+  nombrePersona: string
+  direccion: string
+  telefono: string
+  email: string
+  horario: string
+  descripcion: string
+  images: string[]
+}
 
 export enum GenerateType {
   DENUNCIA = 'Denuncia',
@@ -36,6 +55,8 @@ export interface UpdateCache {
   addedPhoto?: string
   generarDenuncia?: GenerarDenuncia
   generarReclamo?: GenerarReclamo
+  generarComercio?: GenerarComercio
+  generarServicio?: GenerarServicio
   token?: string
   documento?: string
 }
@@ -43,6 +64,12 @@ export interface UpdateCache {
 export const defaultCache: Cache = {
   addedPhoto: undefined,
   documento: undefined,
+  generarComercio: {
+    descripcion: '',
+    horario: '',
+    images: [],
+    nombre: '',
+  },
   generarDenuncia: {
     address: '',
     date: '',
@@ -57,6 +84,17 @@ export const defaultCache: Cache = {
     idRubro: 0,
     idSitio: 0,
     images: [],
+  },
+  generarServicio: {
+    descripcion: '',
+    direccion: '',
+    email: '',
+    horario: '',
+    idRubro: 0,
+    images: [],
+    nombrePersona: '',
+    nombreServicio: '',
+    telefono: '',
   },
   token: undefined,
 }
@@ -85,9 +123,7 @@ export function CacheProvider(props: CacheProviderProps): JSX.Element {
   function changeCache(config: UpdateCache): void {
     const nextCache = {
       ...cache,
-      ...(config.addedPhoto && {
-        addedPhoto: config.addedPhoto,
-      }),
+      addedPhoto: config.addedPhoto,
       ...(config.token && {
         token: config.token,
       }),
@@ -111,6 +147,27 @@ export function CacheProvider(props: CacheProviderProps): JSX.Element {
           idRubro: config.generarReclamo.idRubro,
           idSitio: config.generarReclamo.idSitio,
           images: config.generarReclamo.images,
+        },
+      }),
+      ...(config.generarComercio && {
+        generarComercio: {
+          descripcion: config.generarComercio.descripcion,
+          horario: config.generarComercio.horario,
+          images: config.generarComercio.images,
+          nombre: config.generarComercio.nombre,
+        },
+      }),
+      ...(config.generarServicio && {
+        generarServicio: {
+          descripcion: config.generarServicio.descripcion,
+          direccion: config.generarServicio.direccion,
+          email: config.generarServicio.email,
+          horario: config.generarServicio.horario,
+          idRubro: config.generarServicio?.idRubro,
+          images: config.generarServicio.images,
+          nombrePersona: config.generarServicio.nombrePersona,
+          nombreServicio: config.generarServicio.nombreServicio,
+          telefono: config.generarServicio.telefono,
         },
       }),
     }

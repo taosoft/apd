@@ -32,6 +32,18 @@ export interface ServicioModel {
   aprobado: string
 }
 
+export interface AddServicio {
+  idRubro: number
+  nombreServicio: string
+  nombrePersona: string
+  direccion: string
+  telefono: string
+  email: string
+  horario: string
+  descripcion: string
+  archivosURL: string
+}
+
 export async function GetServicioDetalle(
   servicioId: number,
 ): Promise<ServicioModelDetalle> {
@@ -69,7 +81,7 @@ export async function GetServicios(): Promise<ServicioModel[]> {
 }
 
 export async function CreateServicio(
-  data: ServicioModel,
+  data: AddServicio,
   token: string,
 ): Promise<ServicioModel> {
   try {

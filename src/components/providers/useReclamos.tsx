@@ -63,6 +63,7 @@ export default function useReclamos() {
 
   function clearReclamo(): void {
     changeCache({
+      addedPhoto: undefined,
       generarReclamo: {
         descripcion: '',
         idDesperfecto: 0,
