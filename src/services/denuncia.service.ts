@@ -24,6 +24,9 @@ export interface DenunciaModel {
   archivosURL: string | null
   bitacora: string
   aceptaResponsabilidad: number
+  documentoDenunciado: string
+  address: string
+  name: string
 }
 
 export interface DenunciaModelDetalle {
@@ -36,6 +39,9 @@ export interface DenunciaModelDetalle {
   archivosURL: string | null
   bitacora: string
   aceptaResponsabilidad: number
+  documentoDenunciado: string
+  address: string
+  name: string
   user: UserModel
   sitio: SitioModel
 }
