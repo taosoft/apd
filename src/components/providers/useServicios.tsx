@@ -65,6 +65,7 @@ export default function useServicio() {
     changeCache({
       generarComercio: {
         descripcion: '',
+        direccion: '',
         horario: '',
         images: [],
         nombre: '',
@@ -106,6 +107,55 @@ export default function useServicio() {
     })
   }
 
+  function setNombre(nombre: string): void {
+    changeCache({
+      generarServicio: {
+        ...cache.generarServicio,
+        nombrePersona: nombre,
+      },
+    })
+  }
+  function setDireccion(direccion: string): void {
+    changeCache({
+      generarServicio: {
+        ...cache.generarServicio,
+        direccion: direccion,
+      },
+    })
+  }
+  function setTelefono(telefono: string): void {
+    changeCache({
+      generarServicio: {
+        ...cache.generarServicio,
+        telefono: telefono,
+      },
+    })
+  }
+  function setEmail(email: string): void {
+    changeCache({
+      generarServicio: {
+        ...cache.generarServicio,
+        email: email,
+      },
+    })
+  }
+  function setDescripcion(descripcion: string): void {
+    changeCache({
+      generarServicio: {
+        ...cache.generarServicio,
+        descripcion: descripcion,
+      },
+    })
+  }
+  function setRubro(rubro: string): void {
+    changeCache({
+      generarServicio: {
+        ...cache.generarServicio,
+        idRubro: +rubro,
+      },
+    })
+  }
+
   return {
     addCachedImage,
     addImage,
@@ -116,6 +166,12 @@ export default function useServicio() {
     getServicios,
     removeImage,
     servicio: cache.generarServicio,
+    setDescripcion,
+    setDireccion,
+    setEmail,
+    setNombre,
+    setRubro,
+    setTelefono,
     submitServicio,
   }
 }

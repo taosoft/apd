@@ -16,13 +16,11 @@ export default function ComercioGenerar(): JSX.Element {
     cachedImage,
     addCachedImage,
     submitComercio,
+    setDescripcion,
+    setDireccion,
+    setNombreComercio,
   } = useComercio()
   const navigation = useNavigation()
-  const [nombreComercio, setNombreComercio] = useState<string>('')
-  const [direccion, setDireccion] = useState<string>('')
-  const [telefono, setTelefono] = useState<string>('')
-  const [email, setEmail] = useState<string>('')
-  const [descripcion, setDescripcion] = useState<string>('')
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -67,36 +65,23 @@ export default function ComercioGenerar(): JSX.Element {
           onChangeText={setNombreComercio}
           placeholder="Nombre del comercio"
           style={styles.input}
-          value={nombreComercio}
+          value={comercio.nombre}
         />
         <TextInput
           multiline
           onChangeText={setDireccion}
           placeholder="Dirección"
           style={styles.input}
-          value={direccion}
+          value={comercio.direccion}
         />
+        {/* Picker time */}
         <TextInput
           multiline
-          onChangeText={setTelefono}
-          placeholder="Teléfono de contacto"
-          style={styles.input}
-          value={telefono}
-        />
-        <TextInput
-          multiline
-          onChangeText={setEmail}
-          placeholder="Email"
-          style={styles.input}
-          value={email}
-        />
-        <TextInput
-          multiline
-          numberOfLines={4}
+          numberOfLines={5}
           onChangeText={setDescripcion}
           placeholder="Descripción"
           style={styles.input}
-          value={descripcion}
+          value={comercio.descripcion}
         />
         <View
           darkColor="rgba(255,255,255,0.1)"

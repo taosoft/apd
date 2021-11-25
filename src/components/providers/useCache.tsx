@@ -13,6 +13,7 @@ export interface Cache {
 export interface GenerarDenuncia {
   date: string
   name: string
+  idSitio: number
   address: string
   descripcion: string
   images: string[]
@@ -29,6 +30,7 @@ export interface GenerarReclamo {
 export interface GenerarComercio {
   nombre: string
   horario: string
+  direccion: string
   descripcion: string
   images: string[]
 }
@@ -66,6 +68,7 @@ export const defaultCache: Cache = {
   documento: undefined,
   generarComercio: {
     descripcion: '',
+    direccion: '',
     horario: '',
     images: [],
     nombre: '',
@@ -74,6 +77,7 @@ export const defaultCache: Cache = {
     address: '',
     date: '',
     descripcion: '',
+    idSitio: 0,
     images: [],
     isTermsAndConditions: false,
     name: '',
@@ -135,6 +139,7 @@ export function CacheProvider(props: CacheProviderProps): JSX.Element {
           address: config.generarDenuncia.address,
           date: config.generarDenuncia.date,
           descripcion: config.generarDenuncia.descripcion,
+          idSitio: config.generarDenuncia.idSitio,
           images: config.generarDenuncia.images,
           isTermsAndConditions: config.generarDenuncia.isTermsAndConditions,
           name: config.generarDenuncia.name,
@@ -152,6 +157,7 @@ export function CacheProvider(props: CacheProviderProps): JSX.Element {
       ...(config.generarComercio && {
         generarComercio: {
           descripcion: config.generarComercio.descripcion,
+          direccion: config.generarComercio.direccion,
           horario: config.generarComercio.horario,
           images: config.generarComercio.images,
           nombre: config.generarComercio.nombre,
