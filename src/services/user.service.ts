@@ -42,10 +42,10 @@ export async function UpdateUser(
   token: string,
 ): Promise<boolean> {
   try {
-    const result = await axios.put<Response<boolean>>(
+    const result = await axios.put<Response<UserModel>>(
       `${baseUrl}/users`,
       {
-        updateData,
+        ...updateData,
       },
       {
         headers: {
@@ -63,7 +63,7 @@ export async function UpdateUser(
 
 export async function ResetPassword(documento: string): Promise<boolean> {
   try {
-    const result = await axios.post<Response<boolean>>(
+    const result = await axios.post<Response<UserModel>>(
       `${baseUrl}/users/reset/${documento}`,
       {},
       {

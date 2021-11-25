@@ -38,13 +38,20 @@ export default function PerfilUsuario(): JSX.Element {
   }, [loaded])
 
   const updateUserData = async () => {
+    setIsLoading(true)
     const updateData = {
       contraseña: nuevaPassword,
       email: nuevoMail,
     }
-    await updateUser(updateData)
-      .then(() => Alert.alert('Los datos se han actualizado exitosamente'))
-      .catch(() => Alert.alert('Los datos no se han actualizado'))
+    updateUser(updateData)
+      .then(() => {
+        setIsLoading(false)
+        Alert.alert('Los datos se han actualizado exitosamente')
+      })
+      .catch(() => {
+        setIsLoading(false)
+        Alert.alert('Los datos no se han actualizado')
+      })
   }
 
   const closeSession = () => {
