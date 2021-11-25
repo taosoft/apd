@@ -84,9 +84,12 @@ export default function DenunciaListado({
     if (fecha) {
       setDenunciasFiltradasTexto(
         denunciasFiltradasTexto.sort((a, b) =>
-          a.fechaDenuncia > b.fechaDenuncia
+          a.fechaDenuncia.toString().localeCompare(b.fechaDenuncia.toString()) >
+          0
             ? 1
-            : b.fechaDenuncia > a.fechaDenuncia
+            : b.fechaDenuncia
+                .toString()
+                .localeCompare(a.fechaDenuncia.toString()) < 0
             ? -1
             : 0,
         ),
