@@ -90,9 +90,9 @@ export default function ReclamoListado({
         />
         <TouchableOpacity
           onPress={filtrarReclamosPropios}
-          style={styles.botonOrdenado}
+          style={!propio ? styles.botonOrdenado : styles.botonOrdenadoOnPress}
         >
-          <Text style={{ color: 'white' }}>Propio</Text>
+          <Text style={!propio ? { color: 'white' } : { color: 'black' }}>Propio</Text>
         </TouchableOpacity>
         {authenticated && (
           <Icon
@@ -152,6 +152,15 @@ const styles = StyleSheet.create({
   botonCreacionReclamo: {
     backgroundColor: 'white',
     marginRight: 15,
+  },
+  botonOrdenadoOnPress: {
+    backgroundColor: 'aqua',
+    borderRadius: 50,
+    marginRight: 15,
+    paddingBottom: 2,
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingTop: 2,
   },
   botonOrdenado: {
     backgroundColor: 'gray',
