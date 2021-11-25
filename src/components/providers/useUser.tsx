@@ -14,11 +14,8 @@ export default function useUser() {
     return await GetUser(documento, token)
   }
 
-  async function updateUser(
-    documento: string,
-    updateData: UpdateUserData,
-  ): Promise<boolean> {
-    return await UpdateUser(documento, updateData, token)
+  async function updateUser(updateData: UpdateUserData): Promise<boolean> {
+    return await UpdateUser(updateData, token)
   }
 
   async function resetPassword(documento: string): Promise<boolean> {

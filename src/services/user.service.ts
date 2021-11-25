@@ -38,13 +38,12 @@ export async function GetUser(
 }
 
 export async function UpdateUser(
-  documento: string,
   updateData: UpdateUserData,
   token: string,
 ): Promise<boolean> {
   try {
     const result = await axios.put<Response<boolean>>(
-      `${baseUrl}/users/${documento}`,
+      `${baseUrl}/users`,
       {
         updateData,
       },

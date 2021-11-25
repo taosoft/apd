@@ -37,12 +37,12 @@ export default function PerfilUsuario(): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loaded])
 
-  const updateUserData = () => {
+  const updateUserData = async () => {
     const updateData = {
       contraseña: nuevaPassword,
       email: nuevoMail,
     }
-    updateUser(documento, updateData)
+    await updateUser(updateData)
       .then(() => Alert.alert('Los datos se han actualizado exitosamente'))
       .catch(() => Alert.alert('Los datos no se han actualizado'))
   }
