@@ -112,15 +112,15 @@ export default function DenunciaListado({
         />
         <TouchableOpacity
           onPress={ordenarPorEstado}
-          style={styles.botonOrdenado}
+          style={ estado ? styles.botonOrdenado : styles.botonOrdenadoOnPress}
         >
-          <Text style={{ color: 'white' }}>Estado</Text>
+          <Text style={ estado ? { color: 'white' } : { color: 'black' }}>Estado</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={ordenarPorFecha}
-          style={styles.botonOrdenado}
+          style={ fecha ? styles.botonOrdenado : styles.botonOrdenadoOnPress}
         >
-          <Text style={{ color: 'white' }}>Fecha</Text>
+          <Text style={ fecha ? { color: 'white' } : { color: 'black' }}>Fecha</Text>
         </TouchableOpacity>
         {authenticated && (
           <Icon
@@ -177,6 +177,15 @@ const styles = StyleSheet.create({
   botonCreacionDenuncia: {
     backgroundColor: 'white',
     marginRight: 15,
+  },
+  botonOrdenadoOnPress: {
+    backgroundColor: 'aqua',
+    borderRadius: 50,
+    marginRight: 15,
+    paddingBottom: 2,
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingTop: 2,
   },
   botonOrdenado: {
     backgroundColor: 'gray',
