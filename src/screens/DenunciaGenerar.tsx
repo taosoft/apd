@@ -1,9 +1,9 @@
-import CheckBox from '@react-native-community/checkbox'
 import { Picker } from '@react-native-community/picker'
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import {
   Alert,
+  CheckBox,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -40,6 +40,7 @@ export default function DenunciaGenerar(): JSX.Element {
     setDenunciaName,
     setDenunciaReason,
     setIsTermsAndConditions,
+    setDocumentoDenunciado,
     setLugar,
     isTermsAndConditions,
   } = useDenuncias()
@@ -107,6 +108,12 @@ export default function DenunciaGenerar(): JSX.Element {
           placeholder="Nombre del vecino o comercio"
           style={styles.input}
           value={denuncia.name}
+        />
+        <TextInput
+          onChangeText={setDocumentoDenunciado}
+          placeholder="Documento del denunciado (si lo tuviese)"
+          style={styles.input}
+          value={denuncia.documentoDenunciado}
         />
         <Text style={styles.subtitle}>Seleccione un lugar</Text>
         <Picker

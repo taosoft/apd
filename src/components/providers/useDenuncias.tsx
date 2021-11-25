@@ -61,6 +61,7 @@ export default function useDenuncias() {
         address: '',
         date: '',
         descripcion: '',
+        documentoDenunciado: '',
         idSitio: 0,
         images: [],
         isTermsAndConditions: false,
@@ -109,6 +110,14 @@ export default function useDenuncias() {
       generarDenuncia: {
         ...cache.generarDenuncia,
         descripcion: descripcion,
+      },
+    })
+  }
+  function setDocumentoDenunciado(docDenunciado: string): void {
+    changeCache({
+      generarDenuncia: {
+        ...cache.generarDenuncia,
+        documentoDenunciado: docDenunciado,
       },
     })
   }
@@ -168,6 +177,7 @@ export default function useDenuncias() {
     setDenunciaDate,
     setDenunciaName,
     setDenunciaReason,
+    setDocumentoDenunciado,
     setIsTermsAndConditions,
     setLugar,
     submitDenuncia,

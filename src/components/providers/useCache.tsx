@@ -18,6 +18,7 @@ export interface GenerarDenuncia {
   idSitio: number
   address: string
   descripcion: string
+  documentoDenunciado: string
   images: string[]
   isTermsAndConditions: boolean
 }
@@ -80,6 +81,7 @@ export const defaultCache: Cache = {
     address: '',
     date: '',
     descripcion: '',
+    documentoDenunciado: '',
     idSitio: 0,
     images: [],
     isTermsAndConditions: false,
@@ -146,6 +148,7 @@ export function CacheProvider(props: CacheProviderProps): JSX.Element {
           address: config.generarDenuncia.address,
           date: config.generarDenuncia.date,
           descripcion: config.generarDenuncia.descripcion,
+          documentoDenunciado: config.generarDenuncia.documentoDenunciado,
           idSitio: config.generarDenuncia.idSitio,
           images: config.generarDenuncia.images,
           isTermsAndConditions: config.generarDenuncia.isTermsAndConditions,

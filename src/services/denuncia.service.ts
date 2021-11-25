@@ -8,6 +8,7 @@ import { UserModel } from './user.service'
 interface AddDenuncia {
   date: string
   archivosURL: string
+  documentoDenunciado: string
   isTermsAndConditions: boolean
   address: string
   name: string
