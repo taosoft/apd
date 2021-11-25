@@ -13,7 +13,6 @@ import {
 } from 'react-native'
 
 import NotificacionItem from '../components/NotificacionItem'
-import useAuth from '../components/providers/useAuth'
 import useNotificaciones from '../components/providers/useNotificaciones'
 import { useBadge } from '../components/providers/useNotificationBadge'
 import { View } from '../components/Themed'
@@ -27,14 +26,13 @@ export default function Notificaciones({
 }: NotificacionesListadoProps): JSX.Element {
   const { authenticated } = route.params
   const navigation = useNavigation()
-  const { documento } = useAuth()
   const { getNotificaciones, updateNotificaciones } = useNotificaciones()
   const [items, setItems] = useState<NotificacionesModel[]>([])
   const loaded = useIsFocused()
   const { changeCounter } = useBadge()
 
   useEffect(() => {
-    getNotificaciones(documento).then((res) => {
+    getNotificaciones().then((res) => {
       setItems(res)
       changeCounter(res.length)
     })

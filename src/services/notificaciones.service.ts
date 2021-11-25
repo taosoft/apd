@@ -13,7 +13,6 @@ export interface NotificacionesModel {
 }
 
 export async function GetNotificaciones(
-  documento: string,
   token: string,
 ): Promise<NotificacionesModel[]> {
   try {
