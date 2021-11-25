@@ -166,6 +166,7 @@ export default function DenunciaGenerar(): JSX.Element {
             {'Acepta los '}
             <Pressable
               onPress={handleTerminosCondiciones}
+              style={{ marginTop: -3 }}
               // style={({ pressed }) => [
               //   {
               //     backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white',
@@ -189,6 +190,7 @@ const styles = StyleSheet.create({
   },
   checkboxContainer: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     marginBottom: 20,
   },
   container: {
