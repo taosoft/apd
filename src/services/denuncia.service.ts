@@ -2,7 +2,6 @@ import axios from 'axios'
 
 import { Response } from '../common/response'
 import { baseUrl } from '../common/values'
-import useAuth from '../components/providers/useAuth'
 import { SitioModel } from './sitio.service'
 import { UserModel } from './user.service'
 
@@ -44,9 +43,9 @@ export interface DenunciaModelDetalle {
 
 export default async function CreateDenuncia(
   denuncia: AddDenuncia,
+  documento: string,
   token: string,
 ): Promise<void> {
-  const { documento } = useAuth()
   try {
     await axios.post<Response<DenunciaModel>>(
       `${baseUrl}/denuncias`,
