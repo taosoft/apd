@@ -97,7 +97,14 @@ export default function Login(): JSX.Element {
             navigator.navigate(NavigationScreenKey.UNAUTHENTICATED_STACK)
           }
         >
-          <Text style={styles.sinUsuario}>Ingrese sin usuario</Text>
+          <Text style={styles.sinUsuario}>Ingresar sin usuario</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            navigator.navigate(NavigationScreenKey.RESETEAR_PASSWORD)
+          }
+        >
+          <Text style={styles.resetPassword}>Olvidé mi contraseña</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -129,6 +136,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     width: 300,
   },
+  resetPassword: {
+    borderBottomWidth: 1,
+    borderColor: '#C9E9FC',
+    color: '#409DC4',
+    fontSize: 20,
+    fontStyle: 'italic',
+    marginLeft: 30,
+    marginTop: 20,
+    textAlign: 'left',
+    width: 190,
+  },
   sinUsuario: {
     borderBottomWidth: 1,
     borderColor: '#C9E9FC',
@@ -138,6 +156,6 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     marginTop: 20,
     textAlign: 'left',
-    width: 170,
+    width: 173,
   },
 })

@@ -23,6 +23,7 @@ export enum NavigationScreenKey {
   REGISTRARSE = 'Registrarse',
   LOGIN = 'Login',
   FINALIZA_REGISTRO = 'FinalizaRegistro',
+  RESETEAR_PASSWORD = 'ResetarPassword',
   AUTHENTICATED_STACK = 'AuthenticatedStack',
   UNAUTHENTICATED_STACK = 'UnauthenticatedStack',
   NOT_FOUND = 'NotFound',

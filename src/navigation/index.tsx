@@ -70,6 +70,11 @@ function RootNavigator() {
         options={{ headerTitle: 'Servicios y Comercios' }}
       />
       <RootStack.Screen
+        component={UnauthenticatedStack}
+        name={NavigationScreenKey.RESETEAR_PASSWORD}
+        options={{ headerTitle: 'Reiniciar contraseña' }}
+      />
+      <RootStack.Screen
         component={NotFoundScreen}
         name={NavigationScreenKey.NOT_FOUND}
         options={{ title: 'Oops!' }}
