@@ -15,7 +15,7 @@ import { GenerateType, useCache } from './useCache'
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function useDenuncias() {
   const { cache, changeCache } = useCache()
-  const { token } = useAuth()
+  const { token, documento } = useAuth()
 
   async function submitDenuncia(): Promise<boolean> {
     const uploadImagesResponses = await uploadImages()
@@ -27,6 +27,7 @@ export default function useDenuncias() {
             .map((imagen) => imagen.response?.secure_url ?? '')
             .join(';'),
         },
+        documento,
         token,
       )
       clearDenuncia()

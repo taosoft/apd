@@ -92,7 +92,9 @@ export default function ReclamoListado({
           onPress={filtrarReclamosPropios}
           style={!propio ? styles.botonOrdenado : styles.botonOrdenadoOnPress}
         >
-          <Text style={!propio ? { color: 'white' } : { color: 'black' }}>Propio</Text>
+          <Text style={!propio ? { color: 'white' } : { color: 'black' }}>
+            Propio
+          </Text>
         </TouchableOpacity>
         {authenticated && (
           <Icon
@@ -153,8 +155,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginRight: 15,
   },
-  botonOrdenadoOnPress: {
-    backgroundColor: 'aqua',
+  botonOrdenado: {
+    backgroundColor: 'gray',
     borderRadius: 50,
     marginRight: 15,
     paddingBottom: 2,
@@ -162,8 +164,8 @@ const styles = StyleSheet.create({
     paddingRight: 15,
     paddingTop: 2,
   },
-  botonOrdenado: {
-    backgroundColor: 'gray',
+  botonOrdenadoOnPress: {
+    backgroundColor: 'aqua',
     borderRadius: 50,
     marginRight: 15,
     paddingBottom: 2,

@@ -1,6 +1,12 @@
 import { RouteProp } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native'
+import {
+  ActivityIndicator,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native'
 import ImageLayout from 'react-native-image-layout'
 
 import ItemBitacora from '../components/ItemBitacora'
@@ -65,7 +71,9 @@ export default function ReclamoDetalle({
           )}
           {!isLoading && (
             <View style={styles.row}>
-              <Text style={styles.titleText}>Reclamo #{reclamo?.idReclamo} </Text>
+              <Text style={styles.titleText}>
+                Reclamo #{reclamo?.idReclamo}{' '}
+              </Text>
               <Text style={styles.titleText2}>
                 {' '}
                 {reclamo?.idReclamo === idSelected
@@ -143,6 +151,16 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     textAlign: 'justify',
   },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
+  },
+  loadingIcon: {
+    left: '50%',
+    position: 'relative',
+    top: '70%',
+  },
   row: {
     backgroundColor: '#fff',
     flexDirection: 'row',
@@ -182,15 +200,5 @@ const styles = StyleSheet.create({
     fontSize: 19,
     fontWeight: 'bold',
     marginTop: 5,
-  },
-  horizontal: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    padding: 10,
-  },
-  loadingIcon: {
-    left: '50%',
-    position: 'relative',
-    top: '70%',
   },
 })

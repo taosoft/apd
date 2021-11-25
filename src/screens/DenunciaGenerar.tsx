@@ -97,6 +97,7 @@ export default function DenunciaGenerar(): JSX.Element {
           style={styles.input}
           value={denunciaName}
         />
+        {/* Agregar IdSitio */}
         <TextInput
           onChangeText={setDenunciaAddress}
           placeholder="Dirección del vecino o comercio"
