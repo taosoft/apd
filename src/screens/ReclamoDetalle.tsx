@@ -1,6 +1,6 @@
 import { RouteProp } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native'
 import ImageLayout from 'react-native-image-layout'
 
 import ItemBitacora from '../components/ItemBitacora'
@@ -14,6 +14,7 @@ interface ReclamoDetalleProps {
 export default function ReclamoDetalle({
   route,
 }: ReclamoDetalleProps): JSX.Element {
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const { id } = route.params
   const { idSelected } = route.params
   const { getReclamoDetalle } = useReclamos()
@@ -40,8 +41,10 @@ export default function ReclamoDetalle({
   console.log('Reclamo id unificado ', reclamo?.IdReclamoUnificado)
 
   useEffect(() => {
+    setIsLoading(true)
     getReclamoDetalle(id).then((data) => {
       setReclamo(data)
+      setIsLoading(false)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -50,15 +53,27 @@ export default function ReclamoDetalle({
     <View style={styles.container}>
       <ScrollView keyboardShouldPersistTaps="always">
         <View>
-          <View style={styles.row}>
-            <Text style={styles.titleText}>Reclamo #{reclamo?.idReclamo} </Text>
-            <Text style={styles.titleText2}>
-              {' '}
-              {reclamo?.idReclamo === idSelected
-                ? ''
-                : 'Unificado con su #' + idSelected}{' '}
-            </Text>
-          </View>
+          {isLoading && (
+            <View style={[styles.container, styles.horizontal]}>
+              <ActivityIndicator
+                animating={true}
+                color={'green'}
+                size={'large'}
+                style={styles.loadingIcon}
+              />
+            </View>
+          )}
+          {!isLoading && (
+            <View style={styles.row}>
+              <Text style={styles.titleText}>Reclamo #{reclamo?.idReclamo} </Text>
+              <Text style={styles.titleText2}>
+                {' '}
+                {reclamo?.idReclamo === idSelected
+                  ? ''
+                  : 'Unificado con su #' + idSelected}{' '}
+              </Text>
+            </View>
+          )}
           <View style={styles.row}>
             <Text style={styles.titulo}>Estado:</Text>
             <Text style={styles.datos}>{reclamo?.estado}</Text>
@@ -167,5 +182,15 @@ const styles = StyleSheet.create({
     fontSize: 19,
     fontWeight: 'bold',
     marginTop: 5,
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
+  },
+  loadingIcon: {
+    left: '50%',
+    position: 'relative',
+    top: '70%',
   },
 })

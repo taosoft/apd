@@ -62,12 +62,18 @@ export default function DenunciaListado({
     setEstado(!estado)
     if (estado) {
       setDenunciasFiltradasTexto(
-        denunciasFiltradasTexto.sort((a, b) => (a.estado >= b.estado ? 1 : 0)),
+        denunciasFiltradasTexto.sort((a, b) =>
+          a.estado > b.estado ? 1 : b.estado > a.estado ? -1 : 0,
+        ),
       )
     } else {
       setDenunciasFiltradasTexto(
         denunciasFiltradasTexto.sort((a, b) =>
-          a.idDenuncia > b.idDenuncia ? 1 : 0,
+          a.idDenuncia > b.idDenuncia
+            ? 1
+            : b.idDenuncia > a.idDenuncia
+            ? -1
+            : 0,
         ),
       )
     }
@@ -78,9 +84,12 @@ export default function DenunciaListado({
     if (fecha) {
       setDenunciasFiltradasTexto(
         denunciasFiltradasTexto.sort((a, b) =>
-          a.fechaDenuncia > b.fechaDenuncia
+          a.fechaDenuncia.toString().localeCompare(b.fechaDenuncia.toString()) >
+          0
             ? 1
-            : b.fechaDenuncia > a.fechaDenuncia
+            : b.fechaDenuncia
+                .toString()
+                .localeCompare(a.fechaDenuncia.toString()) < 0
             ? -1
             : 0,
         ),
@@ -88,7 +97,11 @@ export default function DenunciaListado({
     } else {
       setDenunciasFiltradasTexto(
         denunciasFiltradasTexto.sort((a, b) =>
-          a.idDenuncia > b.idDenuncia ? 1 : 0,
+          a.idDenuncia > b.idDenuncia
+            ? 1
+            : b.idDenuncia > a.idDenuncia
+            ? -1
+            : 0,
         ),
       )
     }
@@ -112,15 +125,19 @@ export default function DenunciaListado({
         />
         <TouchableOpacity
           onPress={ordenarPorEstado}
-          style={styles.botonOrdenado}
+          style={!estado ? styles.botonOrdenado : styles.botonOrdenadoOnPress}
         >
-          <Text style={{ color: 'white' }}>Estado</Text>
+          <Text style={!estado ? { color: 'white' } : { color: 'black' }}>
+            Estado
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={ordenarPorFecha}
-          style={styles.botonOrdenado}
+          style={!fecha ? styles.botonOrdenado : styles.botonOrdenadoOnPress}
         >
-          <Text style={{ color: 'white' }}>Fecha</Text>
+          <Text style={!fecha ? { color: 'white' } : { color: 'black' }}>
+            Fecha
+          </Text>
         </TouchableOpacity>
         {authenticated && (
           <Icon
@@ -180,6 +197,15 @@ const styles = StyleSheet.create({
   },
   botonOrdenado: {
     backgroundColor: 'gray',
+    borderRadius: 50,
+    marginRight: 15,
+    paddingBottom: 2,
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingTop: 2,
+  },
+  botonOrdenadoOnPress: {
+    backgroundColor: 'aqua',
     borderRadius: 50,
     marginRight: 15,
     paddingBottom: 2,

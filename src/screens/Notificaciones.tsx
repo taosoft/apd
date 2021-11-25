@@ -15,6 +15,7 @@ import {
 import NotificacionItem from '../components/NotificacionItem'
 import useAuth from '../components/providers/useAuth'
 import useNotificaciones from '../components/providers/useNotificaciones'
+import { useBadge } from '../components/providers/useNotificationBadge'
 import { View } from '../components/Themed'
 import { NotificacionesModel } from '../services/notificaciones.service'
 interface NotificacionesListadoProps {
@@ -30,10 +31,12 @@ export default function Notificaciones({
   const { getNotificaciones, updateNotificaciones } = useNotificaciones()
   const [items, setItems] = useState<NotificacionesModel[]>([])
   const loaded = useIsFocused()
+  const { changeCounter } = useBadge()
 
   useEffect(() => {
     getNotificaciones(documento).then((res) => {
       setItems(res)
+      changeCounter(res.length)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loaded])
