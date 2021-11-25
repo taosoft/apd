@@ -1,14 +1,10 @@
+import CheckBox from '@react-native-community/checkbox'
 import { Picker } from '@react-native-community/picker'
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import {
-  Alert,
-  CheckBox,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  TextInput,
-} from 'react-native'
+import { Alert, Pressable, ScrollView, StyleSheet } from 'react-native'
+import TextInput from 'react-native-input-validator'
+import { TextInputMask } from 'react-native-masked-text'
 
 import ImageContainer from '../components/ImageContainer'
 import { GenerateType } from '../components/providers/useCache'
@@ -97,10 +93,27 @@ export default function DenunciaGenerar(): JSX.Element {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <TextInput
-          onChangeText={setDenunciaDate}
-          placeholder="Fecha y hora del hecho denunciado"
-          style={styles.input}
+        <Text style={styles.subtitle}>Fecha y hora del hecho denunciado</Text>
+        <TextInputMask
+          onChangeText={(text) => {
+            setDenunciaDate(text)
+          }}
+          options={{
+            format: 'DD/MM/YYYY HH:mm',
+          }}
+          placeholder="DD/MM/YYYY HH:mm"
+          // eslint-disable-next-line react-native/no-inline-styles
+          style={{
+            backgroundColor: 'white',
+            borderColor: 'black',
+            borderWidth: 1,
+            marginBottom: 30,
+            padding: 10,
+            paddingHorizontal: 30,
+            textAlign: 'center',
+            width: 300,
+          }}
+          type={'datetime'}
           value={denuncia.date}
         />
         <TextInput

@@ -1,4 +1,5 @@
 import { isNil } from 'lodash'
+import moment from 'moment'
 import React, { createContext, useContext, useState } from 'react'
 
 export interface Cache {
@@ -79,7 +80,7 @@ export const defaultCache: Cache = {
   },
   generarDenuncia: {
     address: '',
-    date: '',
+    date: moment().format('DD/MM/YYYY HH:mm:ss'),
     descripcion: '',
     documentoDenunciado: '',
     idSitio: 0,
