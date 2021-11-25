@@ -1,8 +1,14 @@
 import { RouteProp, useNavigation } from '@react-navigation/native'
-import React from 'react'
-import { Button } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { FlatList, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { Button } from 'react-native-elements'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
-import { Text, View } from '../components/Themed'
+import useAuth from '../components/providers/useAuth'
+import useServicio from '../components/providers/useServicios'
+import ServicioItem from '../components/ServicioItem'
+import { View } from '../components/Themed'
+import { ServicioModel } from '../services/servicios.service'
 
 interface ServicioListadoProps {
   route: RouteProp<{ params: { authenticated: boolean } }, 'params'>
@@ -13,24 +19,89 @@ export default function ServicioListado({
 }: ServicioListadoProps): JSX.Element {
   const { authenticated } = route.params
   const navigation = useNavigation()
+  const { isInspector } = useAuth()
+  const { getServicios } = useServicio()
+  const [text, setText] = useState('')
+  const [servicios, setServicios] = useState<ServicioModel[]>([])
+
+  useEffect(() => {
+    getServicios().then((res) => {
+      setServicios(res)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
-    <View>
-      {authenticated && (
-        <Button
-          onPress={() => {
-            navigation.navigate('ServicioGenerar')
+    <View style={styles.view}>
+      <View style={styles.viewInline}>
+        <TextInput
+          autoCapitalize="none"
+          defaultValue={text}
+          onChangeText={(changedText) => setText(changedText)}
+          onSubmitEditing={() => {
+            // Como reaccionar cuando presiona el boton "submit" en el teclado
           }}
-          title="Generar Servicio"
+          placeholder="Buscar"
+          placeholderTextColor="#D3D3D3"
+          style={styles.textInput}
+          underlineColorAndroid="transparent"
         />
-      )}
-      <Button
-        onPress={() => {
-          navigation.navigate('ServicioDetalle')
+        {authenticated && !isInspector && (
+          <Button
+            icon={<Icon color="white" name="plus" size={15} />}
+            onPress={() => {
+              navigation.navigate('ServicioGenerar')
+            }}
+          />
+        )}
+      </View>
+      {/* Tincho: aca poner el listado de servicios. recordar q van con filtro  */}
+      <FlatList
+        data={servicios}
+        keyExtractor={(item) => item.idServicio.toString()}
+        renderItem={({ item }) => {
+          return (
+            /*
+              Se supone que al hacer click, va a abrir el comercio con id = item.id
+            */
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('ServicioDetalle', { id: item.idServicio })
+              }
+            >
+              <ServicioItem
+                foto={item.archivosURL.split(';').shift()}
+                texto={item.descripcion}
+                titulo={item.nombreServicio}
+              />
+            </TouchableOpacity>
+          )
         }}
-        title="Ver detalle"
+        style={styles.flatList}
       />
-      <Text />
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  flatList: {
+    marginBottom: 40,
+  },
+  textInput: {
+    borderColor: '#D3D3D3',
+    borderRadius: 0,
+    borderWidth: 1,
+    marginLeft: 15,
+    paddingLeft: 15,
+    paddingRight: 15,
+    width: 315,
+  },
+  view: {
+    backgroundColor: '#fff',
+  },
+  viewInline: {
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    marginTop: 10,
+  },
+})

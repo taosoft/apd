@@ -1,100 +1,70 @@
-import React from 'react'
-import {
-  // Dimensions,
-  LogBox,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native'
+import { RouteProp } from '@react-navigation/native'
+import React, { useEffect, useState } from 'react'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import ImageLayout from 'react-native-image-layout'
 
-LogBox.ignoreLogs(['VirtualizedLists should never be nested'])
-LogBox.ignoreLogs(['Animated: `useNativeDriver` was not specified'])
+import useServicio from '../components/providers/useServicios'
+import { ServicioModelDetalle } from '../services/servicios.service'
 
-export default function Login(): JSX.Element {
-  // const [dni, setDNI] = React.useState('')
-  // const [clave, setClave] = React.useState('')
-  // const { width, height } = Dimensions.get('screen')
+interface ServicioDetalleProps {
+  route: RouteProp<{ params: { id: number } }, 'params'>
+}
+
+export default function ServicioDetalle({
+  route,
+}: ServicioDetalleProps): JSX.Element {
+  const { id } = route.params
+  const { getServicioDetalle } = useServicio()
+  const [servicio, setServicio] = useState<ServicioModelDetalle>()
+
+  const imagenes =
+    servicio?.archivosURL?.split(';').map((image) => {
+      return { uri: image }
+    }) ?? []
+
+  useEffect(() => {
+    getServicioDetalle(id).then((res) => {
+      setServicio(res)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <View style={styles.container}>
       <ScrollView keyboardShouldPersistTaps="always">
         <View>
-          <Text style={styles.titleText}>Servicio... tal</Text>
-          <Text style={styles.text}>De 09:00 hs a 14:00 hs</Text>
-          <Text style={styles.text}>De 16:00 hs a 18:00 hs</Text>
-          <Text style={styles.textNomApe}>Nombre y Apellido</Text>
-          <Text style={styles.textRubro}>Direccion</Text>
-          <Text style={styles.textRubro}>Telefono</Text>
-          <Text style={styles.textRubro}>Email</Text>
-          <Text style={styles.textRubro}>Rubro</Text>
-          <Text style={styles.textSubBold}>Descripcion</Text>
-          <Text style={styles.textDesc}>
-            Mucha descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion, Mucha descripcion, Mucha
-            descripcion, Mucha descripcion,
+          <Text style={styles.titleText}>{servicio?.nombreServicio}</Text>
+          <View style={styles.row}>
+            <Text style={styles.titulo}>Horario:</Text>
+            <Text style={styles.datos}>{servicio?.horario}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.titulo}>Nombre de contacto:</Text>
+            <Text style={styles.datos}>{servicio?.nombrePersona}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.titulo}>Dirección:</Text>
+            <Text style={styles.datos}>{servicio?.direccion}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.titulo}>Teléfono:</Text>
+            <Text style={styles.datos}>{servicio?.telefono}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.titulo}>E-mail:</Text>
+            <Text style={styles.datos}>{servicio?.email}</Text>
+          </View>
+          <Text style={styles.textSubBold}>Rubro</Text>
+          <Text style={styles.datosDescripcion}>
+            {servicio?.rubro.descripcion}
           </Text>
-          <Text style={styles.textSubBold}>Imagenes</Text>
-
-          <ImageLayout
-            images={[
-              // Version *3.0.0 update (or greater versions):
-              // Can be used with different image object fieldnames.
-              // Ex. source, source.uri, uri, URI, url, URL
-              {
-                uri: 'https://luehangs.site/pic-chat-app-images/beautiful-blond-blonde-hair-478544.jpg',
-              },
-              // IMPORTANT: It is REQUIRED for LOCAL IMAGES
-              // to include a dimensions field with the
-              // actual width and height of the image or
-              // it will throw an error.
-              // { source: require("yourApp/image.png"),
-              //     dimensions: { width: 1080, height: 1920 }
-              // },
-              // "width" & "height" is an alternative to the dimensions
-              // field that will also be acceptable.
-              // { source: require("yourApp/image.png"),
-              //     width: 1080,
-              //     height: 1920 },
-              {
-                source: {
-                  uri: 'https://luehangs.site/pic-chat-app-images/beautiful-beautiful-women-beauty-40901.jpg',
-                },
-              },
-              {
-                // Optional: Adding a dimensions field with
-                // the actual width and height for REMOTE IMAGES
-                // will help improve performance.
-                dimensions: { height: 1920, width: 1080 },
-
-                uri: 'https://luehangs.site/pic-chat-app-images/animals-avian-beach-760984.jpg',
-              },
-              {
-                URI: 'https://luehangs.site/pic-chat-app-images/beautiful-blond-fishnet-stockings-48134.jpg',
-                // Version *2.0.0 update (or greater versions):
-                // Optional: Does not require an id for each
-                // image object, but is for best practices and
-                // can be better for performance with the API.
-                id: 'blpccx4cn',
-              },
-              {
-                url: 'https://luehangs.site/pic-chat-app-images/beautiful-beautiful-woman-beauty-9763.jpg',
-              },
-              {
-                URL: 'https://luehangs.site/pic-chat-app-images/attractive-balance-beautiful-186263.jpg',
-              },
-            ]}
-            // Version *5.7.0 update
-            // onEndReached={() => {
-            //     // add more images when scroll reaches end
-            // }}
-          />
+          <Text style={styles.textSubBold}>Descripción</Text>
+          <Text style={styles.datosDescripcion}>{servicio?.descripcion}</Text>
+          <Text style={styles.textSubBold}>Imágenes</Text>
+          {imagenes.length === 0 && (
+            <Text style={styles.alert}>No hay imágenes disponibles</Text>
+          )}
+          {imagenes.length !== 0 && <ImageLayout images={imagenes} />}
         </View>
       </ScrollView>
     </View>
@@ -102,18 +72,8 @@ export default function Login(): JSX.Element {
 }
 
 const styles = StyleSheet.create({
-  button: {
-    backgroundColor: '#FFF',
-    borderColor: '#C9E9FC',
-    borderRadius: 20,
-    borderWidth: 2,
-    justifyContent: 'space-between',
-    marginLeft: 30,
-    marginRight: 30,
-    marginTop: 40,
-    paddingBottom: 10,
-    paddingTop: 10,
-    width: 300,
+  alert: {
+    color: 'red',
   },
   container: {
     backgroundColor: '#fff',
@@ -121,51 +81,45 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     paddingHorizontal: 15,
   },
-  text: {
-    color: '#409DC4',
-    marginTop: 5,
-    textAlign: 'left',
+  datos: {
+    color: '#000',
+    flex: 1,
+    fontSize: 19,
+    paddingLeft: 5,
+    paddingTop: 5,
+    textAlign: 'justify',
   },
-  textDesc: {
-    color: '#409DC4',
-    fontSize: 13,
+  datosDescripcion: {
+    color: '#000',
+    fontSize: 19,
     marginTop: 5,
-    textAlign: 'left',
+    textAlign: 'justify',
   },
-  textNomApe: {
-    color: '#409DC4',
-    fontSize: 13,
-    fontWeight: 'bold',
-    marginTop: 15,
-    textAlign: 'left',
-  },
-  textRubro: {
-    color: '#409DC4',
-    fontSize: 13,
-    fontWeight: 'bold',
-    marginTop: 5,
-    textAlign: 'left',
+  row: {
+    backgroundColor: '#FFF',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   textSubBold: {
     color: '#409DC4',
     fontSize: 20,
     fontWeight: 'bold',
-    marginTop: 15,
+    marginBottom: 5,
+    marginTop: 25,
     textAlign: 'left',
     textTransform: 'uppercase',
   },
-  titlePosition: {
-    alignSelf: 'flex-start',
-    flex: 1,
-    marginLeft: 30,
-    position: 'relative',
-  },
   titleText: {
     color: '#409DC4',
-    fontFamily: 'sans-serif',
     fontSize: 30,
     fontWeight: 'bold',
     marginTop: 30,
     textAlign: 'left',
+  },
+  titulo: {
+    color: '#409DC4',
+    fontSize: 19,
+    fontWeight: 'bold',
+    marginTop: 5,
   },
 })

@@ -1,8 +1,15 @@
 import { RouteProp, useNavigation } from '@react-navigation/native'
-import React from 'react'
-import { Button } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { FlatList, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { Button } from 'react-native-elements'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
-import { Text, View } from '../components/Themed'
+import ComercioItem from '../components/ComercioItem'
+import useAuth from '../components/providers/useAuth'
+import useComercio from '../components/providers/useComercio'
+import { View } from '../components/Themed'
+import { AuthNavigationScreenKey } from '../constants/NavigationKeys'
+import { ComercioModel } from '../services/comercio.service'
 
 interface ComercioListadoProps {
   route: RouteProp<{ params: { authenticated: boolean } }, 'params'>
@@ -13,24 +20,88 @@ export default function ComercioListado({
 }: ComercioListadoProps): JSX.Element {
   const { authenticated } = route.params
   const navigation = useNavigation()
+  const { isInspector } = useAuth()
+  const { getComercios } = useComercio()
+  const [text, setText] = React.useState('')
+  const [comercios, setComercios] = useState<ComercioModel[]>([])
+
+  useEffect(() => {
+    getComercios().then((res) => {
+      setComercios(res)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
-    <View>
-      {authenticated && (
-        <Button
-          onPress={() => {
-            navigation.navigate('ComercioGenerar')
+    <View style={styles.view}>
+      <View style={styles.viewInline}>
+        <TextInput
+          autoCapitalize="none"
+          defaultValue={text}
+          onChangeText={(changedText) => setText(changedText)}
+          onSubmitEditing={() => {
+            // Como reaccionar cuando presiona el boton "submit" en el teclado
           }}
-          title="Generar Comercio"
+          placeholder="Buscar"
+          placeholderTextColor="#D3D3D3"
+          style={styles.textInput}
+          underlineColorAndroid="transparent"
         />
-      )}
-      <Button
-        onPress={() => {
-          navigation.navigate('ComercioDetalle')
+        {authenticated && !isInspector && (
+          <Button
+            icon={<Icon color="white" name="plus" size={15} />}
+            onPress={() => {
+              navigation.navigate(AuthNavigationScreenKey.COMERCIOGENERAR)
+            }}
+          />
+        )}
+      </View>
+      {/* Tincho: aca poner el listado de comercios. recordar q van con filtro  */}
+      <FlatList
+        data={comercios}
+        keyExtractor={(item) => item.idComercio.toString()}
+        renderItem={({ item }) => {
+          return (
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate(AuthNavigationScreenKey.COMERCIODETALLE, {
+                  id: item.idComercio,
+                })
+              }
+            >
+              <ComercioItem
+                foto={item.archivosURL.split(';').shift()}
+                texto={item.descripcion}
+                titulo={item.nombre}
+              />
+            </TouchableOpacity>
+          )
         }}
-        title="Ver detalle"
+        style={styles.flatList}
       />
-      <Text />
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  flatList: {
+    marginBottom: 40,
+  },
+  textInput: {
+    borderColor: '#D3D3D3',
+    borderRadius: 0,
+    borderWidth: 1,
+    marginLeft: 15,
+    paddingLeft: 15,
+    paddingRight: 15,
+    width: 315,
+  },
+  view: {
+    backgroundColor: '#fff',
+  },
+  viewInline: {
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    marginTop: 10,
+  },
+})

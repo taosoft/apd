@@ -15,7 +15,6 @@ import NotFoundScreen from '../screens/NotFoundScreen'
 import Registrarse from '../screens/Registrarse'
 import { RootStackParamList } from '../types'
 import AuthenticatedStack from './AuthenticatedStack'
-import LinkingConfiguration from './LinkingConfiguration'
 import UnauthenticatedStack from './UnauthenticatedStack'
 
 export default function Navigation({
@@ -25,7 +24,6 @@ export default function Navigation({
 }): JSX.Element {
   return (
     <NavigationContainer
-      linking={LinkingConfiguration}
       theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
     >
       <RootNavigator />

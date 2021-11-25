@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
 
 import CameraPicker from '../components/Camera'
+import { useBadge } from '../components/providers/useNotificationBadge'
 import { AuthNavigationScreenKey } from '../constants/NavigationKeys'
 import Bienvenido from '../screens/Bienvenido'
 import ComercioDetalle from '../screens/ComercioDetalle'
@@ -11,6 +12,7 @@ import ComercioListado from '../screens/ComercioListado'
 import DenunciaDetalle from '../screens/DenunciaDetalle'
 import DenunciaGenerar from '../screens/DenunciaGenerar'
 import DenunciaListado from '../screens/DenunciaListado'
+import Notificaciones from '../screens/Notificaciones'
 import PerfilUsuario from '../screens/PerfilUsuario'
 import ReclamoDetalle from '../screens/ReclamoDetalle'
 import ReclamoGenerar from '../screens/ReclamoGenerar'
@@ -18,7 +20,6 @@ import ReclamoListado from '../screens/ReclamoListado'
 import ServicioDetalle from '../screens/ServicioDetalle'
 import ServicioGenerar from '../screens/ServicioGenerar'
 import ServicioListado from '../screens/ServicioListado'
-import TabTwoScreen from '../screens/TabTwoScreen' // Borrar cuando este Notificacion implementado
 import {
   BottomTabParamList,
   TabInicioParamList,
@@ -30,6 +31,8 @@ import { TabBarIcon } from './helpers'
 const TabStack = createBottomTabNavigator<BottomTabParamList>()
 
 export default function AuthenticatedStack(): JSX.Element {
+  const { counter } = useBadge()
+
   return (
     <TabStack.Navigator
       backBehavior="initialRoute" // TODO: Check?
@@ -54,6 +57,7 @@ export default function AuthenticatedStack(): JSX.Element {
         component={TabNotificacionNavigator}
         name={AuthNavigationScreenKey.NOTIFICACIONES}
         options={{
+          tabBarBadge: counter === 0 ? undefined : counter,
           tabBarIcon: () =>
             TabBarIcon({ color: '#409DC4', name: 'notification' }),
         }}
@@ -66,11 +70,21 @@ const TabPerfilStack = createStackNavigator<TabPerfilParamList>()
 
 function TabPerfilNavigator() {
   return (
-    <TabPerfilStack.Navigator>
+    <TabPerfilStack.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: '#409DC4' },
+        headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: 'bold' },
+      }}
+    >
       <TabPerfilStack.Screen
         component={PerfilUsuario}
-        name="TabPerfilScreen" // Reemplazar TabOneScreen por Perfil cuando esté implementado
-        // options={headerOptions("Perfil")}
+        name="TabPerfilScreen"
+        options={{
+          headerLeft: () => null,
+          headerShown: true,
+          headerTitle: 'Perfil',
+        }}
       />
     </TabPerfilStack.Navigator>
   )
@@ -78,27 +92,20 @@ function TabPerfilNavigator() {
 
 const TabInicioStack = createStackNavigator<TabInicioParamList>()
 
-// Se pasa en las TabXXX.Screen
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const headerOptions = {
-  headerStyle: {
-    backgroundColor: '#409DC4',
-  },
-  headerTintColor: '#fff',
-  headerTitleStyle: {
-    fontWeight: 'bold',
-  },
-}
-
 function TabInicioNavigator() {
   return (
-    <TabInicioStack.Navigator>
+    <TabInicioStack.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: '#409DC4' },
+        headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: 'bold' },
+      }}
+    >
       <TabInicioStack.Screen
         component={Bienvenido}
         initialParams={{ authenticated: true }}
         name={AuthNavigationScreenKey.BIENVENIDO}
-        // options={{ headerOptions }}
-        options={{ title: '' }}
+        options={{ headerLeft: () => null }}
       />
       <TabInicioStack.Screen
         component={ComercioListado}
@@ -106,6 +113,7 @@ function TabInicioNavigator() {
           authenticated: true,
         }}
         name={AuthNavigationScreenKey.COMERCIOLISTADO}
+        options={{ headerTitle: 'Comercios' }}
       />
       <TabInicioStack.Screen
         component={ComercioDetalle}
@@ -114,6 +122,7 @@ function TabInicioNavigator() {
       <TabInicioStack.Screen
         component={ComercioGenerar}
         name={AuthNavigationScreenKey.COMERCIOGENERAR}
+        options={{ headerTitle: 'Crear un comercio' }}
       />
       <TabInicioStack.Screen
         component={CameraPicker}
@@ -141,10 +150,12 @@ function TabInicioNavigator() {
           authenticated: true,
         }}
         name={AuthNavigationScreenKey.DENUNCIALISTADO}
+        options={{ headerTitle: 'Denuncias' }}
       />
       <TabInicioStack.Screen
         component={DenunciaDetalle}
         name={AuthNavigationScreenKey.DENUNCIADETALLE}
+        options={{ headerTitle: 'Detalle de la denuncia' }}
       />
       <TabInicioStack.Screen
         component={DenunciaGenerar}
@@ -176,11 +187,18 @@ const TabNotificacionesStack =
 
 function TabNotificacionNavigator() {
   return (
-    <TabNotificacionesStack.Navigator>
+    <TabNotificacionesStack.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: '#409DC4' },
+        headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: 'bold' },
+      }}
+    >
       <TabNotificacionesStack.Screen
-        component={TabTwoScreen}
-        name="TabNotificacionesScreen" // Reemplazar TabTwoScreen por Notificacion cuando esté implementado
-        // options={headerOptions("Notificaciones")}
+        component={Notificaciones}
+        initialParams={{ authenticated: true }}
+        name="Notificaciones"
+        options={{ headerShown: false }}
       />
     </TabNotificacionesStack.Navigator>
   )

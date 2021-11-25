@@ -38,7 +38,7 @@ type ThemeProps = {
 type LoadingButtonProps = {
   isLoading?: boolean
   text: string
-  onPress: () => Promise<void>
+  onPress: () => Promise<void> | void
 }
 
 export type TextProps = ThemeProps & DefaultText['props']
@@ -64,33 +64,36 @@ export function View(props: ViewProps): JSX.Element {
 
 export function Button(props: ButtonProps): JSX.Element {
   return (
-    <View style={styles.submitButtonView}>
-      <TouchableOpacity
-        onPress={props.isLoading ? noop : props.onPress}
-        style={styles.submitButtonTouch}
-      >
-        {props.isLoading ? (
-          <ActivityIndicator animating={true} color={'white'} size={'large'} />
-        ) : (
-          <Text>{props.text}</Text>
-        )}
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity
+      onPress={props.isLoading ? noop : props.onPress}
+      style={styles.button}
+    >
+      {props.isLoading ? (
+        <ActivityIndicator animating={true} color={'white'} size={'large'} />
+      ) : (
+        <Text style={styles.text}>{props.text}</Text>
+      )}
+    </TouchableOpacity>
   )
 }
 
 const styles = StyleSheet.create({
-  submitButtonTouch: {
+  button: {
     alignItems: 'center',
-    backgroundColor: 'green',
-    borderRadius: 42,
+    backgroundColor: '#409DC4',
+    borderColor: '#FFF',
+    borderRadius: 20,
+    borderWidth: 2,
     justifyContent: 'center',
-    paddingHorizontal: 70,
-    paddingVertical: 13,
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: 40,
+    paddingBottom: 10,
+    paddingTop: 10,
+    width: 300,
   },
-  submitButtonView: {
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center',
+  text: {
+    color: 'white',
+    fontSize: 20,
   },
 })

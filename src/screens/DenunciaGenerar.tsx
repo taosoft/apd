@@ -1,17 +1,18 @@
 import CheckBox from '@react-native-community/checkbox'
+import { Picker } from '@react-native-community/picker'
+import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import {
-  Alert,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  TextInput,
-} from 'react-native'
+import { Alert, Pressable, ScrollView, StyleSheet } from 'react-native'
+import TextInput from 'react-native-input-validator'
+import { TextInputMask } from 'react-native-masked-text'
 
 import ImageContainer from '../components/ImageContainer'
 import { GenerateType } from '../components/providers/useCache'
 import useDenuncias from '../components/providers/useDenuncias'
+import useSitio from '../components/providers/useSitios'
 import { Button, Text, View } from '../components/Themed'
+import { AuthNavigationScreenKey } from '../constants/NavigationKeys'
+import { SitioModel } from '../services/sitio.service'
 
 const handleTerminosCondiciones = (): void => {
   Alert.alert(
@@ -30,24 +31,40 @@ export default function DenunciaGenerar(): JSX.Element {
     removeImage,
     denuncia,
     submitDenuncia,
+    setDenunciaAddress,
+    setDenunciaDate,
+    setDenunciaName,
+    setDenunciaReason,
+    setIsTermsAndConditions,
+    setDocumentoDenunciado,
+    setLugar,
+    isTermsAndConditions,
   } = useDenuncias()
 
-  const [denunciaDate, setDenunciaDate] = useState<string>(denuncia.date)
-  const [denunciaName, setDenunciaName] = useState<string>(denuncia.name)
-  const [denunciaAddress, setDenunciaAddress] = useState<string>(
-    denuncia.address,
-  )
-  const [denunciaReason, setDenunciaReason] = useState<string>(denuncia.reason)
-  const [isTermsAndConditions, setIsTermsAndConditions] = useState<boolean>(
-    denuncia.isTermsAndConditions,
-  )
+  const navigation = useNavigation()
+
+  const { getSitios } = useSitio()
+  const [sitios, setSitios] = useState<SitioModel[]>([])
+
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const handleSubmit = async (): Promise<void> => {
     setIsLoading(true)
-    submitDenuncia()
+    if (!isTermsAndConditions) {
+      Alert.alert('Es necesario aceptar los términos y condiciones')
+    } else {
+      const response = await submitDenuncia()
+      if (response) {
+        navigation.navigate(AuthNavigationScreenKey.DENUNCIALISTADO)
+      }
+    }
     setIsLoading(false)
   }
+
+  useEffect(() => {
+    getSitios().then((sitiosResponse) => setSitios(sitiosResponse))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     addCachedImage()
@@ -76,29 +93,65 @@ export default function DenunciaGenerar(): JSX.Element {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <TextInput
-          onChangeText={setDenunciaDate}
-          placeholder="Fecha y hora del hecho denunciado"
-          style={styles.input}
-          value={denunciaDate}
+        <Text style={styles.subtitle}>Fecha y hora del hecho denunciado</Text>
+        <TextInputMask
+          onChangeText={(text) => {
+            setDenunciaDate(text)
+          }}
+          options={{
+            format: 'DD/MM/YYYY HH:mm',
+          }}
+          placeholder="DD/MM/YYYY HH:mm"
+          // eslint-disable-next-line react-native/no-inline-styles
+          style={{
+            backgroundColor: 'white',
+            borderColor: 'black',
+            borderWidth: 1,
+            marginBottom: 30,
+            padding: 10,
+            paddingHorizontal: 30,
+            textAlign: 'center',
+            width: 300,
+          }}
+          type={'datetime'}
+          value={denuncia.date}
         />
         <TextInput
           onChangeText={setDenunciaName}
           placeholder="Nombre del vecino o comercio"
           style={styles.input}
-          value={denunciaName}
+          value={denuncia.name}
         />
+        <TextInput
+          onChangeText={setDocumentoDenunciado}
+          placeholder="Documento del denunciado (si lo tuviese)"
+          style={styles.input}
+          value={denuncia.documentoDenunciado}
+        />
+        <Text style={styles.subtitle}>Seleccione un lugar</Text>
+        <Picker
+          onValueChange={(value) => setLugar(value?.toString())}
+          selectedValue={denuncia.idSitio}
+        >
+          {sitios.map((sitio, index) => (
+            <Picker.Item
+              key={index}
+              label={sitio.descripcion}
+              value={sitio.idSitio}
+            />
+          ))}
+        </Picker>
         <TextInput
           onChangeText={setDenunciaAddress}
           placeholder="Dirección del vecino o comercio"
           style={styles.input}
-          value={denunciaAddress}
+          value={denuncia.address}
         />
         <TextInput
           onChangeText={setDenunciaReason}
           placeholder="Motivo de la denuncia"
           style={styles.input}
-          value={denunciaReason}
+          value={denuncia.descripcion}
         />
         <View
           darkColor="rgba(255,255,255,0.1)"
@@ -112,7 +165,7 @@ export default function DenunciaGenerar(): JSX.Element {
             data={denuncia.images.map((image) => image ?? '')}
             deleteImage={deleteImage}
             generateType={GenerateType.DENUNCIA}
-            maxImages={7}
+            maxImages={Infinity}
             readonly={false}
           />
         </View>
@@ -120,12 +173,13 @@ export default function DenunciaGenerar(): JSX.Element {
           <CheckBox
             onValueChange={setIsTermsAndConditions}
             //   style={styles.checkbox}
-            value={isTermsAndConditions}
+            value={denuncia.isTermsAndConditions}
           />
           <Text style={styles.label}>
             {'Acepta los '}
             <Pressable
               onPress={handleTerminosCondiciones}
+              style={{ marginTop: -3 }}
               // style={({ pressed }) => [
               //   {
               //     backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white',
@@ -149,6 +203,7 @@ const styles = StyleSheet.create({
   },
   checkboxContainer: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     marginBottom: 20,
   },
   container: {
@@ -174,6 +229,11 @@ const styles = StyleSheet.create({
     height: 1,
     marginVertical: 30,
     width: '80%',
+  },
+  subtitle: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginTop: 10,
   },
   text: {
     fontStyle: 'italic',
