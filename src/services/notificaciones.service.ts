@@ -18,7 +18,7 @@ export async function GetNotificaciones(
 ): Promise<NotificacionesModel[]> {
   try {
     const result = await axios.get<Response<NotificacionesModel[]>>(
-      `${baseUrl}/notificaciones/${documento}`,
+      `${baseUrl}/notificaciones`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
