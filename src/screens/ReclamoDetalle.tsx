@@ -97,6 +97,10 @@ export default function ReclamoDetalle({
             <Text style={styles.datos}>{reclamo?.sitio?.descripcion}</Text>
           </View>
           <View style={styles.row}>
+            <Text style={styles.titulo}>Rubro:</Text>
+            <Text style={styles.datos}>{reclamo?.rubro?.descripcion}</Text>
+          </View>
+          <View style={styles.row}>
             <Text style={styles.titulo}>Tipo de desperfecto:</Text>
             <Text style={styles.datos}>
               {reclamo?.desperfecto?.descripcion}
