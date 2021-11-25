@@ -22,10 +22,15 @@ export default function ServicioDetalle({
       return { uri: image }
     }) ?? []
 
-  const horario =
-    servicio?.horario.split(';').map((hora) => {
-      return `De ${hora} hasta las ${hora} hs`
-    }) ?? ''
+  const horario = () => {
+    const arrTime = servicio?.horario.split(';')
+
+    if (arrTime) {
+      return `De ${arrTime[0]} hasta las ${arrTime[1]} hs`
+    } else {
+      return ''
+    }
+  }
 
   useEffect(() => {
     getServicioDetalle(id).then((res) => {
@@ -41,7 +46,7 @@ export default function ServicioDetalle({
           <Text style={styles.titleText}>{servicio?.nombreServicio}</Text>
           <View style={styles.row}>
             <Text style={styles.titulo}>Horario:</Text>
-            <Text style={styles.datos}>{horario}</Text>
+            <Text style={styles.datos}>{horario()}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.titulo}>Nombre de contacto:</Text>
