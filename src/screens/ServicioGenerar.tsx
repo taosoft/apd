@@ -24,6 +24,7 @@ export default function ServicioGenerar(): JSX.Element {
     setEmail,
     setTelefono,
     setNombre,
+    setNombreServicio,
     setRubro,
   } = useServicio()
 
@@ -76,6 +77,14 @@ export default function ServicioGenerar(): JSX.Element {
   return (
     <View style={styles.container}>
       <ScrollView>
+        <TextInput
+          multiline
+          numberOfLines={4}
+          onChangeText={setNombreServicio}
+          placeholder="Nombre servicio"
+          style={styles.input}
+          value={servicio.nombreServicio}
+        />
         <TextInput
           multiline
           numberOfLines={4}

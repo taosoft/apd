@@ -21,7 +21,7 @@ export default function useDenuncias() {
   async function submitDenuncia(): Promise<boolean> {
     const uploadImagesResponses = await uploadImages()
     try {
-      CreateDenuncia(
+      await CreateDenuncia(
         {
           ...cache.generarDenuncia,
           archivosURL: uploadImagesResponses

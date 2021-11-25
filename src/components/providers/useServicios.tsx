@@ -20,9 +20,9 @@ export default function useServicio() {
   const { cache, changeCache } = useCache()
 
   async function getServicioDetalle(
-    comercioId: number,
+    servicioId: number,
   ): Promise<ServicioModelDetalle> {
-    return await GetServicioDetalle(comercioId)
+    return await GetServicioDetalle(servicioId)
   }
 
   async function getServicios(): Promise<ServicioModel[]> {
@@ -36,7 +36,7 @@ export default function useServicio() {
   async function submitServicio(): Promise<boolean> {
     const uploadImagesResponses = await uploadImages()
     try {
-      CreateServicio(
+      await CreateServicio(
         {
           ...cache.generarServicio,
           archivosURL: uploadImagesResponses
@@ -56,19 +56,23 @@ export default function useServicio() {
   async function uploadImages(): Promise<UploadImageResponse[]> {
     return await Promise.all<UploadImageResponse>(
       cache.generarServicio.images.map(async (image) => {
-        return await cloudinaryUpload(image, GenerateType.COMERCIO)
+        return await cloudinaryUpload(image, GenerateType.SERVICIO)
       }),
     )
   }
 
   function clearServicio(): void {
     changeCache({
-      generarComercio: {
+      generarServicio: {
         descripcion: '',
         direccion: '',
+        email: '',
         horario: '',
+        idRubro: 0,
         images: [],
-        nombre: '',
+        nombrePersona: '',
+        nombreServicio: '',
+        telefono: '',
       },
     })
   }
@@ -78,9 +82,9 @@ export default function useServicio() {
       const image = cache.addedPhoto
       changeCache({
         addedPhoto: undefined,
-        generarComercio: {
-          ...cache.generarComercio,
-          images: [...cache.generarComercio.images, image],
+        generarServicio: {
+          ...cache.generarServicio,
+          images: [...cache.generarServicio.images, image],
         },
       })
     }
@@ -88,20 +92,20 @@ export default function useServicio() {
 
   function addImage(uri: string): void {
     changeCache({
-      generarComercio: {
-        ...cache.generarComercio,
-        images: [...cache.generarComercio.images, uri],
+      generarServicio: {
+        ...cache.generarServicio,
+        images: [...cache.generarServicio.images, uri],
       },
     })
   }
 
   function removeImage(index: number): void {
     changeCache({
-      generarComercio: {
-        ...cache.generarComercio,
+      generarServicio: {
+        ...cache.generarServicio,
         images: [
-          ...cache.generarComercio.images.slice(0, index),
-          ...cache.generarComercio.images.slice(index + 1),
+          ...cache.generarServicio.images.slice(0, index),
+          ...cache.generarServicio.images.slice(index + 1),
         ],
       },
     })
@@ -112,6 +116,14 @@ export default function useServicio() {
       generarServicio: {
         ...cache.generarServicio,
         nombrePersona: nombre,
+      },
+    })
+  }
+  function setNombreServicio(nombre: string): void {
+    changeCache({
+      generarServicio: {
+        ...cache.generarServicio,
+        nombreServicio: nombre,
       },
     })
   }
@@ -170,6 +182,7 @@ export default function useServicio() {
     setDireccion,
     setEmail,
     setNombre,
+    setNombreServicio,
     setRubro,
     setTelefono,
     submitServicio,

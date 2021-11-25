@@ -35,7 +35,7 @@ export default function useComercio() {
   async function submitComercio(): Promise<boolean> {
     const uploadImagesResponses = await uploadImages()
     try {
-      CreateComercio(
+      await CreateComercio(
         {
           ...cache.generarComercio,
           archivosURL: uploadImagesResponses

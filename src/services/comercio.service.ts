@@ -62,7 +62,7 @@ export async function CreateComercio(
     const result = await axios.post<Response<ComercioModel>>(
       `${baseUrl}/comercios`,
       {
-        data,
+        ...data,
       },
       {
         headers: {

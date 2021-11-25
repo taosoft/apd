@@ -88,7 +88,7 @@ export async function CreateServicio(
     const result = await axios.post<Response<ServicioModel>>(
       `${baseUrl}/servicios`,
       {
-        data,
+        ...data,
       },
       {
         headers: {
