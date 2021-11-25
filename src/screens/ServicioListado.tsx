@@ -4,6 +4,7 @@ import { FlatList, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
+import useAuth from '../components/providers/useAuth'
 import useServicio from '../components/providers/useServicios'
 import ServicioItem from '../components/ServicioItem'
 import { View } from '../components/Themed'
@@ -18,9 +19,9 @@ export default function ServicioListado({
 }: ServicioListadoProps): JSX.Element {
   const { authenticated } = route.params
   const navigation = useNavigation()
+  const { isInspector } = useAuth()
   const { getServicios } = useServicio()
   const [text, setText] = useState('')
-  const [isInspector] = useState(false)
   const [servicios, setServicios] = useState<ServicioModel[]>([])
 
   useEffect(() => {

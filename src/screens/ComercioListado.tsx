@@ -5,6 +5,7 @@ import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 import ComercioItem from '../components/ComercioItem'
+import useAuth from '../components/providers/useAuth'
 import useComercio from '../components/providers/useComercio'
 import { View } from '../components/Themed'
 import { AuthNavigationScreenKey } from '../constants/NavigationKeys'
@@ -19,9 +20,9 @@ export default function ComercioListado({
 }: ComercioListadoProps): JSX.Element {
   const { authenticated } = route.params
   const navigation = useNavigation()
+  const { isInspector } = useAuth()
   const { getComercios } = useComercio()
   const [text, setText] = React.useState('')
-  const [isInspector] = React.useState(false)
   const [comercios, setComercios] = useState<ComercioModel[]>([])
 
   useEffect(() => {

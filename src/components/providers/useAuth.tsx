@@ -30,6 +30,7 @@ export default function useAuth() {
 
   return {
     documento: cache.documento ?? '',
+    isInspector: cache.isInspector,
     setDocumento,
     setLoginResponse,
     setToken,
