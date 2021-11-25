@@ -22,6 +22,11 @@ export default function ComercioDetalle({
       return { uri: image }
     }) ?? []
 
+  const horario =
+    comercio?.horario.split(';').map((hora) => {
+      return `De ${hora} hasta las ${hora} hs`
+    }) ?? ''
+
   useEffect(() => {
     getComercioDetalle(id).then((res) => {
       setComercio(res)
@@ -36,7 +41,7 @@ export default function ComercioDetalle({
           <Text style={styles.titleText}>{comercio?.nombre}</Text>
           <View style={styles.row}>
             <Text style={styles.titulo}>Horario:</Text>
-            <Text style={styles.datos}>{comercio?.horario}</Text>
+            <Text style={styles.datos}>{horario}</Text>
           </View>
           <Text style={styles.textSubBold}>Descripcion</Text>
           <Text style={styles.datosDescripcion}>{comercio?.descripcion}</Text>
