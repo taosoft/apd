@@ -45,7 +45,11 @@ export default function Login(): JSX.Element {
           },
         })
         .then((res) => {
-          setLoginResponse(res.data.data.token, res.data.data.user.documento)
+          setLoginResponse(
+            res.data.data.token,
+            res.data.data.user.documento,
+            res.data.data.user.inspector === 1,
+          )
           setIsLoading(false)
           setClave('')
           setDocu('')
@@ -53,7 +57,7 @@ export default function Login(): JSX.Element {
         })
         .catch((e) => {
           setIsLoading(false)
-          setLoginResponse('', '')
+          setLoginResponse('', '', false)
           console.log(e)
           Alert.alert('Documento y/o contraseña incorrecta')
           setDocu('')

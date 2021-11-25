@@ -13,9 +13,11 @@ export default function useAuth() {
   async function setLoginResponse(
     token: string,
     documento: string,
+    isInspector: boolean,
   ): Promise<void> {
     changeCache({
       documento: documento,
+      isInspector: isInspector,
       token: token,
     })
   }

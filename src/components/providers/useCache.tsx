@@ -1,3 +1,4 @@
+import { isNil } from 'lodash'
 import React, { createContext, useContext, useState } from 'react'
 
 export interface Cache {
@@ -8,6 +9,7 @@ export interface Cache {
   generarServicio: GenerarServicio
   token?: string
   documento?: string
+  isInspector: boolean
 }
 
 export interface GenerarDenuncia {
@@ -61,6 +63,7 @@ export interface UpdateCache {
   generarServicio?: GenerarServicio
   token?: string
   documento?: string
+  isInspector?: boolean
 }
 
 export const defaultCache: Cache = {
@@ -100,6 +103,7 @@ export const defaultCache: Cache = {
     nombreServicio: '',
     telefono: '',
   },
+  isInspector: false,
   token: undefined,
 }
 
@@ -133,6 +137,9 @@ export function CacheProvider(props: CacheProviderProps): JSX.Element {
       }),
       ...(config.documento && {
         documento: config.documento,
+      }),
+      ...(!isNil(config.isInspector) && {
+        isInspector: config.isInspector,
       }),
       ...(config.generarDenuncia && {
         generarDenuncia: {
