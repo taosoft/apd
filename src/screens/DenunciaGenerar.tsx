@@ -38,7 +38,6 @@ export default function DenunciaGenerar(): JSX.Element {
     setIsTermsAndConditions,
     setDocumentoDenunciado,
     setLugar,
-    isTermsAndConditions,
   } = useDenuncias()
 
   const navigation = useNavigation()
@@ -51,7 +50,7 @@ export default function DenunciaGenerar(): JSX.Element {
 
   const handleSubmit = async (): Promise<void> => {
     setIsLoading(true)
-    if (!isTermsAndConditions) {
+    if (!denuncia.isTermsAndConditions) {
       Alert.alert('Es necesario aceptar los términos y condiciones')
     } else {
       const response = await submitDenuncia()
