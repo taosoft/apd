@@ -133,10 +133,10 @@ export default function useComercio() {
   }
 
   function setHorario(first: boolean, horario: string): void {
-    const horarios = cache.generarServicio.horario.split(';')
+    const horarios = cache.generarComercio.horario.split(';')
     changeCache({
-      generarServicio: {
-        ...cache.generarServicio,
+      generarComercio: {
+        ...cache.generarComercio,
         horario: first
           ? `${horario};${horarios[1]}`
           : `${horarios[0]};${horario}`,

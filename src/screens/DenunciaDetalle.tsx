@@ -75,6 +75,10 @@ export default function DenunciaDetalle({
               <Text style={styles.titulo}>Dirección:</Text>
               <Text style={styles.datos}>{denuncia?.address}</Text>
             </View>
+            <View style={styles.row}>
+              <Text style={styles.titulo}>Motivo:</Text>
+              <Text style={styles.datos}>{denuncia?.descripcion}</Text>
+            </View>
             <Text style={styles.textSubBold}>Imagenes</Text>
             {imagenes.length === 0 && (
               <Text style={styles.alert}>No hay imágenes disponibles</Text>
