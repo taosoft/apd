@@ -90,8 +90,8 @@ const styles = (widthScreen = 150) =>
     },
     text: {
       color: '#FFF',
+      fontSize: 18,
       fontWeight: 'bold',
       textAlign: 'center',
-      fontSize: 18,
     },
   })
