@@ -6,7 +6,6 @@ import { SitioModel } from './sitio.service'
 import { UserModel } from './user.service'
 
 interface AddDenuncia {
-  // verificar si los campos declarddos son los correctos datos
   date: string
   archivosURL: string
   isTermsAndConditions: boolean
@@ -15,7 +14,6 @@ interface AddDenuncia {
   descripcion: string
 }
 export interface DenunciaModel {
-  // verificar si los campos declarddos son los correctos datos
   idDenuncia: number
   documento: string
   idDesperfecto: number
@@ -54,7 +52,6 @@ export default async function CreateDenuncia(
         aceptaResponsabilidad: denuncia.isTermsAndConditions,
         documento: documento,
         fechaHecho: denuncia.date,
-        idSitio: '1',
       },
       {
         headers: {

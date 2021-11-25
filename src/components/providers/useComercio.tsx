@@ -64,6 +64,7 @@ export default function useComercio() {
     changeCache({
       generarComercio: {
         descripcion: '',
+        direccion: '',
         horario: '',
         images: [],
         nombre: '',
@@ -105,6 +106,31 @@ export default function useComercio() {
     })
   }
 
+  function setNombreComercio(nombreComercio: string): void {
+    changeCache({
+      generarComercio: {
+        ...cache.generarComercio,
+        nombre: nombreComercio,
+      },
+    })
+  }
+  function setDireccion(direccion: string): void {
+    changeCache({
+      generarComercio: {
+        ...cache.generarComercio,
+        direccion: direccion,
+      },
+    })
+  }
+  function setDescripcion(descripcion: string): void {
+    changeCache({
+      generarComercio: {
+        ...cache.generarComercio,
+        descripcion: descripcion,
+      },
+    })
+  }
+
   return {
     addCachedImage,
     addImage,
@@ -115,6 +141,9 @@ export default function useComercio() {
     getComercioDetalle,
     getComercios,
     removeImage,
+    setDescripcion,
+    setDireccion,
+    setNombreComercio,
     submitComercio,
   }
 }

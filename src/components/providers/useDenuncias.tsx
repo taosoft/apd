@@ -61,9 +61,62 @@ export default function useDenuncias() {
         address: '',
         date: '',
         descripcion: '',
+        idSitio: 0,
         images: [],
         isTermsAndConditions: false,
         name: '',
+      },
+    })
+  }
+
+  function setLugar(lugar: string): void {
+    changeCache({
+      generarDenuncia: {
+        ...cache.generarDenuncia,
+        idSitio: +lugar,
+      },
+    })
+  }
+
+  function setDenunciaDate(date: string): void {
+    changeCache({
+      generarDenuncia: {
+        ...cache.generarDenuncia,
+        date: date,
+      },
+    })
+  }
+
+  function setDenunciaName(name: string): void {
+    changeCache({
+      generarDenuncia: {
+        ...cache.generarDenuncia,
+        name: name,
+      },
+    })
+  }
+  function setDenunciaAddress(address: string): void {
+    changeCache({
+      generarDenuncia: {
+        ...cache.generarDenuncia,
+        address: address,
+      },
+    })
+  }
+
+  function setDenunciaReason(descripcion: string): void {
+    changeCache({
+      generarDenuncia: {
+        ...cache.generarDenuncia,
+        descripcion: descripcion,
+      },
+    })
+  }
+  function setIsTermsAndConditions(isTermsAndConditions: boolean): void {
+    changeCache({
+      generarDenuncia: {
+        ...cache.generarDenuncia,
+        isTermsAndConditions: isTermsAndConditions,
       },
     })
   }
@@ -110,6 +163,12 @@ export default function useDenuncias() {
     getDenuncia,
     getDenuncias,
     removeImage,
+    setDenunciaAddress,
+    setDenunciaDate,
+    setDenunciaName,
+    setDenunciaReason,
+    setIsTermsAndConditions,
+    setLugar,
     submitDenuncia,
   }
 }

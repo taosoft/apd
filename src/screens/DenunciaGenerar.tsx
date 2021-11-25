@@ -1,4 +1,5 @@
 import CheckBox from '@react-native-community/checkbox'
+import { Picker } from '@react-native-community/picker'
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import {
@@ -12,8 +13,10 @@ import {
 import ImageContainer from '../components/ImageContainer'
 import { GenerateType } from '../components/providers/useCache'
 import useDenuncias from '../components/providers/useDenuncias'
+import useSitio from '../components/providers/useSitios'
 import { Button, Text, View } from '../components/Themed'
 import { AuthNavigationScreenKey } from '../constants/NavigationKeys'
+import { SitioModel } from '../services/sitio.service'
 
 const handleTerminosCondiciones = (): void => {
   Alert.alert(
@@ -32,21 +35,19 @@ export default function DenunciaGenerar(): JSX.Element {
     removeImage,
     denuncia,
     submitDenuncia,
+    setDenunciaAddress,
+    setDenunciaDate,
+    setDenunciaName,
+    setDenunciaReason,
+    setIsTermsAndConditions,
+    setLugar,
   } = useDenuncias()
 
   const navigation = useNavigation()
 
-  const [denunciaDate, setDenunciaDate] = useState<string>(denuncia.date)
-  const [denunciaName, setDenunciaName] = useState<string>(denuncia.name)
-  const [denunciaAddress, setDenunciaAddress] = useState<string>(
-    denuncia.address,
-  )
-  const [denunciaReason, setDenunciaReason] = useState<string>(
-    denuncia.descripcion,
-  )
-  const [isTermsAndConditions, setIsTermsAndConditions] = useState<boolean>(
-    denuncia.isTermsAndConditions,
-  )
+  const { getSitios } = useSitio()
+  const [sitios, setSitios] = useState<SitioModel[]>([])
+
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const handleSubmit = async (): Promise<void> => {
@@ -57,6 +58,11 @@ export default function DenunciaGenerar(): JSX.Element {
     }
     setIsLoading(false)
   }
+
+  useEffect(() => {
+    getSitios().then((sitiosResponse) => setSitios(sitiosResponse))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     addCachedImage()
@@ -89,26 +95,38 @@ export default function DenunciaGenerar(): JSX.Element {
           onChangeText={setDenunciaDate}
           placeholder="Fecha y hora del hecho denunciado"
           style={styles.input}
-          value={denunciaDate}
+          value={denuncia.date}
         />
         <TextInput
           onChangeText={setDenunciaName}
           placeholder="Nombre del vecino o comercio"
           style={styles.input}
-          value={denunciaName}
+          value={denuncia.name}
         />
-        {/* Agregar IdSitio */}
+        <Text style={styles.subtitle}>Seleccione un lugar</Text>
+        <Picker
+          onValueChange={(value) => setLugar(value?.toString())}
+          selectedValue={denuncia.idSitio}
+        >
+          {sitios.map((sitio, index) => (
+            <Picker.Item
+              key={index}
+              label={sitio.descripcion}
+              value={sitio.idSitio}
+            />
+          ))}
+        </Picker>
         <TextInput
           onChangeText={setDenunciaAddress}
           placeholder="Dirección del vecino o comercio"
           style={styles.input}
-          value={denunciaAddress}
+          value={denuncia.address}
         />
         <TextInput
           onChangeText={setDenunciaReason}
           placeholder="Motivo de la denuncia"
           style={styles.input}
-          value={denunciaReason}
+          value={denuncia.descripcion}
         />
         <View
           darkColor="rgba(255,255,255,0.1)"
@@ -130,7 +148,7 @@ export default function DenunciaGenerar(): JSX.Element {
           <CheckBox
             onValueChange={setIsTermsAndConditions}
             //   style={styles.checkbox}
-            value={isTermsAndConditions}
+            value={denuncia.isTermsAndConditions}
           />
           <Text style={styles.label}>
             {'Acepta los '}
@@ -184,6 +202,11 @@ const styles = StyleSheet.create({
     height: 1,
     marginVertical: 30,
     width: '80%',
+  },
+  subtitle: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginTop: 10,
   },
   text: {
     fontStyle: 'italic',

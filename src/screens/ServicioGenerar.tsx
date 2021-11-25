@@ -1,6 +1,6 @@
 import { Picker } from '@react-native-community/picker'
 import { useNavigation } from '@react-navigation/native'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Alert, ScrollView, StyleSheet, TextInput } from 'react-native'
 
 import ImageContainer from '../components/ImageContainer'
@@ -19,16 +19,17 @@ export default function ServicioGenerar(): JSX.Element {
     removeImage,
     addImage,
     servicio,
+    setDescripcion,
+    setDireccion,
+    setEmail,
+    setTelefono,
+    setNombre,
+    setRubro,
   } = useServicio()
+
   const navigation = useNavigation()
   const { getRubros } = useRubros()
   const [rubros, setRubros] = useState<RubroModel[]>([])
-  const rubroSelected = useRef<string>('')
-  const [nombre, setNombre] = useState<string>('')
-  const [direccion, setDireccion] = useState<string>('')
-  const [telefono, setTelefono] = useState<string>('')
-  const [email, setEmail] = useState<string>('')
-  const [descripcion, setDescripcion] = useState<string>('')
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -36,7 +37,6 @@ export default function ServicioGenerar(): JSX.Element {
     getRubros().then((res) => {
       setRubros(res)
     })
-    setIsLoading(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -82,7 +82,7 @@ export default function ServicioGenerar(): JSX.Element {
           onChangeText={setNombre}
           placeholder="Nombre y Apellido"
           style={styles.input}
-          value={nombre}
+          value={servicio.nombrePersona}
         />
         <TextInput
           multiline
@@ -90,7 +90,7 @@ export default function ServicioGenerar(): JSX.Element {
           onChangeText={setDireccion}
           placeholder="Dirección"
           style={styles.input}
-          value={direccion}
+          value={servicio.direccion}
         />
         <TextInput
           multiline
@@ -98,7 +98,7 @@ export default function ServicioGenerar(): JSX.Element {
           onChangeText={setTelefono}
           placeholder="Teléfono de contacto"
           style={styles.input}
-          value={telefono}
+          value={servicio.telefono}
         />
         <TextInput
           multiline
@@ -106,11 +106,12 @@ export default function ServicioGenerar(): JSX.Element {
           onChangeText={setEmail}
           placeholder="Email"
           style={styles.input}
-          value={email}
+          value={servicio.email}
         />
+        <Text style={styles.subtitle}>Seleccione un rubro</Text>
         <Picker
-          onValueChange={(value) => (rubroSelected.current = value?.toString())}
-          selectedValue={rubroSelected.current}
+          onValueChange={(value) => setRubro(value?.toString())}
+          selectedValue={servicio.idRubro}
         >
           {rubros.map((rubro, index) => (
             <Picker.Item
@@ -126,7 +127,7 @@ export default function ServicioGenerar(): JSX.Element {
           onChangeText={setDescripcion}
           placeholder="Descripción"
           style={styles.input}
-          value={descripcion}
+          value={servicio.descripcion}
         />
         <View
           darkColor="rgba(255,255,255,0.1)"
@@ -180,5 +181,10 @@ const styles = StyleSheet.create({
     height: 1,
     marginVertical: 30,
     width: '80%',
+  },
+  subtitle: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginTop: 10,
   },
 })
