@@ -5,6 +5,7 @@ import { baseUrl } from '../common/values'
 import { DesperfectoModel } from '../services/desperfecto.service'
 import { SitioModel } from '../services/sitio.service'
 import { UserModel } from '../services/user.service'
+import { RubroModel } from './rubro.service'
 
 interface AddReclamo {
   idSitio: number
@@ -30,6 +31,7 @@ export interface ReclamoDetalleModel {
   user: UserModel
   documento: string
   sitio: SitioModel
+  rubro: RubroModel
   desperfecto: DesperfectoModel
   descripcion: string
   estado: string
