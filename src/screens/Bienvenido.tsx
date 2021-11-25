@@ -7,7 +7,6 @@ import {
 import React, { useEffect } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
-import useAuth from '../components/providers/useAuth'
 import useNotificaciones from '../components/providers/useNotificaciones'
 import { useBadge } from '../components/providers/useNotificationBadge'
 import { AuthNavigationScreenKey } from '../constants/NavigationKeys'
@@ -19,13 +18,12 @@ interface BienvenidoProps {
 export default function Bienvenido({ route }: BienvenidoProps): JSX.Element {
   const navigation = useNavigation()
   const { authenticated } = route.params
-  const { documento } = useAuth()
   const { getNotificaciones } = useNotificaciones()
   const { changeCounter } = useBadge()
   const loaded = useIsFocused()
 
   useEffect(() => {
-    getNotificaciones(documento).then((res) => {
+    getNotificaciones().then((res) => {
       changeCounter(res.length)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
