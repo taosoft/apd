@@ -139,6 +139,7 @@ export default function DenunciaGenerar(): JSX.Element {
           onChangeText={setDocumentoDenunciado}
           placeholder="Documento del denunciado (si lo tuviese)"
           style={styles.input}
+          type={'numeric'}
           value={denuncia.documentoDenunciado}
         />
         <Text style={styles.subtitle}>Seleccione un lugar</Text>
@@ -226,6 +227,7 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
+    fontSize: 18,
     height: 40,
     margin: 12,
     padding: 10,
