@@ -2,6 +2,8 @@ import axios from 'axios'
 
 import { Response } from '../common/response'
 import { baseUrl } from '../common/values'
+import { SitioModel } from './sitio.service'
+import { UserModel } from './user.service'
 
 interface AddDenuncia {
   date: string
@@ -21,6 +23,20 @@ export interface DenunciaModel {
   archivosURL: string | null
   bitacora: string
   aceptaResponsabilidad: number
+}
+
+export interface DenunciaModelDetalle {
+  idDenuncia: number
+  documento: string
+  idDesperfecto: number
+  descripcion: string
+  estado: string
+  fechaDenuncia: Date | string
+  archivosURL: string | null
+  bitacora: string
+  aceptaResponsabilidad: number
+  user: UserModel
+  sitio: SitioModel
 }
 
 export default async function CreateDenuncia(
@@ -71,10 +87,10 @@ export async function GetDenuncias(token: string): Promise<DenunciaModel[]> {
 export async function GetDenuncia(
   idDenuncia: number,
   token: string,
-): Promise<DenunciaModel> {
+): Promise<DenunciaModelDetalle> {
   try {
-    const result = await axios.get<Response<DenunciaModel>>(
-      `${baseUrl}/denuncias/${idDenuncia}`,
+    const result = await axios.get<Response<DenunciaModelDetalle>>(
+      `${baseUrl}/denuncias/detalle/${idDenuncia}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
