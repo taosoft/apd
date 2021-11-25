@@ -1,7 +1,8 @@
 import { Picker } from '@react-native-community/picker'
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { Alert, ScrollView, StyleSheet, TextInput } from 'react-native'
+import { Alert, ScrollView, StyleSheet } from 'react-native'
+import TextInput from 'react-native-input-validator'
 
 import ImageContainer from '../components/ImageContainer'
 import { GenerateType } from '../components/providers/useCache'

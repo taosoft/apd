@@ -47,6 +47,7 @@ export default function DenunciaGenerar(): JSX.Element {
   const [sitios, setSitios] = useState<SitioModel[]>([])
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isDisabled, setIsDisabled] = useState<boolean>(true)
 
   const handleSubmit = async (): Promise<void> => {
     setIsLoading(true)
@@ -70,6 +71,18 @@ export default function DenunciaGenerar(): JSX.Element {
     addCachedImage()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cachedImage])
+
+  useEffect(() => {
+    if (
+      denuncia.name !== '' &&
+      denuncia.address !== '' &&
+      denuncia.descripcion !== ''
+    ) {
+      setIsDisabled(false)
+    } else {
+      setIsDisabled(true)
+    }
+  }, [denuncia.name, denuncia.address, denuncia.descripcion])
 
   const deleteImage = (index: number): void => {
     Alert.alert(
@@ -177,21 +190,17 @@ export default function DenunciaGenerar(): JSX.Element {
           />
           <Text style={styles.label}>
             {'Acepta los '}
-            <Pressable
-              onPress={handleTerminosCondiciones}
-              style={{ marginTop: -3 }}
-              // style={({ pressed }) => [
-              //   {
-              //     backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white',
-              //   },
-              //   styles.wrapperCustom,
-              // ]}
-            >
+            <Pressable onPress={handleTerminosCondiciones}>
               <Text style={styles.text}>términos y condiciones</Text>
             </Pressable>
           </Text>
         </View>
-        <Button isLoading={isLoading} onPress={handleSubmit} text="Enviar" />
+        <Button
+          isDisabled={isDisabled}
+          isLoading={isLoading}
+          onPress={handleSubmit}
+          text="Enviar"
+        />
       </ScrollView>
     </View>
   )
@@ -222,8 +231,8 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   label: {
+    flexDirection: 'row',
     fontStyle: 'italic',
-    margin: 8,
   },
   separator: {
     height: 1,
