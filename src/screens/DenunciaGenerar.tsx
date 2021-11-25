@@ -38,7 +38,6 @@ export default function DenunciaGenerar(): JSX.Element {
     setIsTermsAndConditions,
     setDocumentoDenunciado,
     setLugar,
-    isTermsAndConditions,
   } = useDenuncias()
 
   const navigation = useNavigation()
@@ -47,10 +46,11 @@ export default function DenunciaGenerar(): JSX.Element {
   const [sitios, setSitios] = useState<SitioModel[]>([])
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isDisabled, setIsDisabled] = useState<boolean>(true)
 
   const handleSubmit = async (): Promise<void> => {
     setIsLoading(true)
-    if (!isTermsAndConditions) {
+    if (!denuncia.isTermsAndConditions) {
       Alert.alert('Es necesario aceptar los términos y condiciones')
     } else {
       const response = await submitDenuncia()
@@ -70,6 +70,18 @@ export default function DenunciaGenerar(): JSX.Element {
     addCachedImage()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cachedImage])
+
+  useEffect(() => {
+    if (
+      denuncia.name !== '' &&
+      denuncia.address !== '' &&
+      denuncia.descripcion !== ''
+    ) {
+      setIsDisabled(false)
+    } else {
+      setIsDisabled(true)
+    }
+  }, [denuncia.name, denuncia.address, denuncia.descripcion])
 
   const deleteImage = (index: number): void => {
     Alert.alert(
@@ -126,6 +138,7 @@ export default function DenunciaGenerar(): JSX.Element {
           onChangeText={setDocumentoDenunciado}
           placeholder="Documento del denunciado (si lo tuviese)"
           style={styles.input}
+          type={'numeric'}
           value={denuncia.documentoDenunciado}
         />
         <Text style={styles.subtitle}>Seleccione un lugar</Text>
@@ -176,16 +189,17 @@ export default function DenunciaGenerar(): JSX.Element {
           />
           <Text style={styles.label}>
             {'Acepta los '}
-            <Pressable
-              onPress={handleTerminosCondiciones}
-              // eslint-disable-next-line react-native/no-inline-styles
-              style={{ marginTop: -3 }}
-            >
+            <Pressable onPress={handleTerminosCondiciones}>
               <Text style={styles.text}>términos y condiciones</Text>
             </Pressable>
           </Text>
         </View>
-        <Button isLoading={isLoading} onPress={handleSubmit} text="Enviar" />
+        <Button
+          isDisabled={isDisabled}
+          isLoading={isLoading}
+          onPress={handleSubmit}
+          text="Enviar"
+        />
       </ScrollView>
     </View>
   )
@@ -211,13 +225,14 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
+    fontSize: 18,
     height: 40,
     margin: 12,
     padding: 10,
   },
   label: {
+    flexDirection: 'row',
     fontStyle: 'italic',
-    margin: 8,
   },
   separator: {
     height: 1,

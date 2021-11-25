@@ -12,6 +12,7 @@ import FinalizaRegistro from '../screens/FinalizaRegistro'
 import Inicio from '../screens/Inicio'
 import Login from '../screens/Login'
 import NotFoundScreen from '../screens/NotFoundScreen'
+import ResetPassword from '../screens/OlvidoContraseña'
 import Registrarse from '../screens/Registrarse'
 import { RootStackParamList } from '../types'
 import AuthenticatedStack from './AuthenticatedStack'
@@ -68,6 +69,11 @@ function RootNavigator() {
         component={UnauthenticatedStack}
         name={NavigationScreenKey.UNAUTHENTICATED_STACK}
         options={{ headerTitle: 'Servicios y Comercios' }}
+      />
+      <RootStack.Screen
+        component={ResetPassword}
+        name={NavigationScreenKey.RESETEAR_PASSWORD}
+        options={{ headerTitle: 'Reiniciar contraseña' }}
       />
       <RootStack.Screen
         component={NotFoundScreen}

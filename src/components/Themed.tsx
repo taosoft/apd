@@ -41,9 +41,16 @@ type LoadingButtonProps = {
   onPress: () => Promise<void> | void
 }
 
+type DisabledButtonProp = {
+  isDisabled?: boolean
+}
+
 export type TextProps = ThemeProps & DefaultText['props']
 export type ViewProps = ThemeProps & DefaultView['props']
-export type ButtonProps = LoadingButtonProps & ThemeProps & DefaultView['props']
+export type ButtonProps = LoadingButtonProps &
+  ThemeProps &
+  DefaultView['props'] &
+  DisabledButtonProp
 
 export function Text(props: TextProps): JSX.Element {
   const { style, lightColor, darkColor, ...otherProps } = props
@@ -65,8 +72,9 @@ export function View(props: ViewProps): JSX.Element {
 export function Button(props: ButtonProps): JSX.Element {
   return (
     <TouchableOpacity
+      disabled={props.isDisabled}
       onPress={props.isLoading ? noop : props.onPress}
-      style={styles.button}
+      style={props.isDisabled ? styles.buttonDisabled : styles.buttonEnabled}
     >
       {props.isLoading ? (
         <ActivityIndicator animating={true} color={'white'} size={'large'} />
@@ -78,7 +86,21 @@ export function Button(props: ButtonProps): JSX.Element {
 }
 
 const styles = StyleSheet.create({
-  button: {
+  buttonDisabled: {
+    alignItems: 'center',
+    backgroundColor: 'grey',
+    borderColor: '#FFF',
+    borderRadius: 20,
+    borderWidth: 2,
+    justifyContent: 'center',
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: 40,
+    paddingBottom: 10,
+    paddingTop: 10,
+    width: 300,
+  },
+  buttonEnabled: {
     alignItems: 'center',
     backgroundColor: '#409DC4',
     borderColor: '#FFF',

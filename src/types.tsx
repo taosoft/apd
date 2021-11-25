@@ -5,6 +5,7 @@ export type RootStackParamList = {
   FinalizaRegistro: undefined
   AuthenticatedStack: undefined
   UnauthenticatedStack: undefined
+  ResetarPassword: undefined
   BottomTab: undefined
   NotFound: undefined
 }

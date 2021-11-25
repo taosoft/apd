@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { Alert, ScrollView, StyleSheet, TextInput } from 'react-native'
+import { Alert, ScrollView, StyleSheet } from 'react-native'
+import InputValidator from 'react-native-input-validator'
 
 import ImageContainer from '../components/ImageContainer'
 import { GenerateType } from '../components/providers/useCache'
@@ -23,11 +24,24 @@ export default function ComercioGenerar(): JSX.Element {
   const navigation = useNavigation()
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isDisabled, setIsDisabled] = useState<boolean>(true)
 
   useEffect(() => {
     addCachedImage()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cachedImage])
+
+  useEffect(() => {
+    if (
+      comercio.nombre !== '' &&
+      comercio.direccion !== '' &&
+      comercio.descripcion !== ''
+    ) {
+      setIsDisabled(false)
+    } else {
+      setIsDisabled(true)
+    }
+  }, [comercio.nombre, comercio.direccion, comercio.descripcion])
 
   const handleSubmit = async () => {
     setIsLoading(true)
@@ -60,14 +74,14 @@ export default function ComercioGenerar(): JSX.Element {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <TextInput
+        <InputValidator
           multiline
           onChangeText={setNombreComercio}
           placeholder="Nombre del comercio"
           style={styles.input}
           value={comercio.nombre}
         />
-        <TextInput
+        <InputValidator
           multiline
           onChangeText={setDireccion}
           placeholder="Dirección"
@@ -75,7 +89,7 @@ export default function ComercioGenerar(): JSX.Element {
           value={comercio.direccion}
         />
         {/* Picker time */}
-        <TextInput
+        <InputValidator
           multiline
           numberOfLines={5}
           onChangeText={setDescripcion}
@@ -99,7 +113,12 @@ export default function ComercioGenerar(): JSX.Element {
             readonly={false}
           />
         </View>
-        <Button isLoading={isLoading} onPress={handleSubmit} text="Generar" />
+        <Button
+          isDisabled={isDisabled}
+          isLoading={isLoading}
+          onPress={handleSubmit}
+          text="Generar"
+        />
       </ScrollView>
     </View>
   )

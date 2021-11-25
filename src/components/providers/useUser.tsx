@@ -1,5 +1,6 @@
 import {
   GetUser,
+  ResetPassword,
   UpdateUser,
   UpdateUserData,
   UserModel,
@@ -20,8 +21,13 @@ export default function useUser() {
     return await UpdateUser(documento, updateData, token)
   }
 
+  async function resetPassword(documento: string): Promise<boolean> {
+    return await ResetPassword(documento)
+  }
+
   return {
     getUser,
+    resetPassword,
     updateUser,
   }
 }
