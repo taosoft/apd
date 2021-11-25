@@ -10,6 +10,7 @@ export interface ComercioModel {
   descripcion: string
   archivosURL: string
   aprobado: string
+  direccion: string
 }
 export interface AddComercio {
   nombre: string
