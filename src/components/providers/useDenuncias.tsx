@@ -162,6 +162,7 @@ export default function useDenuncias() {
     denuncia: cache.generarDenuncia,
     getDenuncia,
     getDenuncias,
+    isTermsAndConditions: cache.generarDenuncia.isTermsAndConditions,
     removeImage,
     setDenunciaAddress,
     setDenunciaDate,
