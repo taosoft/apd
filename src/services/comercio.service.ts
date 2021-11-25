@@ -11,6 +11,12 @@ export interface ComercioModel {
   archivosURL: string
   aprobado: string
 }
+export interface AddComercio {
+  nombre: string
+  horario: string
+  descripcion: string
+  archivosURL: string
+}
 
 export async function GetComercioDetalle(
   comercioId: number,
@@ -49,7 +55,7 @@ export async function GetComercios(): Promise<ComercioModel[]> {
 }
 
 export async function CreateComercio(
-  data: ComercioModel,
+  data: AddComercio,
   token: string,
 ): Promise<ComercioModel> {
   try {

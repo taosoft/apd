@@ -1,13 +1,23 @@
-// import { useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { Alert, ScrollView, StyleSheet, TextInput } from 'react-native'
 
-// import useComercio from '../components/providers/useComercio'
+import ImageContainer from '../components/ImageContainer'
+import { GenerateType } from '../components/providers/useCache'
+import useComercio from '../components/providers/useComercio'
 import { Button, Text, View } from '../components/Themed'
+import { AuthNavigationScreenKey } from '../constants/NavigationKeys'
 
 export default function ComercioGenerar(): JSX.Element {
-  // const { createComercios } = useComercio()
-  // const navigation = useNavigation()
+  const {
+    addImage,
+    comercio,
+    removeImage,
+    cachedImage,
+    addCachedImage,
+    submitComercio,
+  } = useComercio()
+  const navigation = useNavigation()
   const [nombreComercio, setNombreComercio] = useState<string>('')
   const [direccion, setDireccion] = useState<string>('')
   const [telefono, setTelefono] = useState<string>('')
@@ -17,11 +27,36 @@ export default function ComercioGenerar(): JSX.Element {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   useEffect(() => {
-    setIsLoading(false)
-  }, [])
+    addCachedImage()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cachedImage])
 
-  const handleSubmit = () => {
-    Alert.alert(nombreComercio)
+  const handleSubmit = async () => {
+    setIsLoading(true)
+    const response = await submitComercio()
+    if (response) {
+      navigation.navigate(AuthNavigationScreenKey.COMERCIOLISTADO)
+    }
+    setIsLoading(false)
+  }
+
+  const deleteImage = (index: number): void => {
+    Alert.alert(
+      'Seguro desea eliminar la imagen?',
+      undefined,
+      [
+        {
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+          text: 'Cancelar',
+        },
+        {
+          onPress: () => removeImage(index),
+          text: 'Eliminar',
+        },
+      ],
+      { cancelable: false },
+    )
   }
 
   return (
@@ -29,7 +64,6 @@ export default function ComercioGenerar(): JSX.Element {
       <ScrollView>
         <TextInput
           multiline
-          numberOfLines={4}
           onChangeText={setNombreComercio}
           placeholder="Nombre del comercio"
           style={styles.input}
@@ -37,7 +71,6 @@ export default function ComercioGenerar(): JSX.Element {
         />
         <TextInput
           multiline
-          numberOfLines={4}
           onChangeText={setDireccion}
           placeholder="Dirección"
           style={styles.input}
@@ -45,7 +78,6 @@ export default function ComercioGenerar(): JSX.Element {
         />
         <TextInput
           multiline
-          numberOfLines={4}
           onChangeText={setTelefono}
           placeholder="Teléfono de contacto"
           style={styles.input}
@@ -53,7 +85,6 @@ export default function ComercioGenerar(): JSX.Element {
         />
         <TextInput
           multiline
-          numberOfLines={4}
           onChangeText={setEmail}
           placeholder="Email"
           style={styles.input}
@@ -72,18 +103,18 @@ export default function ComercioGenerar(): JSX.Element {
           lightColor="#EEE"
           style={styles.separator}
         />
-        <Text style={styles.imagenes}>Imagenes</Text>
-        {/* <View>
+        <Text style={styles.imagenes}>Imagenes (MÁX. 5)</Text>
+        <View>
           <ImageContainer
             addImage={addImage}
-            data={reclamo.images.map((image) => image ?? '')}
+            data={comercio.images.map((image) => image ?? '')}
             deleteImage={deleteImage}
             generateType={GenerateType.RECLAMO}
-            maxImages={7}
+            maxImages={5}
             readonly={false}
           />
-        </View> */}
-        <Button isLoading={isLoading} onPress={handleSubmit} text="Enviar" />
+        </View>
+        <Button isLoading={isLoading} onPress={handleSubmit} text="Generar" />
       </ScrollView>
     </View>
   )

@@ -1,14 +1,22 @@
+import { Alert } from 'react-native'
+
 import {
   ComercioModel,
   CreateComercio,
   GetComercioDetalle,
   GetComercios,
 } from '../../services/comercio.service'
+import {
+  cloudinaryUpload,
+  UploadImageResponse,
+} from '../../services/image.service'
 import useAuth from './useAuth'
+import { GenerateType, useCache } from './useCache'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function useComercio() {
   const { token } = useAuth()
+  const { cache, changeCache } = useCache()
 
   async function getComercioDetalle(
     comercioId: number,
@@ -24,9 +32,89 @@ export default function useComercio() {
     return await CreateComercio(data, token)
   }
 
+  async function submitComercio(): Promise<boolean> {
+    const uploadImagesResponses = await uploadImages()
+    try {
+      CreateComercio(
+        {
+          ...cache.generarComercio,
+          archivosURL: uploadImagesResponses
+            .map((imagen) => imagen.response?.secure_url ?? '')
+            .join(';'),
+        },
+        token,
+      )
+      clearComercio()
+      return true
+    } catch (e) {
+      Alert.alert(e)
+      return false
+    }
+  }
+
+  async function uploadImages(): Promise<UploadImageResponse[]> {
+    return await Promise.all<UploadImageResponse>(
+      cache.generarComercio.images.map(async (image) => {
+        return await cloudinaryUpload(image, GenerateType.COMERCIO)
+      }),
+    )
+  }
+
+  function clearComercio(): void {
+    changeCache({
+      generarComercio: {
+        descripcion: '',
+        horario: '',
+        images: [],
+        nombre: '',
+      },
+    })
+  }
+
+  function addCachedImage(): void {
+    if (cache.addedPhoto) {
+      const image = cache.addedPhoto
+      changeCache({
+        addedPhoto: undefined,
+        generarComercio: {
+          ...cache.generarComercio,
+          images: [...cache.generarComercio.images, image],
+        },
+      })
+    }
+  }
+
+  function addImage(uri: string): void {
+    changeCache({
+      generarComercio: {
+        ...cache.generarComercio,
+        images: [...cache.generarComercio.images, uri],
+      },
+    })
+  }
+
+  function removeImage(index: number): void {
+    changeCache({
+      generarComercio: {
+        ...cache.generarComercio,
+        images: [
+          ...cache.generarComercio.images.slice(0, index),
+          ...cache.generarComercio.images.slice(index + 1),
+        ],
+      },
+    })
+  }
+
   return {
+    addCachedImage,
+    addImage,
+    cachedImage: cache.addedPhoto,
+    clearComercio,
+    comercio: cache.generarComercio,
     createComercios,
     getComercioDetalle,
     getComercios,
+    removeImage,
+    submitComercio,
   }
 }

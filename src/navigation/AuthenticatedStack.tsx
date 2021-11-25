@@ -122,6 +122,7 @@ function TabInicioNavigator() {
       <TabInicioStack.Screen
         component={ComercioGenerar}
         name={AuthNavigationScreenKey.COMERCIOGENERAR}
+        options={{ headerTitle: 'Crear un comercio' }}
       />
       <TabInicioStack.Screen
         component={CameraPicker}

@@ -1,16 +1,26 @@
-// import { useNavigation } from '@react-navigation/native'
 import { Picker } from '@react-native-community/picker'
+import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useRef, useState } from 'react'
 import { Alert, ScrollView, StyleSheet, TextInput } from 'react-native'
 
+import ImageContainer from '../components/ImageContainer'
+import { GenerateType } from '../components/providers/useCache'
 import useRubros from '../components/providers/useRubros'
-// import useComercio from '../components/providers/useComercio'
+import useServicio from '../components/providers/useServicios'
 import { Button, Text, View } from '../components/Themed'
+import { AuthNavigationScreenKey } from '../constants/NavigationKeys'
 import { RubroModel } from '../services/rubro.service'
 
 export default function ServicioGenerar(): JSX.Element {
-  // const { createComercios } = useComercio()
-  // const navigation = useNavigation()
+  const {
+    submitServicio,
+    addCachedImage,
+    cachedImage,
+    removeImage,
+    addImage,
+    servicio,
+  } = useServicio()
+  const navigation = useNavigation()
   const { getRubros } = useRubros()
   const [rubros, setRubros] = useState<RubroModel[]>([])
   const rubroSelected = useRef<string>('')
@@ -30,8 +40,37 @@ export default function ServicioGenerar(): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleSubmit = () => {
-    Alert.alert(rubroSelected.current)
+  useEffect(() => {
+    addCachedImage()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cachedImage])
+
+  const handleSubmit = async () => {
+    setIsLoading(true)
+    const response = await submitServicio()
+    if (response) {
+      navigation.navigate(AuthNavigationScreenKey.SERVICIOLISTADO)
+    }
+    setIsLoading(false)
+  }
+
+  const deleteImage = (index: number): void => {
+    Alert.alert(
+      'Seguro desea eliminar la imagen?',
+      undefined,
+      [
+        {
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+          text: 'Cancelar',
+        },
+        {
+          onPress: () => removeImage(index),
+          text: 'Eliminar',
+        },
+      ],
+      { cancelable: false },
+    )
   }
 
   return (
@@ -94,18 +133,18 @@ export default function ServicioGenerar(): JSX.Element {
           lightColor="#EEE"
           style={styles.separator}
         />
-        <Text style={styles.imagenes}>Imagenes</Text>
-        {/* <View>
+        <Text style={styles.imagenes}>Imagenes (MÁX. 5)</Text>
+        <View>
           <ImageContainer
             addImage={addImage}
-            data={reclamo.images.map((image) => image ?? '')}
+            data={servicio.images.map((image) => image ?? '')}
             deleteImage={deleteImage}
-            generateType={GenerateType.RECLAMO}
-            maxImages={7}
+            generateType={GenerateType.SERVICIO}
+            maxImages={5}
             readonly={false}
           />
-        </View> */}
-        <Button isLoading={isLoading} onPress={handleSubmit} text="Enviar" />
+        </View>
+        <Button isLoading={isLoading} onPress={handleSubmit} text="Generar" />
       </ScrollView>
     </View>
   )

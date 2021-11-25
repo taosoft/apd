@@ -138,7 +138,7 @@ export default function ReclamoGenerar(): JSX.Element {
           lightColor="#eee"
           style={styles.separator}
         />
-        <Text style={styles.imagenes}>Imagenes</Text>
+        <Text style={styles.imagenes}>Imagenes (MÁX. 7)</Text>
         <View>
           <ImageContainer
             addImage={addImage}
