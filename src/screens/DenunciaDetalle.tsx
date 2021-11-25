@@ -65,17 +65,15 @@ export default function DenunciaDetalle({
             </View>
             <View style={styles.row}>
               <Text style={styles.titulo}>Denunciado:</Text>
-              <Text style={styles.datos}>
-                {denuncia?.user.nombre} {denuncia?.user.apellido}
-              </Text>
+              <Text style={styles.datos}>{denuncia?.name}</Text>
             </View>
             <View style={styles.row}>
               <Text style={styles.titulo}>Ubicacion:</Text>
               <Text style={styles.datos}>{denuncia?.sitio.calle}</Text>
             </View>
             <View style={styles.row}>
-              <Text style={styles.titulo}>Motivo:</Text>
-              <Text style={styles.datos}>{denuncia?.descripcion}</Text>
+              <Text style={styles.titulo}>Dirección:</Text>
+              <Text style={styles.datos}>{denuncia?.address}</Text>
             </View>
             <Text style={styles.textSubBold}>Imagenes</Text>
             {imagenes.length === 0 && (
