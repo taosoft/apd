@@ -70,7 +70,7 @@ export default function Login(): JSX.Element {
     <View style={styles.container}>
       <View style={{ flex: 3, marginTop: 40 }}>
         <TextInput
-          keyboardType="email-address"
+          keyboardType="number-pad"
           onChangeText={setDocu}
           placeholder="Ingrese su Documento o Legajo"
           placeholderTextColor="#409DC4"

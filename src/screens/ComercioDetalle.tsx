@@ -18,9 +18,9 @@ export default function ComercioDetalle({
   const [comercio, setComercio] = useState<ComercioModel>()
 
   const imagenes =
-  comercio?.archivosURL?.split(';').map((image) => {
-    return { uri: image }
-  }) ?? []
+    comercio?.archivosURL?.split(';').map((image) => {
+      return { uri: image }
+    }) ?? []
 
   useEffect(() => {
     getComercioDetalle(id).then((res) => {
@@ -45,7 +45,6 @@ export default function ComercioDetalle({
             <Text style={styles.alert}>No hay imágenes disponibles</Text>
           )}
           {imagenes.length !== 0 && <ImageLayout images={imagenes} />}
-          
         </View>
       </ScrollView>
     </View>

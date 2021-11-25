@@ -61,3 +61,21 @@ export async function UpdateUser(
     throw e
   }
 }
+
+export async function ResetPassword(documento: string): Promise<boolean> {
+  try {
+    const result = await axios.post<Response<boolean>>(
+      `${baseUrl}/users/reset/${documento}`,
+      {},
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    )
+    return result ? true : false
+  } catch (e) {
+    console.log(e)
+    throw e
+  }
+}
