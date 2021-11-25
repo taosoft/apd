@@ -47,7 +47,8 @@ export default function useServicio() {
       )
       clearServicio()
       return true
-    } catch (e) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (e: any) {
       Alert.alert(e)
       return false
     }

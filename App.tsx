@@ -22,14 +22,14 @@ export default function App(): JSX.Element | null {
   } else {
     return (
       <SafeAreaProvider>
-        <CronProvider>
-          <CacheProvider>
+        <CacheProvider>
+          <CronProvider>
             <CounterProvider>
               <Navigation colorScheme={colorScheme} />
               <StatusBar />
             </CounterProvider>
-          </CacheProvider>
-        </CronProvider>
+          </CronProvider>
+        </CacheProvider>
       </SafeAreaProvider>
     )
   }

@@ -1,39 +1,24 @@
 import * as Network from 'expo-network'
 import React, { createContext, useContext, useEffect, useState } from 'react'
+import { Alert } from 'react-native'
+
+import {
+  cloudinaryUpload,
+  UploadImageResponse,
+} from '../../services/image.service'
+import CreateReclamo from '../../services/reclamo.service'
+import useAuth from './useAuth'
+import { GenerarReclamo, GenerateType } from './useCache'
 
 export interface Cron {
-  generarReclamo?: GenerarReclamo
+  generarReclamos: GenerarReclamo[]
 }
-
-// TODO: Sólo envío de reclamos
-
-export interface GenerarReclamo {
-  idSitio: number
-  idDesperfecto: number
-  reason: string
-  idRubro: number
-  images: string[]
-}
-
-export enum GenerateType {
-  DENUNCIA = 'Denuncia',
-  RECLAMO = 'Reclamo',
-  SERVICIO = 'Servicio',
-  COMERCIO = 'Comercio',
-}
-
 export interface UpdateCron {
-  generarReclamo?: GenerarReclamo
+  addReclamo: GenerarReclamo
 }
 
 export const defaultCron: Cron = {
-  generarReclamo: {
-    idDesperfecto: 0,
-    idRubro: 0,
-    idSitio: 0,
-    images: [],
-    reason: '',
-  },
+  generarReclamos: [],
 }
 
 export const CronContext = createContext({
@@ -60,46 +45,81 @@ export function CronProvider(props: CronProviderProps): JSX.Element {
     Network.NetworkState | undefined
   >(undefined)
 
+  const { token } = useAuth()
+
   useEffect(() => {
     const timer = setInterval(async () => {
       const networkStateResponse = await Network.getNetworkStateAsync()
       setNetworkState(networkStateResponse)
-    }, 60000)
+    }, 15000)
 
     return () => clearInterval(timer)
   }, [])
 
   useEffect(() => {
     if (
-      networkState?.isConnected &&
+      networkState?.isInternetReachable &&
       networkState.type === Network.NetworkStateType.WIFI
     ) {
+      console.log('start cron')
       runCron()
+      console.log('finish cron')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [networkState])
 
-  function runCron(): void {
-    runReclamosCron()
+  async function runCron(): Promise<void> {
+    await runReclamosCron()
   }
 
-  function runReclamosCron() {
-    // throw new Error('Function not implemented.')
+  async function uploadImages(
+    reclamo: GenerarReclamo,
+  ): Promise<UploadImageResponse[]> {
+    return await Promise.all<UploadImageResponse>(
+      reclamo.images.map(async (image) => {
+        return await cloudinaryUpload(image, GenerateType.RECLAMO)
+      }),
+    )
+  }
+
+  async function submitReclamo(reclamo: GenerarReclamo): Promise<boolean> {
+    const uploadImagesResponses = await uploadImages(reclamo)
+    try {
+      await CreateReclamo(
+        {
+          ...reclamo,
+          archivosURL: uploadImagesResponses
+            .map((imagen) => imagen.response?.secure_url ?? '')
+            .join(';'),
+        },
+        token,
+      )
+      return true
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (e: any) {
+      Alert.alert(e)
+      return false
+    }
+  }
+
+  async function runReclamosCron() {
+    console.log('generar Reclamos', cron.generarReclamos)
+    const responses = await Promise.all<boolean>(
+      cron.generarReclamos.map(async (reclamo) => {
+        return await submitReclamo(reclamo)
+      }),
+    )
+    setCron({ generarReclamos: [] })
+    console.log('responses', responses)
   }
 
   function changeCron(config: UpdateCron): void {
     const nextCron = {
       ...cron,
-      ...(config.generarReclamo && {
-        generarReclamo: {
-          idDesperfecto: config.generarReclamo.idDesperfecto,
-          idRubro: config.generarReclamo.idRubro,
-          idSitio: config.generarReclamo.idSitio,
-          images: config.generarReclamo.images,
-          reason: config.generarReclamo.reason,
-        },
-      }),
+      generarReclamos: [...cron.generarReclamos, config.addReclamo],
     }
+
+    console.log('reclamo agregado', cron.generarReclamos)
 
     setCron(nextCron)
   }

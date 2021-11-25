@@ -1,11 +1,14 @@
 import { Picker } from '@react-native-community/picker'
 import { useNavigation } from '@react-navigation/native'
+import * as Network from 'expo-network'
 import React, { useEffect, useState } from 'react'
 import { Alert, ScrollView, StyleSheet } from 'react-native'
 import TextInput from 'react-native-input-validator'
 
 import ImageContainer from '../components/ImageContainer'
+import { InternetWarningPopup } from '../components/InternetWarningPopup'
 import { GenerateType } from '../components/providers/useCache'
+import { useCron } from '../components/providers/useCron'
 import useDesperfecto from '../components/providers/useDesperfecto'
 import useReclamos from '../components/providers/useReclamos'
 import useRubros from '../components/providers/useRubros'
@@ -27,12 +30,14 @@ export default function ReclamoGenerar(): JSX.Element {
     setLugar,
     setReason,
     setRubro,
+    clearReclamo,
   } = useReclamos()
 
   const { getSitios } = useSitio()
   const { getDesperfectos } = useDesperfecto()
   const { getRubros } = useRubros()
   const navigation = useNavigation()
+  const { changeCron } = useCron()
 
   const [sitios, setSitios] = useState<SitioModel[]>([])
   const [desperfectos, setDesperfectos] = useState<DesperfectoModel[]>([])
@@ -51,6 +56,32 @@ export default function ReclamoGenerar(): JSX.Element {
 
   const handleSubmit = async (): Promise<void> => {
     setIsLoading(true)
+    const networkStateResponse = await Network.getNetworkStateAsync()
+    if (
+      networkStateResponse?.isInternetReachable === false ||
+      networkStateResponse.type !== Network.NetworkStateType.WIFI
+    ) {
+      InternetWarningPopup({
+        name: 'un reclamo',
+        onPressNo: noResponse,
+        onPressYes: yesResponse,
+      })
+    } else {
+      const response = await submitReclamo()
+      setIsLoading(false)
+      if (response) {
+        navigation.goBack()
+      }
+    }
+  }
+
+  function noResponse() {
+    changeCron({ addReclamo: reclamo })
+    setIsLoading(false)
+    clearReclamo()
+    navigation.goBack()
+  }
+  async function yesResponse() {
     const response = await submitReclamo()
     setIsLoading(false)
     if (response) {

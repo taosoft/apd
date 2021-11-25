@@ -33,7 +33,8 @@ export default function useReclamos() {
       )
       clearReclamo()
       return true
-    } catch (e) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (e: any) {
       Alert.alert(e)
       return false
     }
@@ -144,6 +145,7 @@ export default function useReclamos() {
     addCachedImage,
     addImage,
     cachedImage: cache.addedPhoto,
+    clearReclamo,
     getReclamo,
     getReclamoDetalle,
     getReclamos,

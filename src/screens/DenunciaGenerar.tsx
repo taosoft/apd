@@ -185,7 +185,6 @@ export default function DenunciaGenerar(): JSX.Element {
         <View style={styles.checkboxContainer}>
           <CheckBox
             onValueChange={setIsTermsAndConditions}
-            //   style={styles.checkbox}
             value={denuncia.isTermsAndConditions}
           />
           <Text style={styles.label}>
