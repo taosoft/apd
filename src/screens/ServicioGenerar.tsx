@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { Alert, ScrollView, StyleSheet } from 'react-native'
 import InputValidator from 'react-native-input-validator'
+import { TextInputMask } from 'react-native-masked-text'
 
 import ImageContainer from '../components/ImageContainer'
 import { GenerateType } from '../components/providers/useCache'
@@ -20,6 +21,7 @@ export default function ServicioGenerar(): JSX.Element {
     removeImage,
     addImage,
     servicio,
+    setHorario,
     setDescripcion,
     setDireccion,
     setEmail,
@@ -125,6 +127,51 @@ export default function ServicioGenerar(): JSX.Element {
           placeholder="Dirección"
           style={styles.input}
           value={servicio.direccion}
+        />
+        <Text style={styles.subtitle}>Horario de atención</Text>
+        <TextInputMask
+          onChangeText={(text) => {
+            setHorario(true, text)
+          }}
+          options={{
+            format: 'HH:mm',
+          }}
+          placeholder="HH:mm"
+          // eslint-disable-next-line react-native/no-inline-styles
+          style={{
+            backgroundColor: 'white',
+            borderColor: 'black',
+            borderWidth: 1,
+            marginBottom: 30,
+            padding: 10,
+            paddingHorizontal: 30,
+            textAlign: 'center',
+            width: 300,
+          }}
+          type={'datetime'}
+          value={servicio.horario.split(';')[0]}
+        />
+        <TextInputMask
+          onChangeText={(text) => {
+            setHorario(false, text)
+          }}
+          options={{
+            format: 'HH:mm',
+          }}
+          placeholder="HH:mm"
+          // eslint-disable-next-line react-native/no-inline-styles
+          style={{
+            backgroundColor: 'white',
+            borderColor: 'black',
+            borderWidth: 1,
+            marginBottom: 30,
+            padding: 10,
+            paddingHorizontal: 30,
+            textAlign: 'center',
+            width: 300,
+          }}
+          type={'datetime'}
+          value={servicio.horario.split(';')[1]}
         />
         <InputValidator
           multiline

@@ -23,9 +23,11 @@ export default function Bienvenido({ route }: BienvenidoProps): JSX.Element {
   const loaded = useIsFocused()
 
   useEffect(() => {
-    getNotificaciones().then((res) => {
-      changeCounter(res.length)
-    })
+    if (authenticated) {
+      getNotificaciones().then((res) => {
+        changeCounter(res.length)
+      })
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loaded])
 
