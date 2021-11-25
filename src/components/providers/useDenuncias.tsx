@@ -1,3 +1,4 @@
+import moment from 'moment'
 import { Alert } from 'react-native'
 
 import CreateDenuncia, {
@@ -59,7 +60,7 @@ export default function useDenuncias() {
     changeCache({
       generarDenuncia: {
         address: '',
-        date: '',
+        date: moment().format('DD/MM/YYYY HH:mm:ss'),
         descripcion: '',
         documentoDenunciado: '',
         idSitio: 0,
