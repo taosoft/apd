@@ -20,6 +20,7 @@ export default function Inicio(): JSX.Element {
   return (
     <View style={styles().container}>
       <ImageBackground
+        resizeMode={'stretch'}
         source={{
           uri: 'https://res.cloudinary.com/dmdkxer66/image/upload/v1636597547/Logos/MunicipaliApp_nxqbs0.png',
         }}
