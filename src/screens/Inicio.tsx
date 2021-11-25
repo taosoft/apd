@@ -24,7 +24,7 @@ export default function Inicio(): JSX.Element {
         source={{
           uri: 'https://res.cloudinary.com/dmdkxer66/image/upload/v1636597547/Logos/MunicipaliApp_nxqbs0.png',
         }}
-        style={{ height: windowHeight, width: windowWidth }}
+        style={{ height: windowHeight * 0.9, width: windowWidth }}
       >
         <View
           style={{

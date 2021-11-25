@@ -1,32 +1,41 @@
-import React, { useState } from 'react'
-import {
-  Alert,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import React, { useEffect, useState } from 'react'
+import { Alert, StyleSheet, TextInput, View } from 'react-native'
 
-import useAuth from '../components/providers/useAuth'
 import useUser from '../components/providers/useUser'
+import { Button } from '../components/Themed'
 
 export default function CambiarContrasenia(): JSX.Element {
-  const { documento } = useAuth()
   const { resetPassword } = useUser()
+  const navigation = useNavigation()
   const [dni, setDNI] = useState<string>('')
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isDisabled, setIsDisabled] = useState<boolean>(false)
 
   const handleSubmit = () => {
-    resetPassword(documento).then((res) => {
-      if (res) {
-        Alert.alert('Se ha enviado un email con la contraseña nueva.')
-      } else {
+    setIsLoading(true)
+    resetPassword(dni)
+      .then((res) => {
+        setIsLoading(false)
+        if (res) {
+          Alert.alert('Se ha enviado un email con la contraseña nueva.')
+          navigation.goBack()
+        } else {
+          Alert.alert(
+            'No se pudo reiniciar la contraseña.\nPor favor contacte al municipio.',
+          )
+        }
+      })
+      .catch(() =>
         Alert.alert(
-          'No se pudo reiniciar la contraseña.\nPor favor contacte al municipio.',
-        )
-      }
-    })
+          'Ocurrió un error al reiniciar la contraseña. Contáctese con el municipio para más información',
+        ),
+      )
   }
+
+  useEffect(() => {
+    setIsDisabled(dni === '')
+  }, [dni])
 
   return (
     <View style={styles.container}>
@@ -41,9 +50,12 @@ export default function CambiarContrasenia(): JSX.Element {
           value={dni}
         />
 
-        <TouchableOpacity onPress={handleSubmit} style={styles.button}>
-          <Text style={styles.registrarse}>Reiniciar contraseña</Text>
-        </TouchableOpacity>
+        <Button
+          isDisabled={isDisabled}
+          isLoading={isLoading}
+          onPress={handleSubmit}
+          text="Reiniciar contraseña"
+        />
       </View>
     </View>
   )

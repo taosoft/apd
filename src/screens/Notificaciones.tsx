@@ -66,50 +66,54 @@ export default function Notificaciones({
   return (
     <View style={styles.view}>
       {authenticated && (
-        /* Tincho: Listado de notificaciones  */
-        <FlatList
-          data={items}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => {
-            if (item.titulo.includes('Denuncia')) {
-              return (
-                <TouchableOpacity
-                  onPress={() =>
-                    updateAndOpenDenunciaDetails(item.id, item.idNotificacion)
-                  }
-                >
-                  <NotificacionItem
-                    fecha={item.fecha}
-                    idReclamo={item.id}
-                    imgUsuario={item.imgUsuario}
-                    texto={'Nuevo estado: ' + item.texto}
-                    titulo={item.titulo}
-                  />
-                </TouchableOpacity>
-              )
-            } else if (item.titulo.includes('Reclamo')) {
-              return (
-                <TouchableOpacity
-                  onPress={() =>
-                    updateAndOpenReclamoDetails(item.id, item.idNotificacion)
-                  }
-                >
-                  <NotificacionItem
-                    fecha={item.fecha}
-                    idReclamo={item.id}
-                    imgUsuario={item.imgUsuario}
-                    texto={'Nuevo estado: ' + item.texto}
-                    titulo={item.titulo}
-                  />
-                </TouchableOpacity>
-              )
-            } else {
-              return (
-                <Text>Usted no posee ninguna notificación de momento.</Text>
-              )
-            }
-          }}
-        />
+        <>
+          <FlatList
+            data={items}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => {
+              if (item.titulo.includes('Denuncia')) {
+                return (
+                  <TouchableOpacity
+                    onPress={() =>
+                      updateAndOpenDenunciaDetails(item.id, item.idNotificacion)
+                    }
+                  >
+                    <NotificacionItem
+                      fecha={item.fecha}
+                      idReclamo={item.id}
+                      imgUsuario={item.imgUsuario}
+                      texto={'Nuevo estado: ' + item.texto}
+                      titulo={item.titulo}
+                    />
+                  </TouchableOpacity>
+                )
+              } else if (item.titulo.includes('Reclamo')) {
+                return (
+                  <TouchableOpacity
+                    onPress={() =>
+                      updateAndOpenReclamoDetails(item.id, item.idNotificacion)
+                    }
+                  >
+                    <NotificacionItem
+                      fecha={item.fecha}
+                      idReclamo={item.id}
+                      imgUsuario={item.imgUsuario}
+                      texto={'Nuevo estado: ' + item.texto}
+                      titulo={item.titulo}
+                    />
+                  </TouchableOpacity>
+                )
+              } else {
+                return (
+                  <Text>Usted no posee ninguna notificación de momento.</Text>
+                )
+              }
+            }}
+          />
+          {items.length === 0 && (
+            <Text>Usted no posee ninguna notificación de momento.</Text>
+          )}
+        </>
       )}
     </View>
   )
