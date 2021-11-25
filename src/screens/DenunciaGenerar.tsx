@@ -172,20 +172,14 @@ export default function DenunciaGenerar(): JSX.Element {
         <View style={styles.checkboxContainer}>
           <CheckBox
             onValueChange={setIsTermsAndConditions}
-            //   style={styles.checkbox}
             value={denuncia.isTermsAndConditions}
           />
           <Text style={styles.label}>
             {'Acepta los '}
             <Pressable
               onPress={handleTerminosCondiciones}
+              // eslint-disable-next-line react-native/no-inline-styles
               style={{ marginTop: -3 }}
-              // style={({ pressed }) => [
-              //   {
-              //     backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white',
-              //   },
-              //   styles.wrapperCustom,
-              // ]}
             >
               <Text style={styles.text}>términos y condiciones</Text>
             </Pressable>

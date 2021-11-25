@@ -43,9 +43,6 @@ export default function ReclamoDetalle({
       }
     }) ?? []
 
-  console.log('reclamo id: ', idSelected)
-  console.log('Reclamo id unificado ', reclamo?.IdReclamoUnificado)
-
   useEffect(() => {
     setIsLoading(true)
     getReclamoDetalle(id).then((data) => {

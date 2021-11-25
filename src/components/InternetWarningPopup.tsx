@@ -2,7 +2,7 @@ import { Alert } from 'react-native'
 
 export interface PopupAlert {
   name: string
-  onPressYes: () => void
+  onPressYes: () => Promise<void>
   onPressNo: () => void
 }
 
@@ -12,11 +12,11 @@ export const InternetWarningPopup = (popupAlert: PopupAlert): void => {
     `En caso de optar por “SI” podrá tener un recargo a pagar por usar los datos del celular. Si opta por “NO”, se generará ${popupAlert.name} una vez que esté conectado a una red Wi-Fi`,
     [
       {
-        onPress: () => popupAlert.onPressNo,
+        onPress: () => popupAlert.onPressNo(),
         style: 'cancel',
         text: 'NO',
       },
-      { onPress: () => popupAlert.onPressYes, text: 'SI' },
+      { onPress: async () => popupAlert.onPressYes(), text: 'SI' },
     ],
     { cancelable: false },
   )
