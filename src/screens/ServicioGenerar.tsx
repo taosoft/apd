@@ -1,7 +1,8 @@
 import { Picker } from '@react-native-community/picker'
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { Alert, ScrollView, StyleSheet, TextInput } from 'react-native'
+import { Alert, ScrollView, StyleSheet } from 'react-native'
+import InputValidator from 'react-native-input-validator'
 
 import ImageContainer from '../components/ImageContainer'
 import { GenerateType } from '../components/providers/useCache'
@@ -33,6 +34,7 @@ export default function ServicioGenerar(): JSX.Element {
   const [rubros, setRubros] = useState<RubroModel[]>([])
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isDisabled, setIsDisabled] = useState<boolean>(true)
 
   useEffect(() => {
     getRubros().then((res) => {
@@ -45,6 +47,29 @@ export default function ServicioGenerar(): JSX.Element {
     addCachedImage()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cachedImage])
+
+  useEffect(() => {
+    if (
+      servicio.nombreServicio !== '' &&
+      servicio.nombrePersona !== '' &&
+      servicio.direccion !== '' &&
+      servicio.telefono !== '' &&
+      servicio.email !== '' &&
+      servicio.email !== '' &&
+      servicio.descripcion !== ''
+    ) {
+      setIsDisabled(false)
+    } else {
+      setIsDisabled(true)
+    }
+  }, [
+    servicio.nombreServicio,
+    servicio.nombrePersona,
+    servicio.direccion,
+    servicio.telefono,
+    servicio.email,
+    servicio.descripcion,
+  ])
 
   const handleSubmit = async () => {
     setIsLoading(true)
@@ -77,7 +102,7 @@ export default function ServicioGenerar(): JSX.Element {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <TextInput
+        <InputValidator
           multiline
           numberOfLines={4}
           onChangeText={setNombreServicio}
@@ -85,7 +110,7 @@ export default function ServicioGenerar(): JSX.Element {
           style={styles.input}
           value={servicio.nombreServicio}
         />
-        <TextInput
+        <InputValidator
           multiline
           numberOfLines={4}
           onChangeText={setNombre}
@@ -93,7 +118,7 @@ export default function ServicioGenerar(): JSX.Element {
           style={styles.input}
           value={servicio.nombrePersona}
         />
-        <TextInput
+        <InputValidator
           multiline
           numberOfLines={4}
           onChangeText={setDireccion}
@@ -101,20 +126,22 @@ export default function ServicioGenerar(): JSX.Element {
           style={styles.input}
           value={servicio.direccion}
         />
-        <TextInput
+        <InputValidator
           multiline
           numberOfLines={4}
           onChangeText={setTelefono}
           placeholder="Teléfono de contacto"
           style={styles.input}
+          type={'phone'}
           value={servicio.telefono}
         />
-        <TextInput
+        <InputValidator
           multiline
           numberOfLines={4}
           onChangeText={setEmail}
           placeholder="Email"
           style={styles.input}
+          type={'email'}
           value={servicio.email}
         />
         <Text style={styles.subtitle}>Seleccione un rubro</Text>
@@ -130,7 +157,7 @@ export default function ServicioGenerar(): JSX.Element {
             />
           ))}
         </Picker>
-        <TextInput
+        <InputValidator
           multiline
           numberOfLines={4}
           onChangeText={setDescripcion}
@@ -154,7 +181,12 @@ export default function ServicioGenerar(): JSX.Element {
             readonly={false}
           />
         </View>
-        <Button isLoading={isLoading} onPress={handleSubmit} text="Generar" />
+        <Button
+          isDisabled={isDisabled}
+          isLoading={isLoading}
+          onPress={handleSubmit}
+          text="Generar"
+        />
       </ScrollView>
     </View>
   )
