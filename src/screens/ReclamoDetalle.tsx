@@ -107,11 +107,6 @@ export default function ReclamoDetalle({
             <Text style={styles.titulo}>Descripción:</Text>
             <Text style={styles.datos}>{reclamo?.descripcion}</Text>
           </View>
-
-          <Text style={styles.textSubBold}>Archivos</Text>
-          <View style={styles.row}>
-            <Text style={styles.alert}>Input de archivos a definir</Text>
-          </View>
           <Text style={styles.textSubBold}>Imagenes</Text>
           {imagenes.length === 0 && (
             <Text style={styles.alert}>No hay imágenes disponibles</Text>
