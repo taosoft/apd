@@ -114,7 +114,7 @@ export default function ReclamoGenerar(): JSX.Element {
         <Text style={styles.subtitle}>Seleccione un desperfecto</Text>
         <Picker
           onValueChange={(value) => setDesperfecto(value?.toString())}
-          selectedValue={reclamo.idRubro}
+          selectedValue={reclamo.idDesperfecto}
         >
           {desperfectos
             .filter((desperfecto) => desperfecto.idRubro === reclamo.idRubro)
